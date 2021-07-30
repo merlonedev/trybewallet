@@ -1,1 +1,6 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
+import { combineReducers } from 'redux';
+import reducer from './reducer';
+
+const rootReducer = combineReducers({ reducer });
+
+export default rootReducer;
