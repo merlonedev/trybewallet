@@ -11,13 +11,14 @@ import store from './store/store';
 
 ReactDOM.render(
   <Provider store={ store }>
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/professionalform" component={ Wallet} />
-      <App />
-    </Switch>
-  </BrowserRouter>,
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/professionalform" component={ Wallet } />
+        <App />
+      </Switch>
+    </BrowserRouter>
+    ,
   </Provider>,
   document.getElementById('root'),
 );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setPersonalValue } from '../actions/index'; 
+import { setPersonalValue } from '../actions';
 
 class Login extends Component {
   constructor(props) {
@@ -20,12 +20,12 @@ class Login extends Component {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
-  
+
   handleSubmit() {
     const { history, dispatchSetValue } = this.props;
     dispatchSetValue(this.state);
-    history.push('/Wallet');
-  } 
+    history.push('/carteira');
+  }
 
   render() {
     const { loggIn } = this.props;
@@ -34,24 +34,24 @@ class Login extends Component {
       <div className="col-md-6 col-md-offset-3">
         <h2>Login</h2>
         <form name="form" onSubmit={ this.handleSubmit }>
-          <label htmlFor="username">
+          <label htmlFor="username" >
             Username
             <input
+              data-testid="email-input"
               type="email"
               className="form-control"
               value={ username }
               onChange={ this.handleChange }
-              
             />
           </label>
           <label htmlFor="password">
             Password
             <input
+              data-testid="password-input"
               type="password"
               className="form-control"
               value={ password }
               onChange={ this.handleChange }
-              
             />
           </label>
           <button type="button" className="btn btn-primary">Entrar</button>
@@ -83,10 +83,11 @@ const mapDispatchToProps = (dispatch) => ({
 }
 );
 
-const mapStateToProps = (state) => ({ personalInputs: state.reducer.personalInputs });
+const mapStateToProps = (state) => ({ user: state.reducer.user });
 
 Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
+  loggIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

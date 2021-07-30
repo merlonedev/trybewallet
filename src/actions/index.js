@@ -1,5 +1,5 @@
 export const SET_PERSONAL_VALUE = 'SET_PERSONAL_VALUE';
-export const SET_PROFESSIONAL_VALUE = 'SET_PROFESSIONAL_VALUE';
+export const SET_WALLET_CURRENCY = 'SET_WALLET_CURRENCY';
 
 export const setPersonalValue = (payload) => (
   {
@@ -8,5 +8,5 @@ export const setPersonalValue = (payload) => (
 
 export const setProfessionalValue = (payload) => (
   {
-    type: SET_PROFESSIONAL_VALUE, payload,
+    type: SET_WALLET_CURRENCY, payload,
   });
