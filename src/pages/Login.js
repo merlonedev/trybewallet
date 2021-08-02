@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setPersonalValue } from '../actions';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -28,22 +29,23 @@ class Login extends Component {
   }
 
   render() {
-    const { loggIn } = this.props;
     const { username, password } = this.state;
     return (
-      <div className="col-md-6 col-md-offset-3">
+      <div className="container">
         <h2>Login</h2>
-        <form name="form" onSubmit={ this.handleSubmit }>
-          <label htmlFor="username" >
-            Username
-            <input
-              data-testid="email-input"
-              type="email"
-              className="form-control"
-              value={ username }
-              onChange={ this.handleChange }
-            />
-          </label>
+        <form name="form">
+          <div className="form-group">
+            <label htmlFor="username">
+              Username
+              <input
+                data-testid="email-input"
+                type="email"
+                className="form-control"
+                value={ username }
+                onChange={ this.handleChange }
+              />
+            </label>
+          </div>
           <label htmlFor="password">
             Password
             <input
@@ -54,24 +56,16 @@ class Login extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" className="btn btn-primary">Entrar</button>
-          {loggIn
-        && <img
-          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKC
-        gpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJ
-        CgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2m
-        BzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBM
-        RVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDM
-        lFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAA
-        ABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5
-        TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pA
-        EAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEu
-        QradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7w
-        CRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAA
-        AAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsR
-        kAAAOwAAAAAAAAAAAA=="
-          alt="Loading gif"
-        /> }
+          <div className="form-group">
+            <button
+              type="button"
+              text="Entrar"
+              onSubmit={ this.handleSubmit }
+              className="btn btn-primary"
+            >
+              Entrar
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -87,7 +81,6 @@ const mapStateToProps = (state) => ({ user: state.reducer.user });
 
 Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
-  loggIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

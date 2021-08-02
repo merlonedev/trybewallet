@@ -14,11 +14,10 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/professionalform" component={ Wallet } />
+        <Route path="/carteira" component={ Wallet } />
         <App />
       </Switch>
     </BrowserRouter>
-    ,
   </Provider>,
   document.getElementById('root'),
 );

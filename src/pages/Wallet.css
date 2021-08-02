@@ -1,0 +1,13 @@
+header {
+  text-align: right;
+}
+
+p {
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 4px;
+  padding-top: 2rem;
+  
+}
