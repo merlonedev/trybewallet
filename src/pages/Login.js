@@ -15,6 +15,7 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   handleChange({ target }) {
@@ -42,7 +43,7 @@ class Login extends Component {
                 type="email"
                 className="form-control"
                 value={ username }
-                onChange={ this.handleChange }
+                onChange={ this.handleOnChange }
               />
             </label>
           </div>
