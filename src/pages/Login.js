@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setPersonalValue } from '../actions';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
+import getEmail from '../actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -11,11 +12,12 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      enable: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
+    this.enableButton = this.enableButton.bind(this);
   }
 
   handleChange({ target }) {
@@ -24,13 +26,24 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    const { history, dispatchSetValue } = this.props;
-    dispatchSetValue(this.state);
-    history.push('/carteira');
+    const { username } = this.state;
+    const { handleEmail } = this.props;
+    handleEmail(username);
+    this.setState({ enable: true });
+  }
+
+  enableButton() {
+    const { username, password } = this.state;
+    const minPassword = 6;
+    if (password.length >= minPassword) {
+      const regex = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
+      if (regex.test(username)) return true;
+    }
+    return false;
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, enable } = this.state;
     return (
       <div className="container">
         <h2>Login</h2>
@@ -43,7 +56,7 @@ class Login extends Component {
                 type="email"
                 className="form-control"
                 value={ username }
-                onChange={ this.handleOnChange }
+                onChange={ (e) => { this.handleChange(e); } }
               />
             </label>
           </div>
@@ -54,7 +67,7 @@ class Login extends Component {
               type="password"
               className="form-control"
               value={ password }
-              onChange={ this.handleChange }
+              onChange={ (e) => { this.handleChange(e); } }
             />
           </label>
           <div className="form-group">
@@ -63,9 +76,11 @@ class Login extends Component {
               text="Entrar"
               onSubmit={ this.handleSubmit }
               className="btn btn-primary"
+              disabled={ !this.enableButton() }
             >
               Entrar
             </button>
+            { enable && <Redirect to="/carteira" /> }
           </div>
         </form>
       </div>
@@ -74,17 +89,12 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (valueAndName) => dispatch(setPersonalValue(valueAndName)),
-}
-);
-
-const mapStateToProps = (state) => ({ user: state.reducer.user });
+  handleEmail: (payload) => dispatch(getEmail(payload)),
+});
+// estava utilizando o dispatch de forma errada junto com o history.push
 
 Login.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  handleEmail: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

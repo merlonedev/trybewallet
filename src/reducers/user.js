@@ -1,6 +1,6 @@
 /* import user from './user';
 import wallet from './wallet'; */
-import { SET_PERSONAL_VALUE, SET_WALLET_CURRENCY } from '../actions/index';
+import { EMAIL } from '../actions/index';
 
 const initialState = {
   user: {
@@ -14,10 +14,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-  case SET_PERSONAL_VALUE:
+  case EMAIL:
     return { ...state, user: action.payload };
-  case SET_WALLET_CURRENCY:
-    return { ...state, wallet: action.payload };
   default:
     return state;
   }

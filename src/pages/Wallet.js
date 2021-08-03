@@ -33,8 +33,10 @@ class Wallet extends React.Component {
       <form name="form">
         <header>
           <p data-testid="email-field">Email: </p>
-          <p data-testid="total-field">Despesa Total:
-            { valor }</p>
+          <p data-testid="total-field">
+            Despesa Total:
+            { valor }
+          </p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <Input

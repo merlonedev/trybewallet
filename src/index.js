@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Wallet from './pages/Wallet';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -12,11 +10,7 @@ import store from './store/store';
 ReactDOM.render(
   <Provider store={ store }>
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route path="/carteira" component={ Wallet } />
-        <App />
-      </Switch>
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
