@@ -8,7 +8,6 @@ class Select extends Component {
       name,
       onChange,
       value,
-      id,
       options,
     } = this.props;
     return (
@@ -16,7 +15,6 @@ class Select extends Component {
         { label }
         <select
           name={ name }
-          id={ id }
           onChange={ onChange }
           value={ value }
         >
@@ -34,7 +32,6 @@ class Select extends Component {
 Select.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(

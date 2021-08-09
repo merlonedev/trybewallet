@@ -10,7 +10,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
       enable: false,
     };
@@ -26,55 +26,58 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    const { username } = this.state;
     const { handleEmail } = this.props;
-    handleEmail(username);
+    const { email } = this.state;
+    handleEmail(email);
     this.setState({ enable: true });
   }
 
   enableButton() {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     const minPassword = 6;
     if (password.length >= minPassword) {
       const regex = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
-      if (regex.test(username)) return true;
+      if (regex.test(email)) return true;
     }
     return false;
   }
 
   render() {
-    const { username, password, enable } = this.state;
+    const { email } = this.state;
+    const { password, enable } = this.state;
     return (
       <div className="container">
         <h2>Login</h2>
         <form name="form">
           <div className="form-group">
-            <label htmlFor="username">
-              Username
+            <label htmlFor="email">
+              Email
               <input
-                data-testid="email-input"
+                name="email"
+                onChange={ this.handleChange }
+                value={ email }
                 type="email"
+                data-testid="email-input"
                 className="form-control"
-                value={ username }
-                onChange={ (e) => { this.handleChange(e); } }
               />
             </label>
           </div>
           <label htmlFor="password">
             Password
             <input
+              name="password"
+              onChange={ this.handleChange }
               data-testid="password-input"
               type="password"
               className="form-control"
               value={ password }
-              onChange={ (e) => { this.handleChange(e); } }
             />
           </label>
           <div className="form-group">
             <button
               type="button"
               text="Entrar"
-              onSubmit={ this.handleSubmit }
+              onClick={ this.handleSubmit }
               className="btn btn-primary"
               disabled={ !this.enableButton() }
             >

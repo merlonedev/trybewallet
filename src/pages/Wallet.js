@@ -3,13 +3,13 @@ import './Wallet.css';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import TextArea from '../components/TextArea';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      valor: 0,
       value: '',
       coin: 'USD',
       tag: 'Alimentação',
@@ -26,44 +26,42 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { valor, coin, money, value, tag, descricao } = this.state;
+    const { coin, money, value, tag, descricao } = this.state;
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const options = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form name="form">
-        <header>
-          <p data-testid="email-field">Email: </p>
-          <p data-testid="total-field">
-            Despesa Total:
-            { valor }
-          </p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
+        <Header />
         <Input
+          name="value"
           onChange={ this.handleChange }
           value={ value }
           label="Valor: "
           type="number"
         />
         <Select
+          name="coin"
           onChange={ this.handleChange }
           value={ coin }
           label="Moeda: "
           options={ payment }
         />
         <Select
+          name="money"
           onChange={ this.handleChange }
           value={ money }
           label="Método de pagamento: "
           options={ payment }
         />
         <Select
+          name="tag"
           onChange={ this.handleChange }
           value={ tag }
           label="Tag: "
           options={ options }
         />
         <TextArea
+          name="descricao"
           onChange={ this.handleChange }
           value={ descricao }
           label="Descrição: "

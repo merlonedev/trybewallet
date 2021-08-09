@@ -1,21 +1,13 @@
-/* import user from './user';
-import wallet from './wallet'; */
 import { EMAIL } from '../actions/index';
 
-const initialState = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+const INITIAL_STATE = {
+  email: '',
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case EMAIL:
-    return { ...state, user: action.payload };
+    return { ...state, email: action.payload };
   default:
     return state;
   }
