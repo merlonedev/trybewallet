@@ -22,8 +22,8 @@ Header.propTypes = {
   email: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ reducer }) => ({
-  email: reducer.email,
+const mapStateToProps = ({ user }) => ({
+  email: user.email,
 });
 
 export default connect(mapStateToProps)(Header);

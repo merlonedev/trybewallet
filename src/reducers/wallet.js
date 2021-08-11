@@ -1,1 +1,17 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import { EXPENSES } from '../actions/index';
+
+const INITIAL_STATE = {
+  currencies: [],
+  expenses: [],
+}
+
+const reducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case EXPENSES:
+    return { ...state, expenses: action.payload };
+  default:
+    return state;
+  }
+};
+
+export default reducer;
