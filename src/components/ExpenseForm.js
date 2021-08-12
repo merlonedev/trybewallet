@@ -4,40 +4,35 @@ class ExpenseForm extends React.Component {
   render() {
     const payment = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
     const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
     return (
       <form>
-
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
-          <input type="number" id="valor" />
+          <input type="text" id="value" />
         </label>
-
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição
-          <input type="text" id="descricao" />
+          <input type="text" id="description" />
         </label>
-
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda
-          <select id="moeda">
-            <option> </option>
+          <select id="currency">
+            <option>BRL</option>
           </select>
         </label>
-
-        <label htmlFor="pagamento">
+        <label htmlFor="payment">
           Método de pagamento
-          <select id="payment-method">
-            { payment.map((item, index) => <option key={ index }>{ item }</option>) }
+          <select id="payment">
+            {payment.map((item, index) => <option key={ index }>{ item }</option>)}
           </select>
         </label>
-
-        <label htmlFor="tag">
+        <label htmlFor="expense">
           Tag
-          <select id="tag">
-            { tag.map((item, index) => <option key={ index }>{ item }</option>) }
+          <select id="expense">
+            {tag.map((item, index) => <option key={ index }>{ item }</option>)}
           </select>
         </label>
-
       </form>
     );
   }
