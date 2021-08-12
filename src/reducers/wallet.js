@@ -12,6 +12,8 @@ function wallet(state = INICIAL_STATE, action) {
     return { ...state, expenses: [...state.expenses, action.expenses] };
   case 'GET_FULL_CURRENCIES':
     return { ...state, fullCurrencies: action.fullCurrencies };
+  case 'REMOVE_EXPENSE':
+    return { ...state, expenses: action.value }
   default:
     return state;
   }

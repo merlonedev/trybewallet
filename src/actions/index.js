@@ -13,6 +13,11 @@ export const getExpenses = (value) => ({
   expenses: value,
 });
 
+export const removeExpense = (value) => ({
+  type: 'REMOVE_EXPENSE',
+  value,
+})
+
 export const getFullCurrencies = (result) => ({
   type: 'GET_FULL_CURRENCIES',
   fullCurrencies: result,
