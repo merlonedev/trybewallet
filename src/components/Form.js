@@ -17,26 +17,30 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: {},
     };
     this.getCrurrencies = this.getCrurrencies.bind(this);
     this.inputValue = this.inputValue.bind(this);
     this.submitStore = this.submitStore.bind(this);
+    this.qualquer = this.qualquer.bind(this);
   }
 
   getCrurrencies() {
-    const { currencies } = this.props;
-    const newCurrencies = { ...currencies };
-    delete newCurrencies.USDT;
-    const a = { nenhum: '', ...newCurrencies };
-    return a;
+    const endPoint = 'https://economia.awesomeapi.com.br/json/all';
+    fetch(endPoint)
+      .then((data) => data.json())
+      .then((response) => this.qualquer(response));
+  }
+
+  qualquer(data) {
+    const arrayKeys = { ...data };
+    this.submitStore(arrayKeys);
   }
 
   inputValue(e) {
     switch (e.target.name) {
     case 'Valor': this.setState({ value: e.target.value });
       break;
-    case 'Pagamento': this.setState({ method: e.target.value });
+    case 'método de pagamento': this.setState({ method: e.target.value });
       break;
     case 'Moeda': this.setState({ currency: e.target.value });
       break;
@@ -46,56 +50,26 @@ class Form extends Component {
       break;
     default:
     }
-    const { currencies } = this.props;
-    const arrayKeys = { ...currencies };
-    delete arrayKeys.USDT;
-    const keys = [...Object.keys(arrayKeys)];
-    const Obj = Object.entries(arrayKeys).map((item, index) => ({
-      [keys[index]]: {
-        code: item[1].name,
-        name: item[1].code,
-        ask: item[1].ask,
-      },
-    }));
-    const newObj = {
-      ...Obj[0],
-      ...Obj[1],
-      ...Obj[2],
-      ...Obj[3],
-      ...Obj[4],
-      ...Obj[5],
-      ...Obj[6],
-      ...Obj[7],
-      ...Obj[8],
-      ...Obj[9],
-      ...Obj[10],
-      ...Obj[11],
-      ...Obj[12],
-      ...Obj[13],
-      ...Obj[14],
-    };
-    this.setState({ exchangeRates: { ...newObj } });
   }
 
-  submitStore() {
+  submitStore(data) {
     const { id, value, description, currency,
-      method, tag, exchangeRates } = this.state;
-
+      method, tag } = this.state;
     const { getTotal } = this.props;
-    const price = [...Object.values(exchangeRates)
-      .filter((item) => item.name === currency)];
+    const price = Object.values(data)
+      .filter((item) => item.code === currency);
     const priceFinish = (value * price[0].ask).toFixed(2);
     getTotal(priceFinish);
 
     const { submit } = this.props;
     submit({
       id,
-      value: (+value),
-      description,
+      value,
       currency,
       method,
       tag,
-      exchangeRates,
+      description,
+      exchangeRates: data,
     });
     this.setState({ id: (id + 1) });
   }
@@ -143,7 +117,7 @@ class Form extends Component {
           id="Descrição"
           onChange={ this.inputValue }
         />
-        <button type="button" onClick={ this.submitStore }>adicionar despesa</button>
+        <button type="button" onClick={ this.getCrurrencies }>adicionar despesa</button>
       </form>
     );
   }
@@ -158,7 +132,6 @@ const mapStateToProps = (state) => ({
 });
 
 Form.propTypes = {
-  // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   currencies: PropTypes.shape({
     ARS: PropTypes.shape({ code: PropTypes.string.isRequired }),
     AUD: PropTypes.shape({ code: PropTypes.string.isRequired }),
