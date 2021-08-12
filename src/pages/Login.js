@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { history: { push } } = this.props;
     const regEx = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/i;
     const minLength = 6;
     const { email, password } = this.state;
@@ -54,6 +56,9 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !isEnabled }
+          onClick={() => {
+            push('/carteira')
+          }}
         >
           Entrar
         </button>
@@ -63,5 +68,10 @@ class Login extends React.Component {
 }
 
 // utilizei o RegEx fornecido pelo Rodrigo Merlone no canal do Slack
+
+const mapStateToProps = state => ({
+  Login: state.user.state});
+
+export default connect(mapStateToProps)(Login);
 
 export default Login;
