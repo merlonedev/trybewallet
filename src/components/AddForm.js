@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, saveStateForm } from '../actions';
+import { getCurrenciesThunk, actGetExpenses } from '../actions';
 
 class AddForm extends React.Component {
   constructor(props) {
@@ -13,14 +13,16 @@ class AddForm extends React.Component {
     this.renderTagSelect = this.renderTagSelect.bind(this);
     this.renderDescript = this.renderDescript.bind(this);
     this.renderCurrSelect = this.renderCurrSelect.bind(this);
-    this.idIncrement = this.idIncrement.bind(this);
     this.state = {
-      id: 0,
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      expenses: {
+        id: 0,
+        value: 0,
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        exchangeRates: [],
+      },
     };
   }
 
@@ -29,25 +31,57 @@ class AddForm extends React.Component {
     getFetch();
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
+  getExchangeRate() {
+    const { currencies } = this.props;
+    const { expenses } = this.state;
+    const { exchange } = currencies.filter((curr) => curr !== 'USDT');
     this.setState({
-      [name]: value,
+      expenses: {
+        ...expenses,
+        exchangeRates: exchange,
+      },
     });
   }
 
-  idIncrement() {
-    this.setState((state) => ({ id: state.id + 1 }));
+  handleChange({ target }) {
+    const { name, value } = target;
+    const { expenses } = this.state;
+    this.setState({
+      expenses: {
+        ...expenses,
+        [name]: value,
+      },
+    });
   }
 
+  /*  idIncrement() {
+    const { expenses } = this.state;
+    const { id } = expenses;
+    this.setState({
+      expenses: {
+        ...expenses,
+        id: id + 1,
+      },
+    });
+  }
+*/
   handleClick() {
-    const { saveForm } = this.props;
-    this.idIncrement();
-    saveForm();
+    const { getExpenses } = this.props;
+    const { expenses } = this.state;
+    getExpenses(expenses);
+    this.setState({
+      expenses: {
+        value: 0,
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+      },
+    });
   }
 
   renderInputValue() {
-    const { value } = this.state;
+    const { expenses: { value } } = this.state;
 
     return (
       <div>
@@ -68,7 +102,7 @@ class AddForm extends React.Component {
 
   renderCurrSelect() {
     const { currencies } = this.props;
-    const { currency } = this.state;
+    const { expenses: { currency } } = this.state;
 
     return (
       <div>
@@ -96,7 +130,7 @@ class AddForm extends React.Component {
   }
 
   renderPaymentSelect() {
-    const { method } = this.state;
+    const { expenses: { method } } = this.state;
     return (
       <div>
         <label htmlFor="payment-select">
@@ -118,7 +152,8 @@ class AddForm extends React.Component {
   }
 
   renderTagSelect() {
-    const { tag } = this.state;
+    const { expenses } = this.state;
+    const { tag } = expenses;
 
     return (
       <div>
@@ -143,7 +178,8 @@ class AddForm extends React.Component {
   }
 
   renderDescript() {
-    const { description } = this.state;
+    const { expenses } = this.state;
+    const { description } = expenses;
 
     return (
       <div>
@@ -184,7 +220,7 @@ class AddForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getFetch: () => dispatch(getCurrenciesThunk()),
-  saveForm: () => dispatch(saveStateForm()),
+  getExpenses: (expenses) => dispatch(actGetExpenses(expenses)),
 });
 
 const mapStateToProps = (state) => ({
@@ -196,6 +232,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
 AddForm.propTypes = {
   getFetch: PropTypes.func.isRequired,
-  saveForm: PropTypes.func.isRequired,
+  getExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

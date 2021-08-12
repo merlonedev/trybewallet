@@ -9,21 +9,25 @@ class Header extends React.Component {
     return (
       <header className="header">
         <h1 className="logo">Fluxo_</h1>
-        <p
-          data-testid="email-field"
-        >
-          {`Usuário: ${email}`}
-        </p>
-        <p
-          data-testid="total-field"
-        >
-          {`Despesas totais: ${total}`}
-        </p>
-        <p
-          data-testid="header-currency-field"
-        >
-          BRL
-        </p>
+        <div className="data-header">
+          <p
+            data-testid="email-field"
+            className="field-email"
+          >
+            {`Usuário ${email}`}
+          </p>
+          <p
+            data-testid="total-field"
+            className="despesas"
+          >
+            {`Despesas totais: ${total}`}
+          </p>
+          <p
+            data-testid="header-currency-field"
+          >
+            Câmbio: BRL
+          </p>
+        </div>
       </header>
     );
   }
