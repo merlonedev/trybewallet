@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { addEmail } from '../actions';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import pattern from '../helpers/emailRegex';
 
 const FIVE = 5;
 
@@ -19,10 +20,10 @@ class Login extends React.Component {
       redirect: false,
     };
 
-    // this.saveUser = this.saveUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  // pattern baseado em: https://www.itsolutionstuff.com/post/react-email-validation-exampleexample.html
 
   handleChange(e) {
     const input = e.target;
@@ -31,7 +32,7 @@ class Login extends React.Component {
       [input.id]: input.value,
     }, () => {
       const { email, password } = this.state;
-      if (email.includes('@') && password.length > FIVE) {
+      if (password.length > FIVE && pattern.test(email)) {
         this.setState({
           disabled: false,
         });
@@ -46,10 +47,7 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.setState({
-      redirect: true,
-    });
-
+    this.setState({ redirect: true });
     const { state: { email } } = this;
     const { emailDispatch } = this.props;
 
@@ -94,7 +92,6 @@ class Login extends React.Component {
             type="submit"
             testId="submit-button"
             disabled={ disabled }
-          // onClick={ this.saveUser }
           />
         </form>
       </>
