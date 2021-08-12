@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Form from '../components/Form';
 
 class Login extends Component {
   constructor(props) {
@@ -18,31 +19,7 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <form>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            data-testid="email-input"
-            type="text"
-            name="email"
-            onChange={ this.handleChange }
-            value={ email }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Password:
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            onChange={ this.handleChange }
-            value={ password }
-          />
-        </label>
-        <button type="button">
-          Entrar
-        </button>
-      </form>
+      <Form email={ email } password={ password } handleChange={ this.handleChange } />
     );
   }
 }
