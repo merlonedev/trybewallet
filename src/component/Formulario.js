@@ -8,10 +8,10 @@ class Formulario extends React.Component {
     super(props);
 
     const initialState = {
-      value: 0,
+      value: '',
       currency: 'USD',
-      method: '',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
       exchangeRates: {},
     };
@@ -21,6 +21,7 @@ class Formulario extends React.Component {
     this.getMoedas = this.getMoedas.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.HandleChange = this.HandleChange.bind(this);
+    this.clearInputs = this.clearInputs.bind(this);
   }
 
   async onSubmit(e) {
@@ -36,7 +37,8 @@ class Formulario extends React.Component {
       }).catch(() => 'Error');
     Expense(this.state);
     const { value, exchangeRates, currency } = this.state;
-    Total(parseFloat(value) * parseFloat(exchangeRates[currency].ask));
+    Total(parseFloat(value * exchangeRates[currency].ask).toFixed(2));
+    this.clearInputs();
   }
 
   getMoedas() {
@@ -53,14 +55,14 @@ class Formulario extends React.Component {
   }
 
   clearInputs() {
-    this.setState = {
+    this.setState({
       value: '',
-      currency: '',
+      currency: 'USD',
       method: '',
-      tag: '',
+      tag: 'food',
       description: '',
       exchangeRates: {},
-    };
+    });
   }
 
   inputvalor(value) {
@@ -73,6 +75,7 @@ class Formulario extends React.Component {
           id="inputValue"
           value={ value }
           step=".01"
+          required
           onChange={ this.HandleChange }
         />
       </label>
@@ -114,6 +117,8 @@ class Formulario extends React.Component {
 
   render() {
     const { value, description, currency, tag, method } = this.state;
+    const { moedas } = this.props;
+    if (moedas.length === 0) return <h2>Caregando...</h2>;
     return (
       <form onSubmit={ this.onSubmit }>
         {this.inputvalor(value)}
