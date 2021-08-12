@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Login extends React.Component {
+class Login extends Component {
   render() {
-    return <div>Login</div>;
+    return <div>Logins</div>;
   }
 }
 
