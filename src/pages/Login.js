@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import actionLogin from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -24,6 +25,7 @@ class Login extends React.Component {
     const minLength = 6;
     const { email, password } = this.state;
     const isEnabled = regEx.test(email) && password.length >= minLength;
+    const { loginInfo } = this.props;
 
     return (
       <form>
@@ -58,6 +60,7 @@ class Login extends React.Component {
           type="button"
           disabled={ !isEnabled }
           onClick={ () => {
+            loginInfo(email);
             push('/carteira');
           } }
         >
@@ -73,9 +76,10 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.arrayOf().isRequired,
   push: PropTypes.func.isRequired,
+  loginInfo: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  Login: state.user.state });
+const mapDispatchToProps = (dispatch) => ({
+  loginInfo: (state) => dispatch(actionLogin(state)) });
 
-export default connect(mapStateToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
