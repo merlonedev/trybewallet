@@ -8,13 +8,13 @@ class Wallet extends React.Component {
           Email da pessoa retirado do estado Global
         </h3>
         <h2 data-testid="total-field">
-          //Campo de despesa geral
+          Campo de despesa geral
         </h2>
         <h3 data-testid="header-currency-field">
           BRL
         </h3>
       </main>
-    )
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -56,9 +57,9 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !isEnabled }
-          onClick={() => {
-            push('/carteira')
-          }}
+          onClick={ () => {
+            push('/carteira');
+          } }
         >
           Entrar
         </button>
@@ -69,9 +70,12 @@ class Login extends React.Component {
 
 // utilizei o RegEx fornecido pelo Rodrigo Merlone no canal do Slack
 
-const mapStateToProps = state => ({
-  Login: state.user.state});
+Login.propTypes = {
+  history: PropTypes.arrayOf().isRequired,
+  push: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  Login: state.user.state });
 
 export default connect(mapStateToProps)(Login);
-
-export default Login;
