@@ -9,31 +9,31 @@ class ExpenseForm extends React.Component {
 
         <label htmlFor="valor">
           Valor
-          <input type="number" name="valor" />
+          <input type="number" id="valor" />
         </label>
 
         <label htmlFor="descricao">
           Descrição
-          <input type="text" name="descricao" />
+          <input type="text" id="descricao" />
         </label>
 
         <label htmlFor="moeda">
           Moeda
-          <select>
+          <select id="moeda">
             <option> </option>
           </select>
         </label>
 
         <label htmlFor="pagamento">
           Método de pagamento
-          <select>
+          <select id="payment-method">
             { payment.map((item, index) => <option key={ index }>{ item }</option>) }
           </select>
         </label>
 
         <label htmlFor="tag">
           Tag
-          <select>
+          <select id="tag">
             { tag.map((item, index) => <option key={ index }>{ item }</option>) }
           </select>
         </label>
