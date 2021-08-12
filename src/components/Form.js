@@ -5,6 +5,7 @@ import Currency from './Currency';
 import LabelSelect from './LabelSelect';
 import LabelInput from './LabelInput';
 import { formWallet } from '../actions';
+import './Form.css';
 
 class Form extends Component {
   constructor(props) {
@@ -83,9 +84,7 @@ class Form extends Component {
     const { getTotal } = this.props;
     const price = [...Object.values(exchangeRates)
       .filter((item) => item.name === currency)];
-    console.log(price);
     const priceFinish = (value * price[0].ask).toFixed(2);
-
     getTotal(priceFinish);
 
     const { submit } = this.props;
@@ -108,7 +107,7 @@ class Form extends Component {
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const food = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
-      <form>
+      <form className="form">
         <LabelInput
           htmlFor="Valor"
           type="text"
@@ -159,8 +158,8 @@ const mapStateToProps = (state) => ({
 });
 
 Form.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  /* currencies: PropTypes.shape({
+  // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.shape({
     ARS: PropTypes.shape({ code: PropTypes.string.isRequired }),
     AUD: PropTypes.shape({ code: PropTypes.string.isRequired }),
     BTC: PropTypes.shape({ code: PropTypes.string.isRequired }),
@@ -177,7 +176,7 @@ Form.propTypes = {
     USD: PropTypes.shape({ code: PropTypes.string.isRequired }),
     USDT: PropTypes.shape({ code: PropTypes.string.isRequired }),
     XRP: PropTypes.shape({ code: PropTypes.string.isRequired }),
-  }).isRequired, */
+  }).isRequired,
   submit: PropTypes.func.isRequired,
   getTotal: PropTypes.func.isRequired,
 };
