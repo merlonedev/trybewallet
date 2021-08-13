@@ -2,6 +2,7 @@
 export const EMAIL = 'EMAIL';
 export const EXPENSE_FORM_ACTION = 'EXPENSE_FORM_ACTION';
 export const EXCHANGE_RATE = 'EXCHANGE_RATE';
+// export const TOTAL_EXPENSE = 'TOTAL_EXPENSE';
 
 export const addEmailInput = (emailInput) => ({
   type: EMAIL,
@@ -30,3 +31,8 @@ export function exchangeRatesThunk(expensesObj) {
     }
   };
 }
+
+// export const totalExpenseAction = (totalExpense) => ({
+//   type: TOTAL_EXPENSE,
+//   payload: totalExpense,
+// });

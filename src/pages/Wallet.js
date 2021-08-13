@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { /* expenseFormAction, */ exchangeRatesThunk } from '../actions/index';
-// import Header from '../component/Header';
+import Header from '../component/Header';
 
 const INITIAL_STATE = {
   value: '',
@@ -146,7 +146,7 @@ class Wallet extends React.Component {
     );
   }
 
-  totalExpenses() {
+  calculateTotalExpenses() {
     const { expenses } = this.props;
     const totalExpenses = expenses.reduce((total, { value, currency, exchangeRates }) => {
       const { ask } = exchangeRates[currency];
@@ -155,24 +155,24 @@ class Wallet extends React.Component {
     return (totalExpenses);
   }
 
-  renderHeader() {
-    const { email } = this.props;
+  // renderHeader() {
+  //   const { email } = this.props;
 
-    return (
-      <div>
-        <p data-testid="email-field">
-          {`Email: ${email}`}
-        </p>
-        {/* <p data-testid="total-field">0</p> */}
-        <p data-testid="header-currency-field">BRL</p>
-        <p data-testid="total-field">
-          Total:
-          { this.totalExpenses() }
-        </p>
-      </div>
+  //   return (
+  //     <div>
+  //       <p data-testid="email-field">
+  //         {`Email: ${email}`}
+  //       </p>
+  //       {/* <p data-testid="total-field">0</p> */}
+  //       <p data-testid="header-currency-field">BRL</p>
+  //       <p data-testid="total-field">
+  //         Total:
+  //         { this.calculateTotalExpenses() }
+  //       </p>
+  //     </div>
 
-    );
-  }
+  //   );
+  // }
 
   renderAddExpensesBtn() {
     return (
@@ -215,8 +215,8 @@ class Wallet extends React.Component {
       <div>
         <header>
           <h3>Trybe Wallet</h3>
-          {/* <Header /> */}
-          { this.renderHeader() }
+          <Header />
+          {/* { this.renderHeader() } */}
         </header>
         <section>
           <form>
@@ -235,7 +235,7 @@ class Wallet extends React.Component {
   }
 }
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+  // email: PropTypes.string.isRequired,
   setExchangeRatesThunk: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
