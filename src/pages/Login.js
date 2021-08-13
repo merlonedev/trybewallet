@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { actGetEmail } from '../actions';
 import loginImage from '../images/loginimage.jpg';
-import '../loginpage.css';
 
 class Login extends React.Component {
   constructor() {
