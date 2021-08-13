@@ -2,12 +2,22 @@ import {
   GET_CURRENCY,
   GET_CURRENCY_ERROR,
   GET_CURRENCY_SUCCESS,
-  // SAVE_STATE_FORM,
   GET_EXPENSES,
+  GET_EXCHANGE,
+  GET_EX_SUCCESS,
+  GET_EX_ERROR,
 } from '../actions';
 
 const INICIAL_STATE = {
-  expenses: [],
+  expenses: {
+    id: 0,
+    value: 0,
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    exchangeRates: [],
+  },
   currencies: [],
 };
 
@@ -24,14 +34,22 @@ const wallet = (state = INICIAL_STATE, action) => {
   case GET_CURRENCY_ERROR:
     return { ...state };
 
-    // case SAVE_STATE_FORM:
-    //  return { ...state, expenses: action.payload };
+  case GET_EXCHANGE:
+    return { ...state };
+
+  case GET_EX_SUCCESS:
+    return { ...state,
+      exchangeRates: action.payload,
+    };
+
+  case GET_EX_ERROR:
+    return { ...state };
 
   case GET_EXPENSES:
     return {
       ...state,
       id: state.id + 1,
-      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }],
+      expenses: { id: state.expenses.length, ...action.payload },
     };
 
   default: return state;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, actGetExpenses } from '../actions';
+import { getCurrenciesThunk, actGetExpenses, getExchangeThunk } from '../actions';
 
 class AddForm extends React.Component {
   constructor(props) {
@@ -31,18 +31,6 @@ class AddForm extends React.Component {
     getFetch();
   }
 
-  getExchangeRate() {
-    const { currencies } = this.props;
-    const { expenses } = this.state;
-    const { exchange } = currencies.filter((curr) => curr !== 'USDT');
-    this.setState({
-      expenses: {
-        ...expenses,
-        exchangeRates: exchange,
-      },
-    });
-  }
-
   handleChange({ target }) {
     const { name, value } = target;
     const { expenses } = this.state;
@@ -54,20 +42,10 @@ class AddForm extends React.Component {
     });
   }
 
-  /*  idIncrement() {
-    const { expenses } = this.state;
-    const { id } = expenses;
-    this.setState({
-      expenses: {
-        ...expenses,
-        id: id + 1,
-      },
-    });
-  }
-*/
   handleClick() {
-    const { getExpenses } = this.props;
+    const { getExpenses, getExchange } = this.props;
     const { expenses } = this.state;
+    getExchange();
     getExpenses(expenses);
     this.setState({
       expenses: {
@@ -221,16 +199,19 @@ class AddForm extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   getFetch: () => dispatch(getCurrenciesThunk()),
   getExpenses: (expenses) => dispatch(actGetExpenses(expenses)),
+  getExchange: () => dispatch(getExchangeThunk()),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isLoading: state.wallet.isLoading,
+  exchangeRates: state.wallet.expenses.exchangeRates,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
 AddForm.propTypes = {
+  getExchange: PropTypes.func.isRequired,
   getFetch: PropTypes.func.isRequired,
   getExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,

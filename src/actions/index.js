@@ -3,6 +3,10 @@ export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
 export const GET_CURRENCY_ERROR = 'GET_CURRENCY_SUCCESS';
 export const SAVE_STATE_FORM = 'SAVE_STATE_FORM';
 export const GET_EXPENSES = 'GET_EXPENSES';
+export const GET_EXCHANGE = 'GET_EXCHANGE';
+export const GET_EX_SUCCESS = 'GET_EX_SUCCESS';
+export const GET_EX_ERROR = 'GET_EX_ERROR';
+
 const endpoint = 'https://economia.awesomeapi.com.br/json/all';
 
 export const actGetEmail = (email) => ({ type: 'GET_EMAIL', payload: email });
@@ -30,6 +34,29 @@ export const getCurrenciesThunk = () => async (dispatch) => {
     dispatch(getCurrencySuccess(await fetchAPI()));
   } catch (error) {
     dispatch(getCurrencyError(error));
+  }
+};
+
+export const getExchange = () => ({
+  type: GET_EXCHANGE,
+});
+
+export const getExchangeSuccess = (payload) => ({
+  type: GET_EX_SUCCESS,
+  payload,
+});
+
+export const getExchangeError = (payload) => ({
+  type: GET_EX_ERROR,
+  payload,
+});
+
+export const getExchangeThunk = () => async (dispatch) => {
+  dispatch(getExchange());
+  try {
+    dispatch(getExchangeSuccess(await fetchAPI()));
+  } catch (error) {
+    dispatch(getExchangeError(error));
   }
 };
 

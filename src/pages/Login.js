@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { actGetEmail } from '../actions';
+import loginImage from '../images/loginimage.jpg';
+import '../loginpage.css';
 
 class Login extends React.Component {
   constructor() {
@@ -52,6 +54,7 @@ class Login extends React.Component {
         <header className="header">
           <h1 className="logo">Fluxo_</h1>
         </header>
+        <img alt="login" src={ loginImage } id="log-image" />
         <form className="login">
           <h1>Login</h1>
           <input
