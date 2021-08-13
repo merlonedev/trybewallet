@@ -30,6 +30,7 @@ class Login extends React.Component {
     const { email } = this.state;
     setLogin(email);
   }
+  // source https://ui.dev/validate-email-address-javascript/
 
   emailIsValid(email) {
     return /\S+@\S+\.\S+/.test(email);
