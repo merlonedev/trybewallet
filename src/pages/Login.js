@@ -9,6 +9,12 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -18,18 +24,18 @@ class Login extends React.Component {
         <Input
           label="Email"
           name="email"
-          data-testid="email-input"
+          testId="email-input"
           type="email"
           value={ email }
-          onChange={ () => {} }
+          onChange={ this.handleChange }
         />
         <Input
           label="Senha"
           name="senha"
-          data-testid="password-input"
+          testId="password-input"
           type="senha"
           value={ password }
-          onChange={ () => {} }
+          onChange={ this.handleChange }
         />
         <button type="button">Entrar</button>
       </div>
