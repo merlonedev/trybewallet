@@ -1,10 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import fetchCoinApi from '../services/fetchCoinApi';
+import { successFetch } from '../actions/wallet';
 
 class ExpenseForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      coins: [],
+    };
+    this.renderCurrency = this.renderCurrency.bind(this);
+  }
+
+  componentDidMount() {
+    this.renderCurrency();
+    const { getCoin } = this.props;
+    const { coins } = this.state;
+    getCoin(coins);
+  }
+
+  async renderCurrency() {
+    const moedas = await fetchCoinApi();
+    const filteredCoins = Object.keys(moedas).filter((coin) => coin !== 'USDT');
+    this.setState({
+      coins: filteredCoins,
+    });
+  }
+
   render() {
     const payment = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
     const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-
+    const { coins } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -18,7 +45,7 @@ class ExpenseForm extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            <option>BRL</option>
+            {coins.map((coin, index) => <option key={ index }>{ coin }</option>)}
           </select>
         </label>
         <label htmlFor="payment">
@@ -33,9 +60,18 @@ class ExpenseForm extends React.Component {
             {tag.map((item, index) => <option key={ index }>{ item }</option>)}
           </select>
         </label>
+        <button type="button" onClick={ () => this.renderCurrency() }>console</button>
       </form>
     );
   }
 }
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  getCoin: (value) => dispatch(successFetch(value)),
+});
+
+ExpenseForm.propTypes = {
+  getCoin: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(ExpenseForm);
