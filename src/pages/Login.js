@@ -51,11 +51,11 @@ class Login extends React.Component {
   handleValidation() {
     const botaoEntrar = document.querySelector('button');
     botaoEntrar.disabled = true;
-    const number = 6;
+    const MIN_PASSWORD_LENGTH = 6;
     const { email, senha } = this.state;
     const passLenght = senha.length;
     const emailValidation = /\S+@\S+\.\S+/.test(email);
-    if (passLenght >= number && emailValidation === true) {
+    if (passLenght >= MIN_PASSWORD_LENGTH && emailValidation === true) {
       botaoEntrar.disabled = false;
     }
   }
@@ -63,10 +63,10 @@ class Login extends React.Component {
   render() {
     const { email, senha } = this.state;
     return (
-      <div>
+      <div className="login-div">
         <h1>TrybeWallet</h1>
         <h2>Login</h2>
-        <form onSubmit={ this.handleSubmit }>
+        <form className="login-form" onSubmit={ this.handleSubmit }>
           <label htmlFor="email">
             Email:
             <input
