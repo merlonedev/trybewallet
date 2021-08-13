@@ -1,11 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { saveUserEmail } from '../actions';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      emailInput: '',
+      passwordInput: '',
       disable: true,
     };
 
@@ -17,18 +22,14 @@ export default class Login extends React.Component {
   }
 
   verifyPasswordLength(password) {
-    if (password) {
-      const passwordMinimumLength = 6;
-      return password.length >= passwordMinimumLength;
-    }
+    const passwordMinimumLength = 6;
+    return password.length >= passwordMinimumLength;
   }
 
   verifyEmailFormat(email) {
-    if (email) {
-      const firstVerification = email.includes('@');
-      const secondVerification = email.endsWith('.com');
-      return firstVerification && secondVerification;
-    }
+    const firstVerification = email.includes('@');
+    const secondVerification = email.endsWith('.com');
+    return firstVerification && secondVerification;
   }
 
   activateLoginButton() {
@@ -47,7 +48,8 @@ export default class Login extends React.Component {
   }
 
   renderLoginFields() {
-    const { disable } = this.state;
+    const { disable, emailInput } = this.state;
+    const { saveEmail } = this.props;
     return (
       <form>
         <input
@@ -67,6 +69,7 @@ export default class Login extends React.Component {
         <Link to="/carteira">
           <button
             type="button"
+            onClick={ () => saveEmail(emailInput) }
             disabled={ disable }
           >
             Entrar
@@ -80,3 +83,13 @@ export default class Login extends React.Component {
     return this.renderLoginFields();
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (state) => dispatch(saveUserEmail(state)),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
