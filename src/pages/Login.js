@@ -10,14 +10,10 @@ export default class Login extends React.Component {
     };
 
     this.activateLoginButton = this.activateLoginButton.bind(this);
-    this.runSaveEmailAndActivateLoginButton = this
-      .runSaveEmailAndActivateLoginButton.bind(this);
-    this.runSavePasswordAndActivateLoginButton = this
-      .runSavePasswordAndActivateLoginButton.bind(this);
   }
 
   async saveFieldValue(field, value) {
-    this.setState({ [field]: value });
+    this.setState({ [field]: value }, () => this.activateLoginButton());
   }
 
   verifyPasswordLength(password) {
@@ -50,16 +46,6 @@ export default class Login extends React.Component {
     }
   }
 
-  async runSaveEmailAndActivateLoginButton(field, value) {
-    await this.saveFieldValue(field, value);
-    this.activateLoginButton();
-  }
-
-  async runSavePasswordAndActivateLoginButton(field, value) {
-    await this.saveFieldValue(field, value);
-    this.activateLoginButton();
-  }
-
   renderLoginFields() {
     const { disable } = this.state;
     return (
@@ -69,16 +55,14 @@ export default class Login extends React.Component {
           name="emailInput"
           type="email"
           placeholder="e-mail"
-          onChange={ ({ target }) => this
-            .runSaveEmailAndActivateLoginButton(target.name, target.value) }
+          onChange={ ({ target }) => this.saveFieldValue(target.name, target.value) }
         />
         <input
           data-testid="password-input"
           name="passwordInput"
           type="password"
           placeholder="password"
-          onChange={ ({ target }) => this
-            .runSavePasswordAndActivateLoginButton(target.name, target.value) }
+          onChange={ ({ target }) => this.saveFieldValue(target.name, target.value) }
         />
         <Link to="/carteira">
           <button
