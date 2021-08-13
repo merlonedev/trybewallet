@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './wallet.css';
+import WalletHeader from '../components/WalletHeader';
 import { thunkExchange } from '../actions';
 
 class Wallet extends React.Component {
@@ -150,22 +151,10 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail } = this.props;
     const { value, description, totalValue } = this.state;
     return (
       <div>
-        <header>
-          <h1>TrybeWallet</h1>
-          <h3 data-testid="email-field">
-            Email:&nbsp;
-            {userEmail}
-          </h3>
-          <h3>
-            Despesa total: R$&nbsp;
-            <span data-testid="total-field">{totalValue.toFixed(2)}</span>
-          </h3>
-          <h3 data-testid="header-currency-field">BRL</h3>
-        </header>
+        <WalletHeader totalValue={ totalValue } />
         <form className="wallet-form">
           <label htmlFor="valor">
             Valor
@@ -200,7 +189,6 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
   expensesInfo: state.wallet.expenses,
 });
 
@@ -209,7 +197,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  userEmail: propTypes.string.isRequired,
   fetchExchange: propTypes.func.isRequired,
   expensesInfo: propTypes.arrayOf(propTypes.object).isRequired,
 };
