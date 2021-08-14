@@ -1,4 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addingUserEmail, addingUserPwd } from '../../actions';
 
 class Forms extends React.Component {
   constructor() {
@@ -12,6 +16,7 @@ class Forms extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validatingLogin = this.validatingLogin.bind(this);
+    this.handleSumbmit = this.handleSumbmit.bind(this);
   }
 
   // Regex para validação de email encontrada na internet
@@ -42,12 +47,20 @@ class Forms extends React.Component {
     this.validatingLogin();
   }
 
+  handleSumbmit() {
+    const { email, password } = this.state;
+    const { userEmail, userPassword } = this.props;
+
+    userEmail(email);
+    userPassword(password);
+  }
+
   render() {
-    const { handleChange } = this;
+    const { handleChange, handleSumbmit } = this;
     const { email, password, disabled } = this.state;
 
     return (
-      <form>
+      <form onChange={ handleSumbmit }>
         <label htmlFor="login-email">
           Email:
           <input
@@ -72,12 +85,24 @@ class Forms extends React.Component {
           />
         </label>
 
-        <button type="submit" disabled={ disabled }>
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button type="submit" disabled={ disabled }>
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-export default Forms;
+const mapDispatchToProps = (dispatch) => ({
+  userEmail: (email) => dispatch(addingUserEmail(email)),
+  userPassword: (pwd) => dispatch(addingUserPwd(pwd)),
+});
+
+Forms.propTypes = {
+  userEmail: PropTypes.func.isRequired,
+  userPassword: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Forms);
