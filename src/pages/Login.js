@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { saveEmail, currency } from '../actions';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -15,11 +15,6 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentWillUnmount() {
-    const { coinsOptions } = this.props;
-    coinsOptions();
   }
 
   handleChange({ target }) {
@@ -74,7 +69,6 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   userEmail: (user) => dispatch(saveEmail(user)),
-  coinsOptions: () => dispatch(currency()),
 });
 
 const mapStateToProps = (state) => ({
@@ -82,7 +76,6 @@ const mapStateToProps = (state) => ({
 });
 
 Login.propTypes = {
-  coinsOptions: PropTypes.func.isRequired,
   userEmail: PropTypes.func.isRequired,
 };
 
