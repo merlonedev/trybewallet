@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteAll } from '../actions';
 
 class WalletTable extends React.Component {
   tableHeader() {
@@ -35,12 +36,17 @@ class WalletTable extends React.Component {
     return currencieCambio.toFixed(2);
   }
 
+  deleteRow(idRow) {
+    const { getRow } = this.props;
+    getRow(idRow);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
       <table>
         { this.tableHeader() }
-        { expenses.map((expense) => (
+        { expenses.length > 0 ? expenses.map((expense) => (
           <tr key={ expense.id }>
             <td>
               {expense.description}
@@ -67,18 +73,23 @@ class WalletTable extends React.Component {
               Real
             </td>
             <td>
-              <button type="button">
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => this.deleteRow(expense.id) }
+              >
                 Editar/Excluir
               </button>
             </td>
           </tr>
-        ))}
+        )) : ''}
       </table>
     );
   }
 }
 
 WalletTable.propTypes = {
+  getRow: PropTypes.func.isRequired,
   expenses: PropTypes.shape.isRequired,
 };
 
@@ -86,4 +97,8 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(WalletTable);
+const mapDispatchToProps = (dispatch) => ({
+  getRow: (row) => dispatch(deleteAll(row)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);

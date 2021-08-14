@@ -1,4 +1,6 @@
 export const STATE = 'STATE';
+export const DELETE = 'DELETE';
+
 // Coloque aqui suas actions
 export const emailAction = (value) => ({ type: 'EMAIL', value });
 export const emailActioan = (value) => ({ type: 'EMAIL', value });
@@ -17,4 +19,8 @@ export function fetchCurrencies(currencies) {
     Object.assign(currencies, actualCurrencies);
     dispatch(stateAction(currencies));
   };
+}
+
+export function deleteAll(value) {
+  return { type: DELETE, value };
 }
