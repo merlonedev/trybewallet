@@ -21,9 +21,8 @@ const wallet = (state = INICIAL_STATE, action) => {
 
   case GET_EXPENSES:
     return { ...state,
-      id: state.id + 1,
       expenses: [...state.expenses,
-        { id: state.id,
+        { id: state.expenses.length,
           ...action.expenses,
           exchangeRates: state.exchangeRates }],
     };
