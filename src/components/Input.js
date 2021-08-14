@@ -6,9 +6,10 @@ class Input extends React.Component {
     const { props: { name, type, label, value, testid, handleChange } } = this;
     return (
       <form>
-        <label htmlFor="input">
+        <label htmlFor={ name }>
           { label }
           <input
+            id={ name }
             type={ type }
             name={ name }
             value={ value }
