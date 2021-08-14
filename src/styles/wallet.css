@@ -101,9 +101,16 @@ code {
 }
 
 .btn-table {
-  font-size: 12px;
-  height: 5px;
-  width: 5px;
+  color: rgb(2, 15, 125);
+  font-size: 16px;
+  height: 18px;
+  text-align: center;
+  width: 18px;
+}
+
+.table-expense {
+  background-color: darkgrey;
+  padding: 2px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap') ;

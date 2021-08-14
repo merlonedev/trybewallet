@@ -1,11 +1,6 @@
-export const GET_CURRENCY = 'GET_CURRENCY';
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
-export const GET_CURRENCY_ERROR = 'GET_CURRENCY_SUCCESS';
-export const SAVE_STATE_FORM = 'SAVE_STATE_FORM';
 export const GET_EXPENSES = 'GET_EXPENSES';
-export const GET_EXCHANGE = 'GET_EXCHANGE';
-export const GET_EX_SUCCESS = 'GET_EX_SUCCESS';
-export const GET_EX_ERROR = 'GET_EX_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 const endpoint = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -29,3 +24,5 @@ export function getCurrencies() {
 }
 
 export const actGetExpenses = (expenses) => ({ type: GET_EXPENSES, expenses });
+
+export const deleteExpense = (line) => ({ type: DELETE_EXPENSE, line });

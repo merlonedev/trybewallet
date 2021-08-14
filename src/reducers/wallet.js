@@ -1,4 +1,5 @@
 import {
+  DELETE_EXPENSE,
   GET_CURRENCY_SUCCESS,
   GET_EXPENSES,
 } from '../actions';
@@ -25,6 +26,12 @@ const wallet = (state = INICIAL_STATE, action) => {
         { id: state.id,
           ...action.expenses,
           exchangeRates: state.exchangeRates }],
+    };
+
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: { ...state.expenses.filter((line) => line !== action.line) },
     };
 
   default: return state;
