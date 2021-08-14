@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
@@ -21,6 +23,8 @@ class Login extends React.Component {
 
   render() {
     const { user, password } = this.state;
+    const pass = 6;
+    const valid = /(.*)@(.*).com/; // codigo do meu colega da turma 12 patrick
     return (
       <section className="login-input">
         <input
@@ -39,16 +43,21 @@ class Login extends React.Component {
           placeholder="password"
           data-testid="password-input"
         />
-        <button
-          onClick={ () => { this.toQuestions(); } }
-          type="button"
-          disabled={ password.length === 0 || user.length === 0 }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ (user.match(valid) === null) || password.length < pass }
+          >
+            Entrar
+          </button>
+        </Link>
       </section>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  user: (user) => dispatch(addingUserEmail(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
