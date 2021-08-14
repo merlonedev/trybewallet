@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class ExpensesTable extends React.Component {
   render() {
@@ -21,4 +22,8 @@ class ExpensesTable extends React.Component {
   }
 }
 
-export default ExpensesTable;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps)(ExpensesTable);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, actGetExpenses, getExchangeThunk } from '../actions';
+import { actGetExpenses, getCurrencies } from '../actions';
 
 class AddForm extends React.Component {
   constructor(props) {
@@ -13,15 +13,14 @@ class AddForm extends React.Component {
     this.renderTagSelect = this.renderTagSelect.bind(this);
     this.renderDescript = this.renderDescript.bind(this);
     this.renderCurrSelect = this.renderCurrSelect.bind(this);
+
     this.state = {
       expenses: {
-        id: 0,
         value: 0,
         description: '',
         currency: 'USD',
         method: 'Dinheiro',
         tag: 'Alimentação',
-        exchangeRates: [],
       },
     };
   }
@@ -43,9 +42,10 @@ class AddForm extends React.Component {
   }
 
   handleClick() {
-    const { getExpenses, getExchange } = this.props;
+    const { getExpenses } = this.props;
+    const { getFetch } = this.props;
+    getFetch();
     const { expenses } = this.state;
-    getExchange();
     getExpenses(expenses);
     this.setState({
       expenses: {
@@ -197,21 +197,18 @@ class AddForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getFetch: () => dispatch(getCurrenciesThunk()),
+  getFetch: () => dispatch(getCurrencies()),
   getExpenses: (expenses) => dispatch(actGetExpenses(expenses)),
-  getExchange: () => dispatch(getExchangeThunk()),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  isLoading: state.wallet.isLoading,
-  exchangeRates: state.wallet.expenses.exchangeRates,
+  exchangeRates: state.wallet.exchangeRates,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
 AddForm.propTypes = {
-  getExchange: PropTypes.func.isRequired,
   getFetch: PropTypes.func.isRequired,
   getExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
