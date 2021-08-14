@@ -31,7 +31,7 @@ const wallet = (state = INICIAL_STATE, action) => {
   case DELETE_EXPENSE:
     return {
       ...state,
-      expenses: { ...state.expenses.filter((line) => line !== action.line) },
+      expenses: state.expenses.filter((expense) => expense.id !== Number(action.id)),
     };
 
   default: return state;

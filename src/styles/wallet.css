@@ -67,6 +67,7 @@ code {
   background-color: cornsilk;
   border-radius: 25px;
   color: cadetblue;
+  font-weight: 900;
   padding: 10px;
 }
 
@@ -101,15 +102,20 @@ code {
 }
 
 .btn-table {
-  color: rgb(2, 15, 125);
+  background-color: black;
+  border-radius: 8px;
+  color: white;
   font-size: 16px;
-  height: 18px;
+  height: 24px;
+  margin: 4px;
   text-align: center;
-  width: 18px;
+  width: 36px;
 }
 
 .table-expense {
-  background-color: darkgrey;
+  background-color: white;
+  color: black;
+  opacity: 0.6;
   padding: 2px;
 }
 

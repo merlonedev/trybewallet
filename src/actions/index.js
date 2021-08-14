@@ -25,4 +25,4 @@ export function getCurrencies() {
 
 export const actGetExpenses = (expenses) => ({ type: GET_EXPENSES, expenses });
 
-export const deleteExpense = (line) => ({ type: DELETE_EXPENSE, line });
+export const deleteExpense = (id) => ({ type: DELETE_EXPENSE, id });

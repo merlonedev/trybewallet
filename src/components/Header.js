@@ -34,7 +34,7 @@ class Header extends React.Component {
             data-testid="total-field"
             className="despesas"
           >
-            { `Despesas Totais: ${this.calcTotal()}` }
+            { `Despesas Totais: R$${this.calcTotal()}` }
           </p>
           <p
             data-testid="header-currency-field"

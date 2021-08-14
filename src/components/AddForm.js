@@ -161,13 +161,13 @@ class AddForm extends React.Component {
 
     return (
       <div>
-        <label htmlFor="descrição">
+        <label htmlFor="description">
           Descrição
           <input
             className="input-style"
             type="text"
             value={ description }
-            id="descrição"
+            id="description"
             name="description"
             onChange={ this.handleChange }
           />
