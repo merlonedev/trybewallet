@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import addUser from '../actions';
+import { addUser } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.accessValidation = this.accessValidation.bind(this);
 
     this.state = {
@@ -43,10 +43,15 @@ class Login extends React.Component {
       this.setState({
         validation: false,
       });
+    } else {
+      this.setState({
+        validation: true,
+      });
     }
   }
 
   handleSubmit() {
+    console.log('oi more');
     const {
       props: { history, setUser },
       state: { email },
@@ -78,7 +83,7 @@ class Login extends React.Component {
           handleChange={ handleChange }
         />
         <Button
-          handleSubmit={ handleSubmit }
+          submit={ handleSubmit }
           label="Entrar"
           disabled={ validation }
 
