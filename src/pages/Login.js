@@ -16,7 +16,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      validation: false,
+      validation: true,
     };
   }
 
@@ -41,7 +41,7 @@ class Login extends React.Component {
 
     if (password.length >= MINIMUM_SIZE && email.match(VALIDATION_EMAIL)) {
       this.setState({
-        validation: true,
+        validation: false,
       });
     }
   }
@@ -80,7 +80,8 @@ class Login extends React.Component {
         <Button
           handleSubmit={ handleSubmit }
           label="Entrar"
-          disibled={ validation }
+          disabled={ validation }
+
         />
       </section>
     );
