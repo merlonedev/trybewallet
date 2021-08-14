@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -12,6 +14,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -21,15 +24,22 @@ class Login extends React.Component {
     });
   }
 
+  handleClick() {
+    const { user } = this.state;
+    const { userEmail } = this.props;
+    userEmail(user);
+  }
+
   render() {
     const { user, password } = this.state;
+    const { handleChange, handleClick } = this;
     const pass = 6;
     const valid = /(.*)@(.*).com/; // codigo do meu colega da turma 12 patrick
     return (
       <section className="login-input">
         <input
           name="user"
-          onChange={ this.handleChange }
+          onChange={ handleChange }
           value={ user }
           type="email"
           placeholder="Usuário"
@@ -37,7 +47,7 @@ class Login extends React.Component {
         />
         <input
           name="password"
-          onChange={ this.handleChange }
+          onChange={ handleChange }
           value={ password }
           type="password"
           placeholder="password"
@@ -47,6 +57,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ (user.match(valid) === null) || password.length < pass }
+            onClick={ handleClick }
           >
             Entrar
           </button>
@@ -57,7 +68,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (user) => dispatch(addingUserEmail(user)),
+  userEmail: (user) => dispatch(saveEmail(user)),
 });
+
+Login.propTypes = {
+  userEmail: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
