@@ -3,9 +3,8 @@
 import { USER_EMAIL } from '../actions/actionTypes';
 
 const INITIAL_USER_STATE = {
-  user: {
-    email: 'pessoa@gmail.com',
-  },
+
+  email: '',
 
 };
 const user = (state = INITIAL_USER_STATE, action) => {

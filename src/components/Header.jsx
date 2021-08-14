@@ -4,27 +4,44 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, totalExpenses } = this.props;
+
+    let soma = 0;
+
+    if (totalExpenses.length > 0) {
+      soma = totalExpenses.reduce(
+        (acc, curr) => (
+          Number(curr.value * curr.exchangeRates[curr.currency].ask) + acc),
+        0,
+      );
+    }
     return (
       <section>
 
         <header>
           <span data-testid="email-field">
+            Usuário:
             { email }
-            <p data-testid="total-field">0</p>
-            <p data-testid="header-currency-field">BRL</p>
-
           </span>
+          <div className="info-container">
+            <span data-testid="total-field">{soma.toFixed(2)}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </div>
+
         </header>
 
       </section>
     );
   }
 }
-const mapStateToProps = (state) => ({ email: state.user.email });
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  totalExpenses: state.wallet.expenses,
+});
 
 export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  totalExpenses: PropTypes.number,
+}.isRequired;
