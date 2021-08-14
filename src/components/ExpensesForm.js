@@ -8,25 +8,25 @@ class ExpensesForm extends Component {
 
     return (
       <tr key={ id } className="table-expense">
-        <th>{description}</th>
-        <th>{tag}</th>
-        <th>{method}</th>
-        <th>{value}</th>
-        <th>{expenses.exchangeRates[expenses.currency].name.split('/')[0]}</th>
-        <th>
+        <td>{description}</td>
+        <td>{tag}</td>
+        <td>{method}</td>
+        <td>{value}</td>
+        <td>{expenses.exchangeRates[expenses.currency].name.split('/')[0]}</td>
+        <td>
           {parseFloat(
             expenses.exchangeRates[expenses.currency].ask,
           ).toFixed(2)}
-        </th>
-        <th>
+        </td>
+        <td>
           {
             (parseFloat(expenses.value)
                   * parseFloat(expenses.exchangeRates[expenses.currency].ask))
               .toFixed(2)
           }
-        </th>
-        <th>Real Brasileiro</th>
-        <th>
+        </td>
+        <td>Real</td>
+        <td>
           <button
             className="btn-table material-icons"
             type="button"
@@ -42,7 +42,7 @@ class ExpensesForm extends Component {
           >
             delete
           </button>
-        </th>
+        </td>
       </tr>
     );
   }
