@@ -1,8 +1,8 @@
 import { ADD_CURRENCY, ADD_EXPENSES } from '../actions';
 
 const INICIAL_STATE = {
-  currencies: {},
-  currenciesKey: [],
+  currenciesKey: {},
+  currencies: [],
   expenses: [],
 };
 
@@ -12,8 +12,8 @@ const wallets = (state = INICIAL_STATE, action) => {
     const coinArray = Object.keys(action.coin);
     return {
       ...state,
-      currenciesKey: coinArray.filter((iten) => iten !== 'USDT'),
-      currencies: action.coin,
+      currencies: coinArray.filter((iten) => iten !== 'USDT'),
+      currenciesKey: action.coin,
     };
   }
   case ADD_EXPENSES:

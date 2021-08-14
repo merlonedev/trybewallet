@@ -14,12 +14,12 @@ class Form extends React.Component {
         <label htmlFor="Moeda">
           Moeda
           <select id="Moeda">
-            {coins.length > 0 ? coins.map((item) => (
+            {coins.length === undefined ? '' : coins.map((item) => (
               <option
                 key={ item }
               >
                 { item }
-              </option>)) : ''}
+              </option>))}
           </select>
         </label>
         <label htmlFor="pagamento">
@@ -54,7 +54,7 @@ Form.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  coins: state.wallet.currenciesKey,
+  coins: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Form);
