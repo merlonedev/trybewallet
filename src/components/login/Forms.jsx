@@ -11,6 +11,25 @@ class Forms extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.validatingLogin = this.validatingLogin.bind(this);
+  }
+
+  // Regex para validação de email encontrada na internet
+  // Link: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+  validatingLogin() {
+    const { email, password } = this.state;
+    const minLength = 5;
+    const validatingEmail = /\S+@\S+\.\S+/.test(email);
+
+    if (validatingEmail && password.length >= minLength) {
+      this.setState({
+        disabled: '',
+      }, () => {});
+    } else {
+      this.setState({
+        disabled: 'disabled',
+      }, () => {});
+    }
   }
 
   handleChange({ target }) {
@@ -18,7 +37,9 @@ class Forms extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => {});
+
+    this.validatingLogin();
   }
 
   render() {
@@ -26,7 +47,7 @@ class Forms extends React.Component {
     const { email, password, disabled } = this.state;
 
     return (
-      <div>
+      <form>
         <label htmlFor="login-email">
           Email:
           <input
@@ -54,7 +75,7 @@ class Forms extends React.Component {
         <button type="submit" disabled={ disabled }>
           Entrar
         </button>
-      </div>
+      </form>
     );
   }
 }
