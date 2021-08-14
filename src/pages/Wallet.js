@@ -4,6 +4,8 @@ import propTypes from 'prop-types';
 import './wallet.css';
 import WalletHeader from '../components/WalletHeader';
 import { thunkExchange } from '../actions';
+import WalletValueInput from '../components/WalletValueInput';
+import WalletDescriptionInput from '../components/WalletDescriptionInput';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -151,31 +153,13 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { value, description, totalValue } = this.state;
+    const { totalValue } = this.state;
     return (
       <div>
         <WalletHeader totalValue={ totalValue } />
         <form className="wallet-form">
-          <label htmlFor="valor">
-            Valor
-            <input
-              type="text"
-              id="valor"
-              name="value"
-              value={ value }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="descricao">
-            Descrição
-            <input
-              type="text"
-              id="descricao"
-              name="description"
-              value={ description }
-              onChange={ this.handleChange }
-            />
-          </label>
+          <WalletValueInput handleChange={ this.handleChange } />
+          <WalletDescriptionInput handleChange={ this.handleChange } />
           { this.renderMoeda() }
           { this.renderTag() }
           { this.renderMetPag() }
