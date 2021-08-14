@@ -1,11 +1,18 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import { GET_API } from '../actions/index';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE) => state;
+const wallet = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case GET_API:
+    return { ...state, currencies: [...action.payload] };
+  default:
+    return state;
+  }
+};
 
 export default wallet;
