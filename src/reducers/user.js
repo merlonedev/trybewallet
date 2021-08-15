@@ -1,11 +1,11 @@
 
-const INITIAL_STATE = { email: '', password: '' };
+export const INITIAL_STATE = { email: '', password: '' };
 
-const login = ( state = INITIAL_STATE, action) {
+export const login = ( state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'EMAIL':
-      return action.email
+      return payload.email,
+    default:
+      return state,
   }
 }
-
-export default login
