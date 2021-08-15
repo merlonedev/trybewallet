@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { saveExpenses } from '../actions';
 
 class Header extends React.Component {
   constructor(props) {
@@ -24,7 +23,12 @@ class Header extends React.Component {
       <div className="trybeHeader">
         <img src="https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png" alt="logo-trybe" />
         <p data-testid="email-field">{ `Email: ${getEmail}` }</p>
-        <p data-testid="total-field">{ `Despesa Total: R$ ${this.handleTotal()}` }</p>
+        <p data-testid="total-field">
+          {
+            `Despesa Total: R$ 
+        ${Number(this.handleTotal()).toFixed(2)}`
+          }
+        </p>
         <p data-testid="header-currency-field">{ currency }</p>
       </div>
     );

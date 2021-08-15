@@ -43,6 +43,7 @@ class Login extends React.Component {
       <div className="login">
         <Input
           label="Email"
+          id="email"
           datatestid="email-input"
           type="email"
           value={ email }
@@ -52,6 +53,7 @@ class Login extends React.Component {
 
         <Input
           label="Password"
+          id="password"
           datatestid="password-input"
           type="password"
           value={ password }
