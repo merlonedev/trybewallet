@@ -9,12 +9,3 @@ const store = createStore(rootReducer,
   ));
 
 export default store;
-
-// import reducer from '../reducers';
-
-// const store = createStore(
-//   reducer,
-//   composeWithDevTools(
-//     applyMiddleware(thunk),
-//   ),
-// );
