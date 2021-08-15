@@ -7,6 +7,7 @@ const INICIAL_STATE = {
 };
 
 const wallets = (state = INICIAL_STATE, action) => {
+  const { gasto } = action;
   switch (action.type) {
   case ADD_CURRENCY: {
     const coinArray = Object.keys(action.coin);
@@ -19,7 +20,10 @@ const wallets = (state = INICIAL_STATE, action) => {
   case ADD_EXPENSES:
     return {
       ...state,
-      expenses: action.gasto,
+      expenses: [...state.expenses, {
+        gasto,
+        exchangeRates: state.currenciesKey,
+      }],
     };
   default:
     return state;

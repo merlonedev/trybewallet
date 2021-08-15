@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 class Form extends React.Component {
   render() {
@@ -44,6 +45,7 @@ class Form extends React.Component {
           Descrição
           <input id="descricao" type="text" />
         </label>
+        <Button />
       </form>
     );
   }
