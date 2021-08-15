@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes, { arrayOf, string } from 'prop-types';
 import fetchApi from './FetchApi';
+// import Button from './Button';
 
 class Expenses extends Component {
   componentDidMount() {
@@ -10,35 +11,36 @@ class Expenses extends Component {
   }
 
   render() {
-    const { currency } = this.props;
-    console.log(currency);
+    const { currency, onClickButton, onChangeButton, description, method, tag } = this.props;
     return (
       <form>
-        <label htmlFor="value">
+        {/* <label htmlFor="value">
           Valor
           <input
             type="number"
             name="value"
-            id="value"
+            value={ value }
+            onChange={ onChangeButton }
           />
-        </label>
+        </label> */}
         <label htmlFor="description">
           Descrição
           <input
             type="text"
             name="description"
-            id="description"
+            value={ description }
+            onChange={ onChangeButton }
           />
         </label>
         <label htmlFor="coin">
           Moeda
-          <select id="coin">
+          <select id="coin" value={ currency } onChange={ onChangeButton }>
             { currency.map((cur) => (<option key={ cur }>{ cur }</option>)) }
           </select>
         </label>
         <label htmlFor="payment">
           Método de Pagamento
-          <select id="payment">
+          <select id="payment" value={ method } onChange={ onChangeButton }>
             <option value="money">Dinheiro</option>
             <option value="creditCard">Cartão de crédito</option>
             <option value="debitCard">Cartão de débito</option>
@@ -46,7 +48,7 @@ class Expenses extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag">
+          <select id="tag" value={ tag } onChange={ onChangeButton }>
             <option value="alimentation">Alimentação</option>
             <option value="recreation">Lazer</option>
             <option value="work">Trabalho</option>
@@ -54,6 +56,7 @@ class Expenses extends Component {
             <option value="health">Saúde</option>
           </select>
         </label>
+        <button type="button" onClick={ onClickButton }>Adicionar Despesa</button>
       </form>
     );
   }
@@ -62,6 +65,7 @@ class Expenses extends Component {
 Expenses.propTypes = PropTypes.exact({
   getCurrencies: PropTypes.func.isRequired,
   currency: arrayOf(string).isRequired,
+  onClickButton: PropTypes.func.isRequired,
 }).isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
