@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import data from './Table.Data';
+import { actionDeleteExpenses } from '../actions';
 
 class TableWallet extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class TableWallet extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteItens } = this.props;
     return (
       <thead>
         <tr>
@@ -41,6 +42,15 @@ class TableWallet extends Component {
             <td>{ this.valueUpdate(item) }</td>
             <td>Real</td>
             <td />
+            <button
+              type="button"
+              value={ index }
+              data-testid="delete-btn"
+              onClick={ deleteItens }
+            >
+              Excluir
+            </button>
+
           </tr>
         ))}
       </thead>
@@ -51,12 +61,17 @@ class TableWallet extends Component {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
-
-export default connect(mapStateToProps)(TableWallet);
+const mapDispatchToProps = (dispatch) => ({
+  deleteItens: ({ target: { value: index } }) => (
+    dispatch(actionDeleteExpenses(index))
+  ),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);
 
 TableWallet.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
+  expenses: PropTypes.arrayOf(PropTypes.shape({})),
+  deleteItens: PropTypes.func,
+}.isRequired;
 
 // Consultei o repositório da colega Paula Carla, para resolver este reduisito.
 // https://github.com/tryber/sd-012-project-trybewallet/blob/paula-carlos-project-trybewallet/src/pages/Wallet.js

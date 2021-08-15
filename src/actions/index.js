@@ -3,6 +3,7 @@ import {
   GET_WALLET_API,
   GET_SUCESS,
   GET_FAILL,
+  DELETE_EXPENSES,
 
 } from './actionTypes';
 
@@ -15,6 +16,9 @@ export const getWalletApi = () => ({ type: GET_WALLET_API });
 export const getSucess = (payload) => ({ type: GET_SUCESS, payload });
 
 export const getFaill = (error) => ({ type: GET_FAILL, error });
+
+export const actionDeleteExpenses = (index) => ({
+  type: DELETE_EXPENSES, payload: index });
 
 export function requestExchangeRates(expenseData) {
   return async (dispatch) => {

@@ -4,6 +4,7 @@ import {
   GET_WALLET_API,
   GET_SUCESS,
   GET_FAILL,
+  DELETE_EXPENSES,
 } from '../actions/actionTypes';
 
 const INITIAL_WALLET_STATE = {
@@ -12,6 +13,11 @@ const INITIAL_WALLET_STATE = {
   error: 'error',
 };
 
+const DeleteExpense = (state, action) => {
+  const { expenses } = state;
+  const deleted = expenses.filter((expense) => expense.id !== +action);
+  return deleted;
+};
 const wallet = (state = INITIAL_WALLET_STATE, action) => {
   switch (action.type) {
   case GET_WALLET_API:
@@ -29,6 +35,12 @@ const wallet = (state = INITIAL_WALLET_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload] };
+
+  case DELETE_EXPENSES:
+    return {
+      ...state,
+      expenses: DeleteExpense(state, action.payload),
+    };
 
   default:
     return state;
