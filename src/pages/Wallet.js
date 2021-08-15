@@ -1,87 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DescricaoDespesa from '../components/FomsFunctions/DescricaoDespesa';
+import MetodoPagamento from '../components/FomsFunctions/MetodoPagamento';
+import SelecionarCategoria from '../components/FomsFunctions/SelecionarCategoria';
+import TipoMoeda from '../components/FomsFunctions/TipoMoeda';
+import ValorDespesa from '../components/FomsFunctions/ValorDespesa';
+// import { fetchAPI } from '../actions';
+// import wallet from '../reducers/wallet';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     description: '',
+  //     currency: 'USD',
+  //     value: '',
+  //     method: 'Dinheiro',
+  //     tag: 'Alimentação',
+  //   };
+  // }
 
-    this.tipoMoeda = this.tipoMoeda.bind(this);
-    this.valorDespesa = this.valorDespesa.bind(this);
-    this.descricaoDespesa = this.descricaoDespesa.bind(this);
-    this.metodoPagamento = this.metodoPagamento.bind(this);
-    this.selecionarCategoria = this.selecionarCategoria.bind(this);
-  }
+  // componentDidMount() {
+  //   const { getCurrencies } = this.props;
+  //   getCurrencies();
+  // }
 
-  tipoMoeda() {
-    return (
-      <label htmlFor="teste-moeda">
-        Moeda
-        <select id="teste-moeda">
-          Api
-        </select>
-      </label>
-
-    );
-  }
-
-  valorDespesa() {
-    return (
-      <label htmlFor="teste-despesa">
-        Valor
-        <input
-          id="teste-despesa"
-          placeholder="adicionar valor da despesa"
-        />
-      </label>
-    );
-  }
-
-  descricaoDespesa() {
-    return (
-      <label htmlFor="teste-descricao">
-        Descrição
-        <input
-          id="teste-descricao"
-          placeholder="adicionar descriçao da despesa"
-        />
-      </label>
-    );
-  }
-
-  metodoPagamento() {
-    return (
-      <label htmlFor="teste-pagamento">
-        Método de pagamento
-        <select id="teste-pagamento">
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
-        </select>
-      </label>
-
-    );
-  }
-
-  selecionarCategoria() {
-    return (
-      <label htmlFor="teste-categoria">
-        Tag
-        <select id="teste-categoria">
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
-      </label>
-
-    );
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   render() {
     const { email } = this.props;
-
     return (
       <div>
         <header>
@@ -98,11 +49,11 @@ class Wallet extends React.Component {
           </p>
         </header>
         <form>
-          { this.metodoPagamento() }
-          { this.tipoMoeda() }
-          { this.valorDespesa() }
-          { this.descricaoDespesa() }
-          { this.selecionarCategoria() }
+          <DescricaoDespesa />
+          <MetodoPagamento />
+          <SelecionarCategoria />
+          <TipoMoeda />
+          <ValorDespesa />
         </form>
       </div>
     );
@@ -110,7 +61,8 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email });
+  email: state.user.email,
+});
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,

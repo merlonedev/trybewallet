@@ -1,10 +1,10 @@
 import { ADD_USER } from '../actions';
 
-const INITIAL_STATE = {
+const INITIAL_USER_STATE = {
   email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
+function user(state = INITIAL_USER_STATE, action) {
   switch (action.type) {
   case ADD_USER:
     return ({
