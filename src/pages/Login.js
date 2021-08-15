@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { saveUser } from '../actions';
+import { saveEmail } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -18,7 +18,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validateInput = this.validateInput.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -41,14 +41,18 @@ class Login extends React.Component {
     }
   }
 
-  // handleSubmit() {
-  //   const { saveUserProps } = this.props;
-  //   const { email } = this.state;
-  //   saveUserProps(email);
-  // }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState((prevState) => ({
+      ...prevState,
+      email: '',
+      password: '',
+      isDisable: false,
+    }));
+  }
 
   render() {
-    const { email, password, isDisable } = this.state;
+    const { password, isDisable, email } = this.state;
     const { saveUserProps } = this.props;
     return (
       <div>
@@ -89,7 +93,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUserProps: (email) => dispatch(saveUser(email)),
+  saveUserProps: (email) => dispatch(saveEmail(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes, { string } from 'prop-types';
 import { connect } from 'react-redux';
-import { saveEmail } from '../actions/index';
+import { saveUser } from '../actions/index';
 import fetchExpenseApi from '../forms/FetchExpenseApi';
 import fetchApi from '../forms/FetchApi';
 
@@ -28,9 +28,8 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { getCurrencies, xablau } = this.props;
+    const { getCurrencies } = this.props;
     getCurrencies();
-    xablau();
   }
 
   handleChange({ target }) {
@@ -128,6 +127,7 @@ class Wallet extends React.Component {
 
   renderHeader() {
     const { email, expenses } = this.props;
+    console.log(email);
     return (
       <header>
         <p data-testid="email-field">{ email }</p>
@@ -164,7 +164,7 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
-  xablau: PropTypes.func.isRequired,
+  // xablau: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(string).isRequired,
   currencies: PropTypes.arrayOf(string).isRequired,
@@ -178,7 +178,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  xablau: (email) => dispatch(saveEmail(email)),
+  xablau: (email) => dispatch(saveUser(email)),
   expenseData: (data) => dispatch(fetchExpenseApi(data)),
   getCurrencies: () => dispatch(fetchApi()),
 });
