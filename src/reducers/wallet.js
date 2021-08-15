@@ -1,4 +1,4 @@
-import { ADD_CURRENCY, ADD_EXPENSES } from '../actions';
+import { ADD_CURRENCY, ADD_EXPENSES, REMOVE_EXPENSE } from '../actions';
 
 const INICIAL_STATE = {
   currencies: [],
@@ -13,9 +13,15 @@ const wallets = (state = INICIAL_STATE, action) => {
     return {
       ...state,
       currencies: coinArray.filter((iten) => iten !== 'USDT'),
-      currenciesKey: action.coin,
     };
   }
+
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.id),
+    };
+
   case ADD_EXPENSES:
     return {
       ...state,

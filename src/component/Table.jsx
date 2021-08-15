@@ -1,8 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class Table extends React.Component {
+  constructor() {
+    super();
+    this.removeIten = this.removeIten.bind(this);
+  }
+
+  removeIten(id) {
+    const { remove } = this.props;
+    remove(id);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -21,8 +32,8 @@ class Table extends React.Component {
           </tr>
         </thead>
         { expenses
-          .map((iten, index) => (
-            <tbody key={ index }>
+          .map((iten) => (
+            <tbody key={ iten.id }>
               <tr>
                 <td>{ iten.description }</td>
                 <td>{ iten.tag }</td>
@@ -38,7 +49,15 @@ class Table extends React.Component {
                   }
                 </td>
                 <td>Real</td>
-                <td><button type="button">Deletar</button></td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.removeIten(iten.id) }
+                  >
+                    Deletar
+                  </button>
+                </td>
               </tr>
             </tbody>
           )) }
@@ -51,8 +70,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  remove: (state) => dispatch(removeExpense(state)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
