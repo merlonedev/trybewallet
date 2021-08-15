@@ -18,6 +18,11 @@ export const removeExpense = (value) => ({
   value,
 })
 
+// export const editExpense = (value) => ({
+//   type: 'EDIT_EXPENSE',
+//   value,
+// })
+
 export const getFullCurrencies = (result) => ({
   type: 'GET_FULL_CURRENCIES',
   fullCurrencies: result,
