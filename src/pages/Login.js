@@ -7,29 +7,28 @@ export default class Login extends Component {
       email: '',
       password: '',
     };
+    this.handlerChangeLogin = this.handlerChangeLogin.bind(this);
+    this.verifyLength = this.verifyLength.bind(this);
   }
 
   verifyLength() {
     const { password, email } = this.state;
     const validLength = 6;
     const validEmail = 'alguem@alguem.com';
-    if (password >= validLength && email.value === validEmail) return true;
+    if (password >= validLength && email === validEmail) return true;
   }
 
-  // handlerChange({ target }) {
-  //   const { email, password } = target.name;
-  //   if (password.lentgh >= minPassword && email.value === validEmail) {
-  //     this.setState = {
-  //       email,
-  //       password,
-  //     };
-  //   }
-  // }
+  handlerChangeLogin({ target }) {
+    this.setState = {
+      [target.name]: target.value,
+    };
+  }
 
   render() {
     return (
       // const { email, password } = this.state;
       <div>
+        <h2>Trybe Wallet</h2>
         <label htmlFor="email-input">
           <input
             placeholder="Digite seu email"
@@ -37,7 +36,7 @@ export default class Login extends Component {
             name="email"
             data-testid="email-input"
             required
-            // onChange = { email }
+            onChange={ this.handlerChangeLogin }
           />
         </label>
         <label htmlFor="password-input">
@@ -47,7 +46,7 @@ export default class Login extends Component {
             password="password"
             data-testid="password-input"
             required
-            // onChange={this.handlerChange}
+            onChange={ this.handlerChangeLogin }
           />
         </label>
         <button
