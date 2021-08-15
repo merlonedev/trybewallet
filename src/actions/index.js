@@ -10,7 +10,7 @@ export const addCurrencieSucces = (payload) => ({ type: ADD_CURRENCIE_SUCCES, pa
 export const addCurrencieError = (error) => ({ type: ADD_CURRENCIE_ERROR, error });
 
 export const fetchAPI = () => async (dispatch) => {
-  console.log('teste');
+  // console.log(fetchAPI);
   /* dispatch(addCurrencie());
   const API = 'https://economia.awesomeapi.com.br/json/all';
   fetch(API)

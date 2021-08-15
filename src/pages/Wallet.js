@@ -3,18 +3,45 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { fetchAPI } from '../actions';
-import wallet from '../reducers/wallet';
+import Button from '../components/Button';
+// import wallet from '../reducers/wallet';
 
 class Wallet extends React.Component {
+// Coloca estado p Q8
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     value: '',
+  //     description: '',
+  //     currencie: 'USD',
+  //     paymentMethod: 'Dinheiro',
+  //     tag: 'Alimentação',
+  //
+
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
   }
 
-  handleChange({ target }) {
+  // handleSubmit() {
+  //   const {  }
+  // }
+  handleClick({ target }) {
     const { type, value } = target;
     this.setState({ [type]: value });
   }
+
+  // Q8
+  // handleClick() {
+  //   getCurrencies(this.state);
+  //   this.setState({
+  //     value: '',
+  //     description: '',
+  //     currencie: 'USD',
+  //     paymentMetod: 'Dinheiro',
+  //     tag: 'Alimentação',
+  //   });
+  // }
 
   addExpense() {
     return (
@@ -42,7 +69,7 @@ class Wallet extends React.Component {
 
   addCurrency() {
     const { wallet: { currencies } } = this.props;
-    console.log(Object.values(currencies));
+    // console.log(Object.values(currencies));
     return (
       <label htmlFor="Moeda">
         Moeda
@@ -95,25 +122,29 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { wallet: { currencies } } = this.props;
-    if (Object.values(currencies).length > 0) {
-      return (
-        <div>
-          TrybeWallet
-          <Header />
-          <form>
-            {this.addExpense()}
-            {this.addExpDescription()}
-            {this.addCurrency()}
-            {this.paymentMetod()}
-            {this.categorySelection()}
-          </form>
-        </div>
-      );
-    }
-    return (wallet);
+    // const { handleClick } = this.props;
+    // está faltando expenses p/ 5 passar
+    // const { wallet: { currencies } } = this.props;
+    // if (Object.values(currencies).length > 0) {
+    return (
+      <div>
+        TrybeWallet
+        <Header />
+        <form>
+          {this.addExpense()}
+          {this.addExpDescription()}
+          {this.addCurrency()}
+          {this.paymentMetod()}
+          {this.categorySelection()}
+          {/* questão8 - button */}
+          <Button handleClick={ this.handleClick } text="Adicionar despesa" />
+        </form>
+      </div>
+    );
   }
+  // return (wallet);
 }
+// }
 
 const mapStateToProps = (state) => ({ wallet: state.wallet });
 

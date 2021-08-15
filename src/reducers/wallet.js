@@ -18,7 +18,7 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, isFetching: true };
 
   case ADD_CURRENCIE_SUCCES: {
-    console.log(filterCurrencies(action.payload));
+    // console.log(filterCurrencies(action.payload));
     return { ...state, currencies: filterCurrencies(action.payload) };
   }
   case ADD_CURRENCIE_ERROR:
