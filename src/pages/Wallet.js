@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { saveUser } from '../actions/index';
 import fetchExpenseApi from '../forms/FetchExpenseApi';
 import fetchApi from '../forms/FetchApi';
+import WalletTable from '../component/WalletTable';
 
 class Wallet extends React.Component {
   constructor() {
@@ -157,6 +158,9 @@ class Wallet extends React.Component {
         { this.renderTag() }
         { this.renderMethod() }
         <button type="button" onClick={ this.addButton }>Adicionar Despesa</button>
+        {/* <table> */}
+        <WalletTable />
+        {/* </table> */}
       </div>
     );
   }
@@ -164,7 +168,6 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
-  // xablau: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(string).isRequired,
   currencies: PropTypes.arrayOf(string).isRequired,
