@@ -6,16 +6,16 @@ import WalletHeader from '../components/WalletHeader';
 import { thunkExchange } from '../actions';
 import WalletValueInput from '../components/WalletValueInput';
 import WalletDescriptionInput from '../components/WalletDescriptionInput';
+import WalletCurrencyInput from '../components/WalletCurrencyInput';
+import WalletTagInput from '../components/WalletTagInput';
+import WalletPaymentMethod from '../components/WalletPaymentMethod';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.idCounter = this.idCounter.bind(this);
-    this.renderMetPag = this.renderMetPag.bind(this);
-    this.renderTag = this.renderTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.renderMoeda = this.renderMoeda.bind(this);
     this.updateExpenses = this.updateExpenses.bind(this);
     this.calculateExpenses = this.calculateExpenses.bind(this);
 
@@ -89,80 +89,20 @@ class Wallet extends React.Component {
     this.setState({ totalValue });
   }
 
-  renderMetPag() {
-    const { method } = this.state;
-    return (
-      <label htmlFor="met-pagamento">
-        Método de pagamento&nbsp;
-        <select
-          type="text"
-          id="met-pagamento"
-          name="method"
-          value={ method }
-          onChange={ this.handleChange }
-        >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
-        </select>
-      </label>
-    );
-  }
-
-  renderTag() {
-    const { tag } = this.state;
-    return (
-      <label htmlFor="tag">
-        Tag&nbsp;
-        <select
-          type="text"
-          id="tag"
-          name="tag"
-          value={ tag }
-          onChange={ this.handleChange }
-        >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
-      </label>
-    );
-  }
-
-  renderMoeda() {
-    const { currencies } = this.state;
-    const listaMoedas = Object.keys(currencies);
-    const currencyFiltered = listaMoedas
-      .filter((item) => item !== 'USDT' && item !== 'DOGE');
-    return (
-      <label htmlFor="moeda">
-        Moeda&nbsp;
-        <select
-          type="text"
-          id="moeda"
-          name="currency"
-          onChange={ this.handleChange }
-        >
-          { currencyFiltered
-            .map((item) => <option key={ item }>{item}</option>) }
-        </select>
-      </label>
-    );
-  }
-
   render() {
-    const { totalValue } = this.state;
+    const { currencies, totalValue } = this.state;
     return (
       <div>
         <WalletHeader totalValue={ totalValue } />
         <form className="wallet-form">
           <WalletValueInput handleChange={ this.handleChange } />
           <WalletDescriptionInput handleChange={ this.handleChange } />
-          { this.renderMoeda() }
-          { this.renderTag() }
-          { this.renderMetPag() }
+          <WalletCurrencyInput
+            handleChange={ this.handleChange }
+            currencies={ currencies }
+          />
+          <WalletTagInput handleChange={ this.handleChange } />
+          <WalletPaymentMethod handleChange={ this.handleChange } />
           <button type="button" onClick={ this.updateExpenses }>
             Adicionar despesa
           </button>
