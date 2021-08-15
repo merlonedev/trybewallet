@@ -1,39 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addCurrency, expense } from '../actions';
+import { currency } from '../actions';
 
 class Button extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      valor: '',
-      moeda: 'USD',
-      metodoDePagamento: 'Dinheiro',
-      tag: 'Alimentação',
-      describe: '',
-    };
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    const { expenses, expense } = this.props;
-    const { valor, moeda, metodoDePagamento, tag, describe } = this.state;
-    const gasto = {
-      id: expenses.lenght !== undefined ? expenses.lenght - 1 : 0,
-      Value: valor,
-      descripetion: describe,
+    const { expenses, newExpense } = this.props;
+    const { valor, moeda, method, tag, describe } = this.props;
+    newExpense({
+      id: expenses.length,
+      value: valor,
+      description: describe,
       currency: moeda,
-      method: metodoDePagamento,
+      method,
       tag,
-    };
-    expense(gasto);
+    });
   }
 
   render() {
-    console.log(this.props);
     return (
       <button
         type="button"
@@ -46,8 +35,7 @@ class Button extends React.Component {
 }
 
 const mapDispatchToProps = (dispacth) => ({
-  expense: (gasto) => dispacth(expense(gasto)),
-  coin: () => dispacth(addCurrency()),
+  newExpense: (gasto) => dispacth(currency(gasto)),
 });
 
 const mapStateToProps = (state) => ({
@@ -55,9 +43,14 @@ const mapStateToProps = (state) => ({
 });
 
 Button.propTypes = {
-  expense: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)))
+  newExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object)
     .isRequired,
+  valor: PropTypes.string.isRequired,
+  moeda: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
+  describe: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);

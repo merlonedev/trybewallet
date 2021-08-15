@@ -4,28 +4,46 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      valor: '',
+      moeda: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      describe: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { id, value } = target;
+    this.setState({
+      [id]: value,
+    });
+  }
+
   render() {
     const { coins } = this.props;
+    const { valor, moeda, method, tag, describe } = this.state;
     return (
       <form>
-        <label htmlFor="preco">
+        <label htmlFor="valor">
           Valor:
-          <input id="preco" type="number" />
+          <input id="valor" type="number" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="Moeda">
+        <label htmlFor="moeda">
           Moeda
-          <select id="Moeda">
+          <select id="moeda" onChange={ this.handleChange }>
             {coins.length === undefined ? '' : coins.map((item) => (
-              <option
-                key={ item }
-              >
-                { item }
-              </option>))}
+              <option key={ item }>{ item }</option>))}
           </select>
         </label>
-        <label htmlFor="pagamento">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="pagamento">
+          <select id="method" onChange={ this.handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -33,7 +51,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag">
+          <select id="tag" onChange={ this.handleChange }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -41,11 +59,17 @@ class Form extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="describe">
           Descrição
-          <input id="descricao" type="text" />
+          <input id="describe" type="text" onChange={ this.handleChange } />
         </label>
-        <Button />
+        <Button
+          valor={ valor }
+          moeda={ moeda }
+          method={ method }
+          tag={ tag }
+          describe={ describe }
+        />
       </form>
     );
   }

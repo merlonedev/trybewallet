@@ -1,7 +1,6 @@
 import { ADD_CURRENCY, ADD_EXPENSES } from '../actions';
 
 const INICIAL_STATE = {
-  currenciesKey: {},
   currencies: [],
   expenses: [],
 };
@@ -21,8 +20,8 @@ const wallets = (state = INICIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, {
-        gasto,
-        exchangeRates: state.currenciesKey,
+        ...gasto,
+        exchangeRates: action.coin,
       }],
     };
   default:
