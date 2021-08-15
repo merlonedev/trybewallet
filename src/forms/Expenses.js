@@ -11,7 +11,7 @@ class Expenses extends Component {
   }
 
   render() {
-    const { currency, onClickButton, onChangeButton, description, method, tag } = this.props;
+    const { currency, onClickButton } = this.props;
     return (
       <form>
         {/* <label htmlFor="value">
