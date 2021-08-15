@@ -10,14 +10,6 @@ class Wallet extends React.Component {
     super(props);
     this.state = {
       total: 0,
-      // valor: '',
-      // descricao: '',
-      // pagamento: '',
-      // motivo: '',
-      // expenses: {
-      //   id: '',
-      //   cotacao: '',
-      // },
     };
   }
 
