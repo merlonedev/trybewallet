@@ -15,7 +15,6 @@ class Wallet extends React.Component {
   render() {
     return (
       <>
-        alo
         <Header />
         <ExpenseForm />
         <ExpenseTable />

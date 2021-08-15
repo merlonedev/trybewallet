@@ -42,6 +42,7 @@ class ExpensesForm extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    // console.log(this.props);
     return (
       <form>
         <ValueInput handle={ this.handleChange } value={ value } />
