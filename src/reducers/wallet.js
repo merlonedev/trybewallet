@@ -9,6 +9,7 @@ import {
 const INITIAL_WALLET_STATE = {
   currencies: [],
   expenses: [],
+  error: 'error',
 };
 
 const wallet = (state = INITIAL_WALLET_STATE, action) => {
