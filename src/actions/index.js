@@ -16,7 +16,7 @@ export const getExpenses = (value) => ({
 export const removeExpense = (value) => ({
   type: 'REMOVE_EXPENSE',
   value,
-})
+});
 
 // export const editExpense = (value) => ({
 //   type: 'EDIT_EXPENSE',

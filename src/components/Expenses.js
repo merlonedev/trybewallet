@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions/index'
+import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class Expenses extends React.Component {
   constructor() {
     super();
 
-    this.removeExpense = this.removeExpense.bind(this);
+    this.removeExpenses = this.removeExpenses.bind(this);
   }
 
-  removeExpense(expense) {
-    const { expenses, removeExpense } = this.props;
-    const filtradin = expenses.filter((e) => e.id !== expense.id);
-    removeExpense(filtradin);
+  removeExpenses(expense) {
+    const { expenses, removeExpenses } = this.props;
+    const filtrado = expenses.filter((e) => e.id !== expense.id);
+    removeExpenses(filtrado);
   }
 
   render() {
@@ -32,20 +33,23 @@ class Expenses extends React.Component {
             <th>Editar/Excluir</th>
           </tr>
           { expenses.map((expense) => (
-            <tr id={expense.id}>
-              <td>{expense.description}</td>
-              <td>{expense.tag}</td>
-              <td>{expense.method}</td>
-              <td>{expense.value}</td>
-              <td>{expense.exchangeRates[expense.currency].name.split("/")[0]}</td>
+            <tr key={ expense.id }>
+              <td>{ expense.description }</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              <td>{ expense.value }</td>
+              <td>{ expense.exchangeRates[expense.currency].name.split('/')[0] }</td>
               <td>{ (+expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
-              <td>{ (expense.value * (+expense.exchangeRates[expense.currency].ask)).toFixed(2) }</td>
+              <td>
+                { (expense.value * (+expense.exchangeRates[expense.currency].ask))
+                  .toFixed(2) }
+              </td>
               <td>Real</td>
               <td>
                 <button type="button">Edit</button>
                 <button
                   data-testid="delete-btn"
-                  onClick={ () => this.removeExpense(expense) }
+                  onClick={ () => this.removeExpenses(expense) }
                   type="button"
                 >
                   Remove
@@ -55,16 +59,21 @@ class Expenses extends React.Component {
           ))}
         </table>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  removeExpense: (value) => dispatch(removeExpense(value)), 
-})
+  removeExpenses: (value) => dispatch(removeExpense(value)),
+});
+
+Expenses.propTypes = {
+  expenses: PropTypes.arrayOf.isRequired,
+  removeExpenses: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
