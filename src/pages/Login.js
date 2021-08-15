@@ -23,7 +23,7 @@ class Login extends Component {
 
   verifyLoginInput() {
     const { email, password } = this.state;
-    const regex = new RegExp(/^[a-z0-9]+@[a-z0-9]+.com/);
+    const regex = new RegExp('^[a-z0-9]+@[a-z0-9]+.com');
     const loginInput = regex.test(email);
     const minPasswordLength = 6;
     const isLoginValid = loginInput && password.length >= minPasswordLength;
