@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { addEmail } from '../actions/user';
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,7 +52,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state;
+    const { includeEmail } = this.props;
+    const { redirect, email } = this.state;
 
     if (redirect === 'wallet') {
       return <Redirect to="/carteira" />;
@@ -76,6 +80,7 @@ class Login extends React.Component {
         <button
           type="submit"
           disabled={ this.btnCondition() }
+          onClick={ () => includeEmail(email) }
         >
           Entrar
         </button>
@@ -84,4 +89,14 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  includeEmail: PropTypes.func.isRequired,
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    includeEmail: (email) => dispatch(addEmail(email)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);
