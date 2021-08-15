@@ -9,13 +9,29 @@ export default class Login extends Component {
     };
     this.handlerChangeLogin = this.handlerChangeLogin.bind(this);
     this.verifyLength = this.verifyLength.bind(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
+    this.disableCheck = this.disableCheck.bind(this);
   }
 
-  verifyLength() {
-    const { password, email } = this.state;
+  verifyLength(password) {
     const validLength = 6;
-    const validEmail = 'alguem@alguem.com';
-    if (password >= validLength && email === validEmail) return true;
+    if (password.length >= validLength) return password.length;
+  }
+
+  verifyEmail(email) {
+    const checkEmail = 'alguem@alguem.com';
+    if (checkEmail !== email) {
+      return false;
+    }
+    return true;
+  }
+
+  disableCheck() {
+    const { email, password } = this.state;
+    const accept = this.verifyEmail(email) && this.verifyLength(password);
+    if (accept !== true) {
+      return false;
+    } return true;
   }
 
   handlerChangeLogin({ target }) {
@@ -26,7 +42,6 @@ export default class Login extends Component {
 
   render() {
     return (
-      // const { email, password } = this.state;
       <div>
         <h2>Trybe Wallet</h2>
         <label htmlFor="email-input">
@@ -51,7 +66,7 @@ export default class Login extends Component {
         </label>
         <button
           type="button"
-          disabled={ !this.verifyLength() }
+          disabled={ !this.disableCheck() }
         >
           Entrar
         </button>
