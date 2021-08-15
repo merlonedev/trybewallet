@@ -8,6 +8,7 @@ class LoginInput extends Component {
       <label htmlFor={ name }>
         { labelText }
         <input
+          id={ name }
           name={ name }
           data-testid={ testId }
           type={ type }
