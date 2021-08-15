@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCoinAPI } from '../actions';
+import { fetchCoinAPI, fetchExpenses } from '../actions';
 import Pagamento from '../componentes/Pagamento';
 import Motivo from '../componentes/Motivo';
+import Header from '../componentes/Header';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      total: 0,
-    };
+    this.handleChange = this.handleChange.bind(this);
+    this.add = this.add.bind(this);
   }
 
   componentDidMount() {
@@ -18,34 +18,44 @@ class Wallet extends React.Component {
     fetchAPI();
   }
 
-  // add() {
-  //   this.setState({
-  //     total: { valor * cotacao }
-  //   });
-  // }
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  add() {
+    const { fetchtAPIExpenses } = this.props;
+    fetchtAPIExpenses(this.state);
+  }
 
   render() {
-    const { total } = this.state;
-    const { email, currencies } = this.props;
+    const { currencies } = this.props;
     return (
       <body>
-        <header>
-          <span data-testid="email-field">{ email }</span>
-          <span data-testid="total-field">{ total }</span>
-          <span data-testid="header-currency-field">BRL</span>
-        </header>
+        <Header />
         <form>
-          <label htmlFor="valor">
+          <label htmlFor="value">
             Valor
-            <input type="number" name="valor" id="valor" />
+            <input
+              type="number"
+              min={ 0 }
+              name="value"
+              id="value"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="descricao">
             Descrição
-            <input type="text" name="descricao" id="descricao" />
+            <input
+              type="text"
+              name="description"
+              id="descricao"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="moeda">
             Moeda
-            <select name="moeda" id="moeda">
+            <select name="currency" id="moeda" onChange={ this.handleChange }>
               { currencies.map((currency) => (
                 <option
                   value={ currency }
@@ -55,8 +65,8 @@ class Wallet extends React.Component {
                 </option>))}
             </select>
           </label>
-          <Pagamento />
-          <Motivo />
+          <Pagamento handleChange={ this.handleChange } />
+          <Motivo handleChange={ this.handleChange } />
           <button type="button" onClick={ this.add }>Adicionar despesa</button>
         </form>
       </body>
@@ -67,16 +77,18 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAPI: () => dispatch(fetchCoinAPI()),
+  fetchtAPIExpenses: (payload) => dispatch(fetchExpenses(payload)),
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
   fetchAPI: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  fetchtAPIExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

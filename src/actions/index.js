@@ -26,3 +26,21 @@ export const fetchCoinAPI = () => async (dispatch) => {
     return dispatch(getCoinFailed(error));
   }
 };
+
+export const EXPENSES = 'EXPENSES';
+export const getExpenses = (payload, exchangeRates) => ({
+  type: EXPENSES,
+  payload,
+  exchangeRates,
+});
+
+export const fetchExpenses = (payload) => async (dispatch) => {
+  dispatch(getCoin());
+  try {
+    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const requestJSON = await request.json();
+    dispatch(getExpenses(payload, requestJSON));
+  } catch (error) {
+    return dispatch(getCoinFailed(error));
+  }
+};

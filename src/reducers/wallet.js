@@ -1,6 +1,5 @@
-import { COIN_SUCESS } from '../actions';
+import { COIN, COIN_FAIL, COIN_SUCESS, EXPENSES } from '../actions';
 
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const STATE_INITIAL = {
   currencies: [],
   expenses: [],
@@ -8,7 +7,7 @@ const STATE_INITIAL = {
 
 const wallet = (state = STATE_INITIAL, action) => {
   switch (action.type) {
-  case 'COIN':
+  case COIN:
     return {
       ...state,
     };
@@ -17,10 +16,21 @@ const wallet = (state = STATE_INITIAL, action) => {
       ...state,
       currencies: action.currencies,
     };
-  case 'COIN_FAIL':
+  case COIN_FAIL:
     return {
       ...state,
       error: 'Erro',
+    };
+  case EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, {
+        id: state.expenses.length,
+        ...action.payload,
+        exchangeRates: {
+          ...action.exchangeRates,
+        },
+      }],
     };
 
   default:
