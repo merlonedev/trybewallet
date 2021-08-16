@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import data from './TableData';
+import { eliminateExpense } from '../actions';
 
 // Esse requisito eu consultei o PR do Waltton Coelho e pelo site de como criar tabelas.
 // https://github.com/tryber/sd-012-project-trybewallet/pull/64/files
@@ -27,7 +28,7 @@ class WalletTable extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExpense } = this.props;
     console.log(expenses);
     return (
       <table>
@@ -48,6 +49,13 @@ class WalletTable extends Component {
               <td>{ this.updateTable(item) }</td>
               <td>Real</td>
               <td />
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ deleteExpense }
+              >
+                Deletar
+              </button>
             </tr>
           ))}
         </tbody>
@@ -64,4 +72,10 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(WalletTable);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: ({ target: { value: index } }) => dispatch(
+    eliminateExpense(index),
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);
