@@ -8,20 +8,19 @@ class Header extends Component {
 
     const total = expenses.reduce((acc, { value, currency, exchangeRates }) => (
       acc + parseFloat(exchangeRates[currency].ask) * parseFloat(value)
-    ), 0);
+    ), 0).toFixed(2);
 
     return (
       <header>
         <span>
-          Bem vindo
+          Bem vindo:
           <h4 data-testid="email-field">{email}</h4>
         </span>
         <span>
           Total gasto:
           <span data-testid="total-field">
-            {total}
+            { total }
           </span>
-          <span data-testid="header-currency-field"> BRL</span>
         </span>
 
       </header>

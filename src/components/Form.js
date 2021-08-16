@@ -68,9 +68,9 @@ class Form extends Component {
       >
         Método de pagamento
         <select name="method" id="input-payment">
-          <option value="money">Dinheiro</option>
-          <option value="cc">Cartão de crédito</option>
-          <option value="dc">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -119,14 +119,15 @@ class Form extends Component {
         {this.selectCurrencies(Object.keys(currencies), currency)}
         {this.selectMethod(method)}
         {this.selectTag(tag)}
-        <label htmlFor="add">
-          <input
-            type="button"
-            name="Adicionar despesa"
-            onClick={ this.handleClick }
-            value="Adicionar despesa"
-          />
-        </label>
+        <button
+          id="add"
+          type="submit"
+          name="Adicionar despesa"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+        </button>
+
       </form>
     );
   }
