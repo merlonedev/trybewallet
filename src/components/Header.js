@@ -14,14 +14,22 @@ class Header extends Component {
       <header>
         <span>
           Bem vindo:
-          <h4 data-testid="email-field">{email}</h4>
-        </span>
-        <span>
-          Total gasto:
-          <span data-testid="total-field">
-            { total }
+          <span data-testid="email-field">
+            {' '}
+            { email }
+            {' '}
           </span>
         </span>
+        <br />
+        <sapn>
+          Total gasto:
+          <span data-testid="total-field">
+            {' '}
+            {total}
+            {' '}
+            <span data-testid="header-currency-field"> BRL</span>
+          </span>
+        </sapn>
 
       </header>
     );
