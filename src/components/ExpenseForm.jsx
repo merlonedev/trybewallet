@@ -17,8 +17,8 @@ class ExpenseForm extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select name="currency" id="currency">
-            {currencies.map((currency) => (
-              <option key={ currency } value={ currency }>{currency}</option>
+            {currencies.map((curren) => (
+              <option key={ curren.code } value={ curren.code }>{curren.code}</option>
             ))}
           </select>
         </label>
@@ -46,7 +46,7 @@ class ExpenseForm extends React.Component {
 }
 
 ExpenseForm.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ExpenseForm;

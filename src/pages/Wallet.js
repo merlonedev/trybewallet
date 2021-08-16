@@ -3,31 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpenseForm from '../components/ExpenseForm';
 import Header from '../components/Header';
-import { addCurrencies } from '../actions';
+import { fetchCurrency } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-
-    this.fetchCurrency = this.fetchCurrency.bind(this);
-  }
-
   componentDidMount() {
-    this.fetchCurrency();
-  }
-
-  fetchCurrency() {
-    const { addCurrency } = this.props;
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((response) => {
-        const currencies = Object.keys(response).filter((key) => key !== 'USDT');
-        addCurrency(currencies);
-      });
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   render() {
     const { currencies } = this.props;
+    // console.log(currencies);
     return (
       <div>
         <Header />
@@ -42,12 +28,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => (
-  { addCurrency: (currencies) => dispatch(addCurrencies(currencies)) }
+  { fetchCurrencies: (currencies) => dispatch(fetchCurrency(currencies)) }
 );
 
 Wallet.propTypes = {
-  addCurrency: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

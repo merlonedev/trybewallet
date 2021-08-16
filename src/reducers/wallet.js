@@ -13,7 +13,7 @@ const wallet = (state = INICIA_STATE, action) => {
   case 'GET_CURRENCY_SUCESS':
     return ({
       ...state,
-      currencies: [action.currencies],
+      currencies: action.currencies,
     });
   case 'GET_CURRENCY_ERROR':
     return ({

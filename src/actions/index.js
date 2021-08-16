@@ -18,6 +18,10 @@ export const fetchCurrency = () => (dispatch) => {
   dispatch(getCurrency());
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json())
-    .then((response) => dispatch(getCurrencySucess(response)))
+    .then((response) => {
+      delete response.USDT;
+      const currencies = Object.values(response);
+      dispatch(getCurrencySucess(currencies));
+    })
     .catch((error) => dispatch(getCurrencyError(error)));
 };
