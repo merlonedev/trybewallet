@@ -2,8 +2,27 @@ h1 , h2 {
   text-align: center;
 }
 
+input {
+  border-radius: 5px;
+  font-size: 15px;
+  height: 30px;
+}
+
+button {
+  background-color: #8a5eff;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  margin: 10px;
+}
+
+button:disabled {
+  background-color: #9b9797;
+  color: white;
+}
+
 .login-div {
-  background-color: rgb(129, 185, 187);
+  background-color: #00A9A5;
   border-radius: 10px;
   display: flex;
   flex-flow: column wrap;
@@ -15,15 +34,21 @@ h1 , h2 {
 
 .login-form {
   align-items: center;
-  border-radius: 5px;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
 }
 
-button {
-  margin: 10px;
+.login-button {
+  height: 40px;
+  /* transition-duration: 0.4s; */
+  width: 80px;
 }
+
+/* .login-button:hover {
+  background-color: #D8DCFF;
+  color: black;
+} */
 
 label {
   margin: 5px;

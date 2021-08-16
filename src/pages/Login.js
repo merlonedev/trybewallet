@@ -91,6 +91,7 @@ class Login extends React.Component {
           </label>
           <Link to="/carteira">
             <button
+              className="login-button"
               type="submit"
               onClick={
                 () => this.handleUserInfo(email, senha)
