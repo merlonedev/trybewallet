@@ -20,7 +20,7 @@ class Table extends Component {
     return (
       <button
         type="button"
-        data-testid="deletebtn"
+        data-testid="delete-btn"
         id={ id }
         onClick={ this.delExpense }
       >
