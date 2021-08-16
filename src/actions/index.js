@@ -1,4 +1,4 @@
-import { ADD_EMAIL, GET_COINS } from './actionsType';
+import { ADD_EMAIL, GET_COINS, GET_COINS_SUCCES } from './actionsType';
 
 export function addEmail(email) {
   return {
@@ -12,3 +12,18 @@ export function getCoins() {
     type: GET_COINS,
   };
 }
+
+export function getCoinsSucces(coins) {
+  return {
+    type: GET_COINS_SUCCES,
+    payload: coins,
+  };
+}
+
+export const fetchAPI = () => async (dispatch) => {
+  dispatch(getCoins());
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const results = await response.json();
+  const array = Object.values(results);
+  dispatch(getCoinsSucces(array));
+};

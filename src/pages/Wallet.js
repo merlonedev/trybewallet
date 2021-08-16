@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Comoponents/Header';
+import { fetchAPI } from '../actions';
+import AddExpenses from '../Comoponents/AddExpenses';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -12,52 +14,19 @@ class Wallet extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { getCoinsAPI } = this.props;
+    getCoinsAPI();
+  }
+
   render() {
-    const { getEmail } = this.props;
+    const { getEmail, currencies } = this.props;
     const { total } = this.state;
+    console.log(currencies);
     return (
       <div>
         <Header getEmail={ getEmail } total={ total } />
-        <section>
-          <label htmlFor="input-valor">
-            Valor:
-            <input
-              type="text"
-              id="input-valor"
-            />
-          </label>
-          <label htmlFor="input-descricao">
-            Descrição:
-            <input
-              type="text"
-              id="input-descricao"
-            />
-          </label>
-          <label htmlFor="select-moeda">
-            Moeda:
-            <select id="select-moeda">
-              <option>BRL</option>
-            </select>
-          </label>
-          <label htmlFor="select-moeda">
-            Método de pagamento:
-            <select id="select-moeda">
-              <option value="cash">Dinheiro</option>
-              <option value="credit">Cartão de Crédito</option>
-              <option value="debit">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="select-moeda">
-            Tag:
-            <select id="select-moeda">
-              <option value="food">Alimentação</option>
-              <option value="recreation">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transport">Transporte</option>
-              <option value="health">Saúde</option>
-            </select>
-          </label>
-        </section>
+        <AddExpenses currencies={ currencies } />
       </div>
     );
   }
@@ -65,12 +34,23 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   getEmail: PropTypes.string.isRequired,
+  getCoinsAPI: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
+  ).isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     getEmail: state.user.email,
+    currencies: state.wallet.currencies,
   };
 }
 
-export default connect(mapStateToProps)(Wallet);
+function mapDispatchToProps(dispatch) {
+  return {
+    getCoinsAPI: () => dispatch(fetchAPI()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
