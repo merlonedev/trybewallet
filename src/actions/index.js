@@ -25,3 +25,26 @@ export const fetchCurrency = () => (dispatch) => {
     })
     .catch((error) => dispatch(getCurrencyError(error)));
 };
+
+export const setExpenses = () => ({
+  type: 'SET_EXPENSES',
+});
+
+export const setExpensesSucess = (expense) => ({
+  type: 'SET_EXPENSES_SUCESS', expense,
+});
+
+export const setExpensesError = (error) => ({
+  type: 'SET_EXPENSES_ERROR', error,
+});
+
+export const fetchExpenses = (state) => (dispatch) => {
+  dispatch(setExpenses());
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((response) => {
+      const expense = { ...state, exchangeRates: response };
+      dispatch(setExpensesSucess(expense));
+    })
+    .catch((error) => dispatch(getCurrencyError(error)));
+};

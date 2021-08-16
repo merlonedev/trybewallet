@@ -3,7 +3,6 @@ const INICIA_STATE = {
   currencies: [],
   expenses: [],
   error: '',
-  total: 0,
 };
 
 const wallet = (state = INICIA_STATE, action) => {
@@ -19,6 +18,13 @@ const wallet = (state = INICIA_STATE, action) => {
     return ({
       ...state,
       error: action.error,
+    });
+  case 'SET_EXPENSES':
+    return state;
+  case 'SET_EXPENSES_SUCESS':
+    return ({
+      ...state,
+      expenses: [...state.expenses, action.expense],
     });
   default:
     return state;
