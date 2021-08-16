@@ -6,6 +6,7 @@ input {
   border-radius: 5px;
   font-size: 15px;
   height: 30px;
+  margin: 5px;
 }
 
 button {
@@ -22,7 +23,7 @@ button:disabled {
 }
 
 .login-div {
-  background-color: #00A9A5;
+  background-color: #00a9a5;
   border-radius: 10px;
   display: flex;
   flex-flow: column wrap;
@@ -41,19 +42,10 @@ button:disabled {
 
 .login-button {
   height: 40px;
-  /* transition-duration: 0.4s; */
   width: 80px;
 }
-
-/* .login-button:hover {
-  background-color: #D8DCFF;
-  color: black;
-} */
 
 label {
   margin: 5px;
 }
 
-input {
-  margin: 5px;
-}

@@ -8,11 +8,16 @@ h3 {
 
 header {
   align-items: center;
-  background-color: #29274C;
+  background-color: #00a9a5;;
   color: white;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+}
+
+.expense-button {
+  height: 40px;
+  width: 150px;
 }
 
 .wallet-form {

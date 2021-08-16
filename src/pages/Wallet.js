@@ -103,7 +103,11 @@ class Wallet extends React.Component {
           />
           <WalletTagInput handleChange={ this.handleChange } />
           <WalletPaymentMethod handleChange={ this.handleChange } />
-          <button type="button" onClick={ this.updateExpenses }>
+          <button
+            className="expense-button"
+            type="button"
+            onClick={ this.updateExpenses }
+          >
             Adicionar despesa
           </button>
         </form>
