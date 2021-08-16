@@ -53,6 +53,7 @@ class Wallet extends React.Component {
               <option value="food">Alimentação</option>
               <option value="recreation">Lazer</option>
               <option value="work">Trabalho</option>
+              <option value="transport">Transporte</option>
               <option value="health">Saúde</option>
             </select>
           </label>
