@@ -15,6 +15,26 @@ header {
   justify-content: space-around;
 }
 
+.expenses-table {
+  text-align: center;
+  font-family: sans-serif;
+  border-collapse: collapse;
+  border: 2px solid rgb(150, 150, 150);
+  width: 100%;
+}
+
+.expenses-table td, th {
+  border: 1px solid rgb(150, 150, 150);
+  padding: 8px;
+}
+
+.select {
+  border-radius: 5px;
+  font-size: 15px;
+  height: 33px;
+  margin: 5px;
+}
+
 .expense-button {
   height: 40px;
   width: 150px;

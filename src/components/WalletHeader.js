@@ -22,8 +22,8 @@ class WalletHeader extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
+const mapStateToProps = ({ user }) => ({
+  userEmail: user.email,
 });
 
 export default connect(mapStateToProps, null)(WalletHeader);

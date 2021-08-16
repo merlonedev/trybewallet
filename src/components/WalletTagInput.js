@@ -8,6 +8,7 @@ class WalletTagInput extends React.Component {
       <label htmlFor="tag">
         Tag&nbsp;
         <select
+          className="select"
           type="text"
           id="tag"
           name="tag"

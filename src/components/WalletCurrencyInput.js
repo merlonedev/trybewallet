@@ -11,6 +11,7 @@ class WalletCurrencyInput extends React.Component {
       <label htmlFor="moeda">
         Moeda&nbsp;
         <select
+          className="select"
           type="text"
           id="moeda"
           name="currency"

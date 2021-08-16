@@ -8,6 +8,7 @@ class WalletPaymentMethod extends React.Component {
       <label htmlFor="met-pagamento">
         Método de pagamento&nbsp;
         <select
+          className="select"
           type="text"
           id="met-pagamento"
           name="method"

@@ -9,6 +9,7 @@ import WalletDescriptionInput from '../components/WalletDescriptionInput';
 import WalletCurrencyInput from '../components/WalletCurrencyInput';
 import WalletTagInput from '../components/WalletTagInput';
 import WalletPaymentMethod from '../components/WalletPaymentMethod';
+import WalletTable from '../components/WalletTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -111,6 +112,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <WalletTable />
       </div>
     );
   }
