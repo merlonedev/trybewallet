@@ -10,10 +10,10 @@ class AddExpenseForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'Alimentação',
-      currencyType: 'USD',
+      currency: 'USD',
+      tag: 'Alimentação',
       description: '',
-      paymentMethod: 'Cartão de Crédito',
+      method: 'Cartão de crédito',
       value: 0,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,7 +41,7 @@ class AddExpenseForm extends Component {
 
   render() {
     const { currencies } = this.props;
-    const { value, description, currencyType, paymentMethod, category } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form onSubmit={ this.handleSubmit }>
         <LoginInput
@@ -52,23 +52,23 @@ class AddExpenseForm extends Component {
           onChange={ this.handleChange }
         />
         <Select
-          selectValue={ currencyType }
+          selectValue={ currency }
           options={ currencies }
-          name="currencyType"
+          name="currency"
           labelText="Moeda"
           onChange={ this.handleChange }
         />
         <Select
-          selectValue={ paymentMethod }
+          selectValue={ method }
           options={ paymentMethods }
-          name="paymentMethod"
+          name="method"
           labelText="Método de pagamento"
           onChange={ this.handleChange }
         />
         <Select
-          selectValue={ category }
+          selectValue={ tag }
           options={ expenseCategory }
-          name="category"
+          name="tag"
           labelText="Tag"
           onChange={ this.handleChange }
         />

@@ -5,9 +5,9 @@ export const fetchAPI = async (URL) => {
 };
 
 export const paymentMethods = [
-  { value: 'Cartão de Crédito' },
+  { value: 'Cartão de crédito' },
   { value: 'Dinheiro' },
-  { value: 'Cartão de Débito' },
+  { value: 'Cartão de débito' },
 ];
 
 export const expenseCategory = [

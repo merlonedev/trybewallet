@@ -10,11 +10,16 @@ class Header extends Component {
 
   handleTotal() {
     const { expenses } = this.props;
-    const total = expenses.reduce((acc, currentValue) => {
-      acc += parseInt(currentValue.value, 10);
-      return acc;
-    }, 0);
-    return total;
+    if (expenses.length > 0) {
+      const total = expenses.reduce((acc, currentValue) => {
+        const value = parseFloat(currentValue.value);
+        const { currency, exchangeRates } = currentValue;
+        const valorBRL = exchangeRates[currency].ask * value;
+        return acc + valorBRL;
+      }, 0);
+      return total;
+    }
+    return 0;
   }
 
   render() {
