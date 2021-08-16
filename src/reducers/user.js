@@ -1,4 +1,4 @@
-import { ADD_EMAIL } from '../actions/index';
+import { ADD_EMAIL } from '../actions/actionsType';
 
 const INITIAL_STATE = {
   email: '',

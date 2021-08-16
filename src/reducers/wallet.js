@@ -1,3 +1,5 @@
+import { GET_COINS } from '../actions/actionsType';
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -5,6 +7,8 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case GET_COINS:
+    return { ...state };
   default:
     return state;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../Comoponents/Header';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -16,24 +17,46 @@ class Wallet extends React.Component {
     const { total } = this.state;
     return (
       <div>
-        <div>
-          <p
-            data-testid="email-field"
-          >
-            {`Email: ${getEmail}`}
-          </p>
-        </div>
-        <div>
-          <p>
-            Despesa Total:
-          </p>
-          <p data-testid="total-field">
-            {`R$ ${total}`}
-          </p>
-          <p data-testid="header-currency-field">
-            BRL
-          </p>
-        </div>
+        <Header getEmail={ getEmail } total={ total } />
+        <section>
+          <label htmlFor="input-valor">
+            Valor:
+            <input
+              type="text"
+              id="input-valor"
+            />
+          </label>
+          <label htmlFor="input-descricao">
+            Descrição:
+            <input
+              type="text"
+              id="input-descricao"
+            />
+          </label>
+          <label htmlFor="select-moeda">
+            Moeda:
+            <select id="select-moeda">
+              <option>BRL</option>
+            </select>
+          </label>
+          <label htmlFor="select-moeda">
+            Método de pagamento:
+            <select id="select-moeda">
+              <option value="cash">Dinheiro</option>
+              <option value="credit">Cartão de Crédito</option>
+              <option value="debit">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="select-moeda">
+            Tag:
+            <select id="select-moeda">
+              <option value="food">Alimentação</option>
+              <option value="recreation">Lazer</option>
+              <option value="work">Trabalho</option>
+              <option value="health">Saúde</option>
+            </select>
+          </label>
+        </section>
       </div>
     );
   }
