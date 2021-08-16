@@ -7,26 +7,30 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      expenses: 0,
-      currencie: 'BRL',
+      total: 0,
     };
+    this.handleTotal = this.handleTotal.bind(this);
   }
 
-  componentDidMount() {
-    // fetchAPI('https://economia.awesomeapi.com.br/json/all');
+  handleTotal() {
+    const { expenses } = this.props;
+    const total = expenses.reduce((acc, currentValue) => {
+      acc += parseInt(currentValue.value);
+      return acc;
+    }, 0);
+    return total;
   }
 
   render() {
     const { userEmail } = this.props;
-    const { expenses, currencie } = this.state;
     return (
       <header>
         <h1>
           Header
         </h1>
         <p data-testid="email-field">{ userEmail }</p>
-        <p data-testid="total-field">{ expenses }</p>
-        <p data-testid="header-currency-field">{ currencie }</p>
+        <p data-testid="total-field"> {this.handleTotal()} </p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
@@ -34,6 +38,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

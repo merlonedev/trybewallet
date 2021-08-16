@@ -1,67 +1,77 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LoginInput from './LoginInput';
 import Select from './Select';
-import fetchAPI from '../services';
-
-const paymentMethods = [
-  { name: 'Cartão de Crédito', value: 'credit' },
-  { name: 'Dinheiro', value: 'money' },
-  { name: 'Cartão de Débito', value: 'debit' },
-];
-
-const expenseCategory = [
-  { name: 'Alimentação', value: 'food' },
-  { name: 'Lazer', value: 'lazer' },
-  { name: 'Trabalho', value: 'job' },
-  { name: 'Transporte', value: 'transport' },
-  { name: 'Saúde', value: 'health' },
-];
+import { actionAddExpense, fetchCurrencies } from '../actions';
+import { expenseCategory, paymentMethods } from '../services';
 
 class AddExpenseForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      value: 0,
+      category: 'Alimentação',
+      currencyType: 'USD',
       description: '',
-      currencyType: '',
-      paymentMethod: '',
-      category: '',
-      currencyTypes: [],
+      paymentMethod: 'Cartão de Crédito',
+      value: 0,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.getCurrencyTypes = this.getCurrencyTypes.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.getCurrencyTypes();
-  }
-
-  async getCurrencyTypes() {
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-    const results = await fetchAPI(URL);
-    const coins = Object.keys(results).map((coin) => ({ name: coin, value: coin })).filter((coin) => coin.name !== 'USDT' && coin.name !== 'DOGE');
-    this.setState({ currencyTypes: coins }, () => console.log(this.state));
+    const { fetchAPICurrencies } = this.props;
+    fetchAPICurrencies();
   }
 
   handleChange({ target }) {
     const { name, value } = target;
+    // console.log(target);
     this.setState({ [name]: value });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { expenses, addExpense } = this.props;
+
+    addExpense(this.state, expenses.length);
+  }
+
   render() {
-    const { value, description, currencyTypes } = this.state;
+    const { currencies } = this.props;
+    const { value, description, currencyType, paymentMethod, category } = this.state;
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <LoginInput
           name="value"
           labelText="Valor"
-          type="text"
+          type="number"
           value={ value }
           onChange={ this.handleChange }
         />
-        <Select options={ currencyTypes } name="currencyType" labelText="Moeda" onChange={this.handleChange} />
-        <Select options={ paymentMethods } name="paymentMethod" labelText="Método de pagamento" onChange={this.handleChange} />
-        <Select options={ expenseCategory } name="category" labelText="Tag" onChange={this.handleChange}/>
+        <Select
+          selectValue={ currencyType }
+          options={ currencies }
+          name="currencyType"
+          labelText="Moeda"
+          onChange={ this.handleChange }
+        />
+        <Select
+          selectValue={ paymentMethod }
+          options={ paymentMethods }
+          name="paymentMethod"
+          labelText="Método de pagamento"
+          onChange={ this.handleChange }
+        />
+        <Select
+          selectValue={ category }
+          options={ expenseCategory }
+          name="category"
+          labelText="Tag"
+          onChange={ this.handleChange }
+        />
         <LoginInput
           name="description"
           labelText="Descrição"
@@ -69,9 +79,29 @@ class AddExpenseForm extends Component {
           value={ description }
           onChange={ this.handleChange }
         />
+        <button type="submit">
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default AddExpenseForm;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchAPICurrencies: () => dispatch(fetchCurrencies()),
+  addExpense: (state, id) => dispatch(actionAddExpense(state, id)),
+});
+
+AddExpenseForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.object),
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  fetchAPICurrencies: PropTypes.func,
+  addExpense: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);
