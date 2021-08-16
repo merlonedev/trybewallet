@@ -64,8 +64,8 @@ class ExpenseForm extends React.Component {
           Método de pagamento:
           <select name="method" id="payment" onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
-            <option value="Credito">Cartão de crédito</option>
-            <option value="Debito">Cartão de débito</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
