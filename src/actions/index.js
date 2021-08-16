@@ -4,6 +4,7 @@ export const FETCH_API_SUCCESS = 'FETCH_API_SUCCESS';
 export const FETCH_API_ERROR = 'FETCH_API_ERROR';
 export const USER_SUBMIT = 'USER_SUBMIT';
 export const SAVE_EXPENSIVE = 'SAVE_EXPENSIVE';
+export const DELETE_ITEM = 'DELETE_ITEM';
 
 export const userSubmit = (state) => ({ type: USER_SUBMIT, state });
 
@@ -14,6 +15,8 @@ export const fetchApi = () => ({ type: FETCH_API });
 export const fetchApiSuccess = (payload) => ({ type: FETCH_API_SUCCESS, payload });
 
 export const fetchApiError = (error) => ({ type: FETCH_API_ERROR, error });
+
+export const deleteItem = (state) => ({ type: DELETE_ITEM, state})
 
 export const walletSubmit = () => async (dispatch) => {
   dispatch(fetchApi());

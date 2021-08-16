@@ -56,6 +56,7 @@ class Login extends React.Component {
 
     return (
       <form
+        className="formLogin"
         onSubmit={ (e) => this.handleSubmit(e) }
       >
         <img src={ paturso } alt="paturso logo" />

@@ -1,49 +1,73 @@
 import React, { Component } from 'react';
+import trash from '../images/trash.png';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { deleteItem } from '../actions';
 
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.state = { };
+    this.handleRow = this.handleRow.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete() {
+    console.log()
   }
 
   handleRow() {
-    const rowState = [
-      {
-        id: '',
-        value: '',
-        currency: '',
-        method: '',
-        tag: '',
-        description: '',
-      },
-    ];
+    const {expenses} = this.props;
     return (
-      <table>
-        <tr>
-          <td>{rowState.id}</td>
-          <td>{rowState.value}</td>
-          <td>{rowState.currency}</td>
-          <td>{rowState.method}</td>
-          <td>{rowState.tag}</td>
-          <td>{rowState.description}</td>
+      expenses.map((row, index) => { 
+        const convertValue = (Number(row.value) * Number(row.exchangeRates[row.currency].ask)).toFixed(2);
+        const curName = row.exchangeRates[row.currency].name;
+        const sliced = curName.slice(0, curName.indexOf('/'))
+        return (
+        <tr key={index}>
+          <td>{row.description}</td>
+          <td>{row.tag}</td>
+          <td>{row.method}</td>
+          <td>{`${row.value}`}</td>
+          <td>{sliced}</td>
+          <td>{convertValue}</td>
+          <td>{Number(row.exchangeRates[row.currency].ask).toFixed(2)}</td>
+          <td>Real</td>
+          <td><button type="button" onClick={console.log('i') }><img src={trash} alt="trash icon"/></button>
+          </td>
         </tr>
-      </table>
+        )
+    })
     );
   }
 
   render() {
     return (
-      <table>
+      <table className="tableRow">
         <tr>
-          <th>Id </th>
+          <th>Descrição</th>
+          <th>Tag</th>
+          <th>Método de pagamento</th>
           <th>Valor</th>
           <th>Moeda</th>
-          <th>Método</th>
-          <th>Tag</th>
-          <th>Descrição</th>
+          <th>Câmbio utilizado</th>
+          <th>Valor convertido</th>
+          <th>Moeda de conversão</th>
+          <th>Editar/Excluir</th>
         </tr>
+        {this.handleRow()}
       </table>
     );
   }
 }
-export default Table;
+
+Table.propTypes = {
+delete: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {  
+    delete: () => dispatch(deleteItem()),
+  }
+}
+
+export default connect(null,mapDispatchToProps)(Table);

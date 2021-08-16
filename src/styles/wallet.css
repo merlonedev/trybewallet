@@ -1,0 +1,46 @@
+.formWallet {
+  border: 1px solid #222;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 15px;
+  align-items: center;
+}
+
+form input {
+  margin-bottom: 10px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tableRow {
+border-collapse: collapse;
+width: 100%;
+}
+
+.tableRow td, .tableRow th {
+  border: 1px solid #222;
+  padding: 8px;
+}
+
+.tableRow tr:nth-child(even) {
+  background-color: #7bf56b;
+  color:black;
+}
+
+.tableRow tr:hover { background-color: #777;}
+
+.tableRow th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #999;
+}

@@ -1,14 +1,7 @@
-form {
-  border: 1px solid white;
-  box-sizing: border-box;
+.formLogin {
   display: flex;
   flex-direction: column;
-  height: 440px;
+  max-width: 350px;
+  width: 90%;
   margin: auto;
-  padding: 40px;
-  width: 300px;
-}
-
-form input {
-  margin-bottom: 10px;
 }

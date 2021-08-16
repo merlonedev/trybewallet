@@ -3,6 +3,7 @@ import {
   FETCH_API_SUCCESS,
   FETCH_API_ERROR,
   SAVE_EXPENSIVE,
+  DELETE_ITEM,
 } from '../actions';
 
 const initialState = {
@@ -32,6 +33,8 @@ const WalletReducer = (state = initialState, action) => {
       expenses: ([...state.expenses, action.payload.state]),
       isLoading: false,
     };
+  case DELETE_ITEM:
+    return {...state, action}
   default:
     return state;
   }

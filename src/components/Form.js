@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpensive } from '../actions';
 
-class OutGoing extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,9 +18,9 @@ class OutGoing extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCurrencies = this.handleCurrencies.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    // this.handleExpenses= this.handleExpenses.bind(this);
     this.inputDescricao = this.inputDescricao.bind(this);
     this.inputValue = this.inputValue.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   handleChange({ target }) {
@@ -78,12 +78,24 @@ class OutGoing extends Component {
     await this.setState({ exchangeRates: currenciesProps });
     await addExp(this.state);
     this.setState(({ id }) => ({ id: id + 1 }));
+    await this.handleClear();
+  }
+
+  handleClear() {
+      this.setState({
+      value: '',
+      currency: 'USD',
+      description: '',
+      method: 'Dinheiro',
+      tag: 'alimentacao',
+      exchangeRates: {},
+    });
   }
 
   render() { // FUNCAP RENDER
     const { tag, method, currency } = this.state;
     return (
-      <form onSubmit={ (e) => this.handleOnSubmit(e) }>
+      <form onSubmit={ (e) => this.handleOnSubmit(e) } className="formWallet">
         {this.inputValue(this.handleChange)}
         {this.inputDescricao(this.handleChange)}
         <label htmlFor="currency">
@@ -125,13 +137,13 @@ class OutGoing extends Component {
             <option value="Saude">Saúde</option>
           </select>
         </label>
-        <button type="submit">adicionar despesa</button>
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }
 }
 
-OutGoing.propTypes = {
+Form.propTypes = {
   currenciesProps: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExp: PropTypes.func.isRequired,
 };
@@ -144,4 +156,4 @@ const mapDispatchToProps = (dispatch) => ({
   addExp: (state) => dispatch(addExpensive(state)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutGoing);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

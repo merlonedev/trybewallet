@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Form from '../components/Form';
 import Table from '../components/Table';
 import { walletSubmit } from '../actions';
+import '../styles/wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -12,12 +13,23 @@ class Wallet extends React.Component {
     fetchApi();
   }
 
+  handleTotal() {
+    const { valorTotal } = this.props;
+    return valorTotal
+      .reduce(
+        (acc, ele) => acc
+      + (Number(ele.value) * Number(ele.exchangeRates[ele.currency].ask)),
+        0,
+      );
+  }
+
   render() {
+    const {valorTotal} = this.props;
     return (
       <div className="WalletBody">
-        <Header />
+        <Header valorTotal={ (this.handleTotal()).toFixed(2) } />
         <Form />
-        <Table />
+        <Table  expenses={valorTotal}/>
       </div>
     );
   }
@@ -25,10 +37,15 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   fetchApi: PropTypes.func.isRequired,
+  valorTotal: PropTypes.array.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  valorTotal: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(walletSubmit()),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
