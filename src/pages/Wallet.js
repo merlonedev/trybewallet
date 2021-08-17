@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ExpenseForm from '../components/ExpenseForm';
 import Header from '../components/Header';
 import { fetchCurrency } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <ExpenseForm currencies={ currencies } />
+        <Table />
       </div>
     );
   }
@@ -33,7 +35,7 @@ const mapDispatchToProps = (dispatch) => (
 
 Wallet.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

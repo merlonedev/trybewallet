@@ -55,8 +55,8 @@ class ExpenseForm extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select name="currency" id="currency" onChange={ this.handleChange }>
-            {currencies.map((curren) => (
-              <option key={ curren.code } value={ curren.code }>{curren.code}</option>
+            {currencies.map((curren, index) => (
+              <option key={ index } value={ curren.code }>{curren.code}</option>
             ))}
           </select>
         </label>
@@ -85,7 +85,7 @@ class ExpenseForm extends React.Component {
 }
 
 ExpenseForm.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   setExpense: PropTypes.func.isRequired,
 };
 
