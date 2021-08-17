@@ -14,7 +14,6 @@ class Header extends Component {
   render() {
     const { email } = this.props;
     const { coins, total } = this.state;
-    console.log(coins);
     return (
       <header>
         {/* <img /> */}

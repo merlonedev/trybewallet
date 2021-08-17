@@ -22,6 +22,5 @@ export const fetchApiCurriencies = () => async (dispatch) => {
   const currencies = await response.json();
 
   const coins = Object.keys(currencies).filter((coin) => coin !== 'USDT');
-  console.log(coins);
   dispatch(userCurrencies(coins));
 };
