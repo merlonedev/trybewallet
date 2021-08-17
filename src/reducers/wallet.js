@@ -1,4 +1,11 @@
-import { ADD_CURRENCIE, ADD_CURRENCIE_SUCCES, ADD_CURRENCIE_ERROR } from '../actions';
+import {
+  ADD_CURRENCIE,
+  ADD_CURRENCIE_SUCCES,
+  ADD_CURRENCIE_ERROR,
+  USER_EXPENSE,
+  USER_EXPENSE_SUCCES,
+  USER_EXPENSE_ERROR,
+} from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
@@ -22,6 +29,19 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, currencies: filterCurrencies(action.payload) };
   }
   case ADD_CURRENCIE_ERROR:
+    return { ...state, error: action.error };
+
+  case USER_EXPENSE:
+    return { ...state, isFetching: true };
+
+  case USER_EXPENSE_SUCCES: {
+    return {
+      ...state,
+      expenses: [...state.expenses,
+        { id: state.expenses.length, ...action.payload }],
+    };
+  }
+  case USER_EXPENSE_ERROR:
     return { ...state, error: action.error };
 
   default:

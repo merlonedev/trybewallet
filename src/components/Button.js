@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { handleClick, text } = this.props;
+    const { handleSubmit, text } = this.props;
     return (
       <button
         type="button"
-        handleClick={ handleClick }
+        onClick={ handleSubmit }
       >
         { text }
       </button>
@@ -15,7 +15,7 @@ class Button extends React.Component {
   }
 }
 Button.propTypes = {
-  handleClick: PropTypes.func,
+  handleSubmit: PropTypes.func,
 }.isRequired;
 
 export default Button;
