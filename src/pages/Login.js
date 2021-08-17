@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import ADD_USER from '../actions';
+import { ADD_USER } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class Login extends React.Component {
     const { email, password } = this.state;
     addUser({ email, password });
     this.setState({ carteira: true });
-    console.log('clicou');
   }
 
   handleChange(e) {
