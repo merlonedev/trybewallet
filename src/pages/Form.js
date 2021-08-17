@@ -67,11 +67,11 @@ class Form extends React.Component {
       <form>
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="valor" id="valor" />
+          <input type="text" name="value" id="valor" onChange={ this.handleInputs }/>
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" name="descricao" id="descricao" />
+          <input type="text" name="description" id="descricao" onChange={ this.handleInputs }/>
         </label>
         <label htmlFor="currency">
           Moeda:
@@ -89,7 +89,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="category">
           Tag:
-          <select name="category" id="category">
+          <select name="category" id="category" onChange={ this.handleInputs }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -99,7 +99,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="pagamento">
           Método de pagamento:
-          <select name="pagamento" id="pagamento">
+          <select name="paymentMethod" id="pagamento" onChange={ this.handleInputs }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
