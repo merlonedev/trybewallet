@@ -26,6 +26,11 @@ const wallet = (state = INICIA_STATE, action) => {
       ...state,
       expenses: [...state.expenses, action.expense],
     });
+  case 'REMOVE_EXPENSE':
+    state.expenses.split(expenses.indexOF(action.id), 1);
+    return ({
+      ...state,
+    });
   default:
     return state;
   }
