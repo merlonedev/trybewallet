@@ -1,17 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchApiCurriencies } from '../actions/index.login';
 
 class FormsWallet extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      balance: '',
+      description: '',
+      currency: 0,
+      payment: 'dinheiro',
+      tag: 'alimentação',
+    };
+  }
+
+  componentDidMount() {
+    const { setDispatch } = this.props;
+    setDispatch();
+  }
+
+  handlerChange({ target: { value, name } }) {
+    this.setState = ({
+      [name]: value,
+    });
+  }
+
   render() {
+    const { balance, currency } = this.state;
     return (
       <form>
         <label htmlFor="balance">
           Valor
           <input type="text" name="balance" />
+          {balance}
         </label>
-        <label htmlFor="coins">
+        <label htmlFor="currency">
           Moeda
-          {/* <select name="coins" /> */}
+          <select name="currency">
+            { currency.map((el, index) => (<option
+              key={ index }
+              value={ el }
+            >
+              {el}
+            </option>))}
+          </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento
@@ -24,11 +56,11 @@ class FormsWallet extends Component {
         <label htmlFor="tag">
           Tag
           <select name="tag">
-            <option value="alimenta">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">transporte</option>
-            <option value="saude">Saúde</option>
+            <option type="checkbox" value="alimentação">Alimentação</option>
+            <option type="checkbox" value="lazer">Lazer</option>
+            <option type="checkbox" value="trabalho">Trabalho</option>
+            <option type="checkbox" value="transporte">transporte</option>
+            <option type="checkbox" value="saude">Saúde</option>
           </select>
         </label>
         <label htmlFor="description">
@@ -40,4 +72,12 @@ class FormsWallet extends Component {
   }
 }
 
-export default connect()(FormsWallet);
+const mapStateToProps = (state) => ({
+  currency: state.userWallet.currency,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setDispatch: () => dispatch(fetchApiCurriencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormsWallet);

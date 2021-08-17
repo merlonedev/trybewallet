@@ -8,12 +8,12 @@ export const userEmail = (payload) => ({
 });
 
 export const userExpencies = (expenses) => ({
-  type: USER_CURRENCIES,
+  type: USER_EXPENSES,
   payload: expenses,
 });
 
 export const userCurrencies = (currencies) => ({
-  USER_EXPENSES,
+  type: USER_CURRENCIES,
   payload: currencies,
 });
 
@@ -21,6 +21,7 @@ export const fetchApiCurriencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const currencies = await response.json();
 
-  const coins = currencies.filter((coin) => coin !== 'USDT');
+  const coins = Object.keys(currencies).filter((coin) => coin !== 'USDT');
+  console.log(coins);
   dispatch(userCurrencies(coins));
 };
