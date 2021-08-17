@@ -8,7 +8,7 @@ const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN:
     return {
-      enail: action.email,
+      email: action.email,
     };
   default:
     return state;

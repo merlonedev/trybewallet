@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { LoginUser } from '../actions/index';
@@ -20,7 +21,8 @@ class Login extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
-      [name]: value },
+      [name]: value,
+    },
     () => this.validUser());
   }
 
@@ -48,39 +50,44 @@ class Login extends React.Component {
   render() {
     const { email, password, disabled } = this.state;
     return (
-      <form>
-        <h1>Login</h1>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            id="email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-            onKeyUp={ this.handleLogin }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            type="password"
-            id="password"
-            data-testid="password-input"
-            value={ password }
-            onChange={ this.handleChange }
-            onKeyUp={ this.handleLogin }
-          />
-        </label>
-        <button
-          id="button"
-          type="button"
-          onClick={ this.handleLogin }
-          disabled={ !disabled }
-        >
-          Entrar
-        </button>
-      </form>
+      <div>
+        <h1>Wallet</h1>
+        <form>
+          <h1>Login</h1>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              id="email"
+              data-testid="email-input"
+              value={ email }
+              onChange={ this.handleChange }
+              onKeyUp={ this.handleLogin }
+            />
+          </label>
+          <label htmlFor="password">
+            Senha:
+            <input
+              type="password"
+              id="password"
+              data-testid="password-input"
+              value={ password }
+              onChange={ this.handleChange }
+              onKeyUp={ this.handleLogin }
+            />
+          </label>
+          <Link to="/carteira">
+            <button
+              id="button"
+              type="button"
+              onClick={ this.handleLogin }
+              disabled={ !disabled }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
+      </div>
     );
   }
 }
