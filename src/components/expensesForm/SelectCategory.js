@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SelectCategory extends Component {
   render() {
+    const { tag, handleChange } = this.props;
     return (
       <div>
         <label htmlFor="input-select-category">
@@ -9,6 +11,9 @@ class SelectCategory extends Component {
           <select
             id="input-select-category"
             placeholder="método de pagamento"
+            onChange={ handleChange }
+            name="tag"
+            value={ tag }
           >
             <option>Alimentação</option>
             <option>Lazer</option>
@@ -21,5 +26,10 @@ class SelectCategory extends Component {
     );
   }
 }
+
+SelectCategory.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  tag: PropTypes.string.isRequired,
+};
 
 export default SelectCategory;

@@ -10,7 +10,7 @@ class SelectCurrency extends Component {
   }
 
   render() {
-    const { wallet: { currencies } } = this.props;
+    const { wallet: { currencies }, currency, handleChange } = this.props;
     return (
       <div>
         <label htmlFor="input-currency">
@@ -18,6 +18,9 @@ class SelectCurrency extends Component {
           <select
             id="input-currency"
             placeholder="adicionar moeda"
+            onChange={ handleChange }
+            name="currency"
+            value={ currency }
           >
             { Object.values(currencies).map((currencie, index) => (
               <option value={ currencie } key={ index }>
@@ -47,6 +50,8 @@ SelectCurrency.propTypes = {
     ])),
   }).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectCurrency);
