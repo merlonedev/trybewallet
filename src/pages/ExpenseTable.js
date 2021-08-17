@@ -20,24 +20,32 @@ class ExpenseTable extends Component {
           * Consultei o repositório de Julio Filizzola para resolver essa parte.
           * Link: https://github.com/tryber/sd-011-project-trybewallet/pull/18/files
           */}
-          {expenses.map((expense, index) => (
-            <tr key={ index }>
-              <td>{ expense.description }</td>
-              <td>{ expense.tag }</td>
-              <td>{ expense.method }</td>
-              <td>{ expense.value }</td>
-              <td>{ expense.exchangeRates[expense.currency].name }</td>
-              <td>
-                { (Number(expense.exchangeRates[expense.currency]
-                  .ask).toFixed(2)) }
-              </td>
-              <td>
-                { (Number(expense.exchangeRates[expense.currency]
-                  .ask * expense.value).toFixed(2)) }
-              </td>
-              <td>Real</td>
-            </tr>
-          ))}
+          {expenses
+            .map(({
+              description,
+              tag,
+              method,
+              value,
+              exchangeRates,
+              currency,
+            }, index) => (
+              <tr key={ index }>
+                <td>{ description }</td>
+                <td>{ tag }</td>
+                <td>{ method }</td>
+                <td>{ value }</td>
+                <td>{ exchangeRates[currency].name }</td>
+                <td>
+                  { (Number(exchangeRates[currency]
+                    .ask).toFixed(2)) }
+                </td>
+                <td>
+                  { (Number(exchangeRates[currency]
+                    .ask * value).toFixed(2)) }
+                </td>
+                <td>Real</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     );
