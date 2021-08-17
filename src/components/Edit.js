@@ -3,35 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import { fetchCurrencies } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
-class Forms extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      apiOptions: [],
-    };
-  }
-
-  componentDidMount() {
-    this.requestAPI();
-  }
-
-  async requestAPI() {
-    const { makeRequest } = this.props;
-    await makeRequest();
-    const { currencies } = this.props;
-    this.setState({ apiOptions: currencies });
-  }
-
+class Edit extends React.Component {
   render() {
-    const { handleChange, state } = this.props;
-    const { price, description, coin, tag, payment } = state;
-    const { apiOptions } = this.state;
+    const { handleChange, state, currencies } = this.props;
+    const { price, coin, payment, tag, description } = state;
     return (
       <>
         <Input
@@ -48,7 +27,7 @@ class Forms extends React.Component {
           dataTest="currency-input"
           value={ coin }
           handleChange={ handleChange }
-          options={ apiOptions }
+          options={ currencies }
         />
         <Select
           id="payment"
@@ -79,7 +58,7 @@ class Forms extends React.Component {
   }
 }
 
-Forms.propTypes = {
+Edit.propTypes = {
   handleChange: PropTypes.func.isRequired,
   state: PropTypes.shape({
     price: PropTypes.oneOfType([
@@ -91,16 +70,13 @@ Forms.propTypes = {
     tag: PropTypes.string.isRequired,
     payment: PropTypes.string.isRequired,
   }).isRequired,
-  makeRequest: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
   currencies: state.wallet.currencies,
+  itemID: state.wallet.itemID,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  makeRequest: () => dispatch(fetchCurrencies()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Forms);
+export default connect(mapStateToProps)(Edit);

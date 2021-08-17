@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
@@ -29,4 +30,18 @@ Header.propTypes = {
   allExpenses: PropTypes.number.isRequired,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  allExpenses: state.wallet.expenses
+    .reduce((
+      acc,
+      { value, currency, exchangeRates },
+    ) => {
+      if (Object.keys(exchangeRates).length) {
+        return acc + (parseFloat(+exchangeRates[currency].ask) * value);
+      }
+      return acc;
+    }, 0),
+});
+
+export default connect(mapStateToProps)(Header);

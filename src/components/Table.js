@@ -1,20 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeExpense, startEdit } from '../actions';
+import { removeExpense, editExpense } from '../actions';
 
 class Table extends React.Component {
   constructor() {
     super();
 
-    this.removeItem = this.removeItem.bind(this);
     this.tableHead = this.tableHead.bind(this);
-    this.sendStateEditID = this.sendStateEditID.bind(this);
-  }
-
-  removeItem(id) {
-    const { removeState } = this.props;
-    removeState(id);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   tableHead() {
@@ -35,13 +29,14 @@ class Table extends React.Component {
     );
   }
 
-  sendStateEditID(index) {
-    const { startEditing } = this.props;
-    startEditing(index);
+  removeItem(id) {
+    const { deleteExpense } = this.props;
+    deleteExpense(id);
   }
 
-  roundNum(num) {
-    return Math.round(num * 100) / 100;
+  editItem(id) {
+    const { edit } = this.props;
+    edit(id);
   }
 
   render() {
@@ -51,21 +46,19 @@ class Table extends React.Component {
         { this.tableHead() }
         <tbody>
           { expenses
-            .map((item, index) => (
-              <tr key={ index }>
-                <td>{ item.description }</td>
-                <td>{ item.tag }</td>
-                <td>{ item.method }</td>
-                <td>{ item.value }</td>
-                <td>{ item.exchangeRates[item.currency].name.split('/')[0] }</td>
-                <td>{ this.roundNum(item.exchangeRates[item.currency].ask) }</td>
-                <td>
-                  { this.roundNum(item.value * item.exchangeRates[item.currency].ask) }
-                </td>
+            .map(({ id, description, tag, method, value, currency, exchangeRates }) => (
+              <tr key={ id }>
+                <td>{ description }</td>
+                <td>{ tag }</td>
+                <td>{ method }</td>
+                <td>{ Number(value) }</td>
+                <td>{ exchangeRates[currency].name.split('/')[0] }</td>
+                <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
+                <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
                 <td>Real</td>
                 <td>
                   <button
-                    onClick={ () => this.sendStateEditID(item.id) }
+                    onClick={ () => this.editItem(id) }
                     data-testid="edit-btn"
                     type="button"
                   >
@@ -73,7 +66,7 @@ class Table extends React.Component {
                   </button>
                   <button
                     data-testid="delete-btn"
-                    onClick={ () => this.removeItem(item.id) }
+                    onClick={ () => this.removeItem(id) }
                     type="button"
                   >
                     Deletar
@@ -88,21 +81,18 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-  })).isRequired,
-  removeState: PropTypes.func.isRequired,
-  startEditing: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExpense: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  wallet: state.wallet.wallet,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeState: (state) => dispatch(removeExpense(state)),
-  startEditing: (state) => dispatch(startEdit(state)),
+  deleteExpense: (state) => dispatch(removeExpense(state)),
+  edit: (state) => dispatch(editExpense(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
