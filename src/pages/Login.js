@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -38,6 +42,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, disabled } = this.state;
+    const { emailAdd } = this.props;
     return (
       <form>
         <h1>Login</h1>
@@ -65,15 +70,26 @@ class Login extends React.Component {
             onKeyUp={ this.handleLogin }
           />
         </label>
-        <button
-          type="button"
-          disabled={ !disabled }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            onClick={ () => emailAdd(email) }
+            disabled={ !disabled }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailAdd: (email) => dispatch(addEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  emailAdd: PropTypes.func,
+}.isRequired;
