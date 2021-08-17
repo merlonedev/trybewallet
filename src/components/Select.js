@@ -3,25 +3,28 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
+    const { handleChange, coin, money, tag } = this.props;
     return (
-      <form>
-        <label htmlFor="valor">
-          Valor:
-          <input
-            id="valor"
-            type="number"
-            name="value"
-          />
-        </label>
+      <div>
         <label htmlFor="moeda">
           Moeda:
-          <select name="moeda" id="moeda">
-            <option>Moeda</option>
+          <select
+            name="moeda"
+            id="moeda"
+            value={ coin }
+            onChange={ handleChange }
+          >
+            <option>MoedaMap</option>
           </select>
         </label>
         <label htmlFor="método de pagamento">
           Método de Pagamento:
-          <select name="método de pagamento" id="método de pagamento">
+          <select
+            name="money"
+            id="método de pagamento"
+            value={ money }
+            onChange={ handleChange }
+          >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -29,7 +32,12 @@ class Select extends Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select name="tag" id="tag">
+          <select
+            name="tag"
+            id="tag"
+            value={ tag }
+            onChange={ handleChange }
+          >
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -37,22 +45,16 @@ class Select extends Component {
             <option>Saúde</option>
           </select>
         </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <input
-            id="descricao"
-            type="text"
-            name="descricao"
-            maxLength="50"
-          />
-        </label>
-      </form>
+      </div>
     );
   }
 }
 
 Select.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.object),
-}.isRequired;
+  handleChange: PropTypes.func.isRequired,
+  coin: PropTypes.string.isRequired,
+  money: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+};
 
 export default Select;
