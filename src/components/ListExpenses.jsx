@@ -11,6 +11,10 @@ class ListExpenses extends React.Component {
     return total;
   }
 
+  deleteExpense() {
+
+  }
+
   render() {
     const { expense } = this.props;
     const { description, tag, method, value, currency, exchangeRates } = expense;
@@ -18,6 +22,7 @@ class ListExpenses extends React.Component {
     const { name, ask } = moeda;
     const cambio = this.calculateValue();
     const newName = name.split('/')[0];
+    console.log(expense);
     return (
       <tr>
         <td>{description}</td>
@@ -28,6 +33,7 @@ class ListExpenses extends React.Component {
         <td>{Number(ask).toFixed(2)}</td>
         <td>{cambio.toFixed(2)}</td>
         <td>Real</td>
+        <td><button type="button">deletar</button></td>
       </tr>
     );
   }

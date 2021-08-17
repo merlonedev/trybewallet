@@ -48,3 +48,8 @@ export const fetchExpenses = (state) => (dispatch) => {
     })
     .catch((error) => dispatch(getCurrencyError(error)));
 };
+
+export const removeExpense = (id) => ({
+  type: 'REMOVE_EXPENSE',
+  id,
+});
