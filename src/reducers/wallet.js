@@ -1,7 +1,17 @@
-const INITIAL_STATE = {};
+import { CURRENCIES } from '../actions/index';
+
+const INITIAL_STATE = {
+  currencies: [],
+  expenses: [],
+};
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case CURRENCIES:
+    return {
+      ...state,
+      currencies: action.payload,
+    };
   default:
     return state;
   }
