@@ -8,6 +8,8 @@ import Forms from '../components/Forms';
 
 const initialTag = 'Alimentação';
 
+let counter = 0;
+
 const initialState = {
   currency: [],
   valor: 0,
@@ -55,11 +57,11 @@ class Wallet extends React.Component {
   }
 
   async handleClick() {
-    const { expenseAddFunc, expenses, wallet, coinsApi } = this.props;
+    const { expenseAddFunc, wallet, coinsApi } = this.props;
     const { valor, tag, moeda, pagamento, description } = this.state;
     await coinsApi();
     const obj = {
-      id: expenses.length,
+      id: counter,
       value: valor,
       description,
       currency: moeda,
@@ -75,6 +77,7 @@ class Wallet extends React.Component {
       tag: initialTag,
       description: '',
     });
+    counter += 1;
   }
 
   handleChange({ target }) {
@@ -152,6 +155,7 @@ class Wallet extends React.Component {
       // exchangeRates: wallet[0],
     };
     // console.log(wallet);
+    console.log(obj);
     expenseEditFunc(obj);
     this.setState({
       valor: 0,

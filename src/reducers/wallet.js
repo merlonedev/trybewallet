@@ -2,7 +2,7 @@ import { SAVE_COINS, ADD_EXPENSE, DELETE_EXPENSE,
   UPDATE_STATE, EDIT_ITEM, START_EDIT } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: [],
+  currencies: [],
   expenses: [],
   edit: false,
   editing: 999,
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_COINS:
-    return { ...state, wallet: [action.payload] };
+    return { ...state, currencies: [action.payload] };
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
   case DELETE_EXPENSE:
@@ -36,12 +36,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: state.expenses.map((item) => {
         if (item.id === action.payload.id) {
           return { ...item, ...action.payload };
-          // item.value = action.payload.value;
-          // item.currency = action.payload.currency;
-          // item.description = action.payload.description;
-          // item.method = action.payload.method;
-          // item.tag = action.payload.tag;
-          // item.exchangeRates = action.payload.exchangeRates;
         }
         return item;
       }) };

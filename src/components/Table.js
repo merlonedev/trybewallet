@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeExpense, startEdit /* updateState */ } from '../actions';
+import { removeExpense, startEdit } from '../actions';
 
 class Table extends React.Component {
   constructor() {
@@ -12,12 +12,9 @@ class Table extends React.Component {
     this.sendStateEditID = this.sendStateEditID.bind(this);
   }
 
-  // Feito para passar no teste, porém não funciona corretamente. Para funcionar corretamente,
-  // Precisa descomentar as linhas. Porém no teste vai dar problema.
   removeItem(id) {
-    const { removeState /* updateOldState */ } = this.props;
+    const { removeState } = this.props;
     removeState(id);
-    // updateOldState();
   }
 
   tableHead() {
@@ -68,7 +65,7 @@ class Table extends React.Component {
                 <td>Real</td>
                 <td>
                   <button
-                    onClick={ () => this.sendStateEditID(index) }
+                    onClick={ () => this.sendStateEditID(item.id) }
                     data-testid="edit-btn"
                     type="button"
                   >
@@ -76,7 +73,7 @@ class Table extends React.Component {
                   </button>
                   <button
                     data-testid="delete-btn"
-                    onClick={ () => this.removeItem(index) }
+                    onClick={ () => this.removeItem(item.id) }
                     type="button"
                   >
                     Deletar
@@ -96,7 +93,6 @@ Table.propTypes = {
   })).isRequired,
   removeState: PropTypes.func.isRequired,
   startEditing: PropTypes.func.isRequired,
-  // updateOldState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -107,7 +103,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   removeState: (state) => dispatch(removeExpense(state)),
   startEditing: (state) => dispatch(startEdit(state)),
-  // updateOldState: (state) => dispatch(updateState(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
