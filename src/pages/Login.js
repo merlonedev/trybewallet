@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { LoginUser } from '../actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
