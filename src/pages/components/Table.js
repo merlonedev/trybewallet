@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Expense from './Expense';
 
 class Table extends Component {
   render() {
@@ -17,6 +18,7 @@ class Table extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
+        <Expense />
       </table>
 
     );

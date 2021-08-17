@@ -2,18 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import getApi from '../api';
-import { getCurrencies } from '../actions';
+import { getCurrencies, requestExpenses } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.state = {
       currencies: [],
-      // currency: 'USD',
+      id: 0,
+      value: 0,
+      description: '',
+      currency: 'USD',
+      paymentMethod: 'Dinheiro',
+      category: 'Alimentação',
 
     };
     this.returnApi = this.returnApi.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
+    this.submitExpenses = this.submitExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +37,28 @@ class Form extends React.Component {
   handleInputs({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
+  }
+
+  submitExpenses() {
+    const { requestExpensesData } = this.props;
+    const {
+      id,
+      value,
+      description,
+      currency,
+      paymentMethod,
+      category,
+    } = this.state;
+    const expenses = {
+      id,
+      value,
+      description,
+      currency,
+      method: paymentMethod,
+      tag: category,
+    };
+    requestExpensesData(expenses);
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   render() {
@@ -77,7 +105,7 @@ class Form extends React.Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-        <button name="button" type="button">
+        <button name="button" type="button" onClick={ () => this.submitExpenses() }>
           Adicionar despesa
         </button>
       </form>
@@ -87,10 +115,12 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   sendCurrenciesToStore: (currencies) => dispatch(getCurrencies(currencies)),
+  requestExpensesData: (expense) => dispatch(requestExpenses(expense)),
 });
 
 Form.propTypes = {
   sendCurrenciesToStore: PropTypes.arrayOf(PropTypes.object),
+  requestExpensesData: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Form);
