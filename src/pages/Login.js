@@ -16,7 +16,7 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  async handleChange(e) {
     this.setState({
       [e.target.id]: e.target.value,
     });

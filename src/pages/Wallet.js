@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Tag from '../componentes/Tag';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
     return (
       <div>
         <h1>Carteira</h1>
-        <span data-testid="email-field">{ email }</span>
+        <p data-testid="email-field">{ email }</p>
         <p data-testid="total-field">0</p>
         <p data-testid="header-currency-field">BRL</p>
         <form>
@@ -20,12 +27,10 @@ class Wallet extends React.Component {
             Descrição
             <input id="description" type="text" name="description" />
           </label>
-          <label htmlFor="coin">
+          <label htmlFor="moeda">
             Moeda
-            <select name="coin" id="coin">
-              <option>Opção vazia</option>
-              <option>Opção vazia</option>
-              <option>Opção vazia</option>
+            <select name="moeda" id="moeda">
+              { currencies.map((coin) => <option key={ coin }>{coin}</option>)}
             </select>
           </label>
           <label htmlFor="payment">
@@ -36,28 +41,40 @@ class Wallet extends React.Component {
               <option>Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="tag">
-            Tag
-            <select name="tag" id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <Tag />
         </form>
+        <button type="button">Adicionar despesa</button>
+        <table>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </table>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
   email: state.user.email,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf().isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
 };
