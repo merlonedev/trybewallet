@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ExpenseDescription extends Component {
   render() {
@@ -19,5 +20,8 @@ class ExpenseDescription extends Component {
     );
   }
 }
-
+ExpenseDescription.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  description: PropTypes.string.isRequired,
+};
 export default ExpenseDescription;
