@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchApiCurriencies } from '../actions/index.login';
 
 class FormsWallet extends Component {
@@ -8,9 +9,10 @@ class FormsWallet extends Component {
     this.state = {
       balance: '',
       description: '',
-      currency: 0,
-      payment: 'dinheiro',
-      tag: 'alimentação',
+      // currency: 0,
+      // payment: 'dinheiro',
+      // tag: 'alimentação',
+      // expencies: [],
     };
   }
 
@@ -25,55 +27,68 @@ class FormsWallet extends Component {
     });
   }
 
+  // handlerClick({ target: { value, name } } {
+  //   [name]: value,
+  // })
+
   render() {
-    const { balance, currency } = this.state;
+    const { balance, description } = this.state;
+    // const { coinsMap } = this.props;
     return (
-      <form>
-        <label htmlFor="balance">
-          Valor
-          <input type="text" name="balance" />
-          {balance}
-        </label>
-        <label htmlFor="currency">
-          Moeda
-          <select name="currency">
-            { currency.map((el, index) => (<option
-              key={ index }
-              value={ el }
-            >
-              {el}
-            </option>))}
-          </select>
-        </label>
-        <label htmlFor="payment">
-          Método de pagamento
-          <select name="payment">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="crédito">Cartão de crédito</option>
-            <option value="débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select name="tag">
-            <option type="checkbox" value="alimentação">Alimentação</option>
-            <option type="checkbox" value="lazer">Lazer</option>
-            <option type="checkbox" value="trabalho">Trabalho</option>
-            <option type="checkbox" value="transporte">transporte</option>
-            <option type="checkbox" value="saude">Saúde</option>
-          </select>
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input type="text" name="description" />
-        </label>
-      </form>
+      <>
+        <form>
+          <label htmlFor="balance">
+            Valor
+            <input type="text" name="balance" />
+            {balance}
+          </label>
+          <label htmlFor="currency">
+            Moeda
+            {/* <select id="currency">
+              { coinsMap.map((item, index) => (
+                <option key={ index } value={ item }>{item}</option>))}
+            </select> */}
+          </label>
+          <label htmlFor="payment">
+            Método de pagamento
+            <select name="payment">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="crédito">Cartão de crédito</option>
+              <option value="débito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select name="tag">
+              <option value="alimentação">Alimentação</option>
+              <option value="lazer">Lazer</option>
+              <option value="trabalho">Trabalho</option>
+              <option value="transporte">Transporte</option>
+              <option value="saude">Saúde</option>
+            </select>
+          </label>
+          <label htmlFor="description">
+            Descrição
+            <input type="text" name="description" />
+            { description }
+          </label>
+        </form>
+        <button
+          type="button"
+        >
+          Adicionar despesa
+        </button>
+      </>
     );
   }
 }
 
+FormsWallet.propTypes = {
+  setDispatch: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  currency: state.userWallet.currency,
+  coinsMap: state.currency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
