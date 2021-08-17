@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import ADD_USER from '../actions';
 
 class Login extends React.Component {
@@ -10,6 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      carteira: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -20,17 +22,36 @@ class Login extends React.Component {
     const { addUser } = this.props;
     const { email, password } = this.state;
     addUser({ email, password });
+    this.setState({ carteira: true });
+    console.log('clicou');
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
+    }, () => {
+      this.verify();
     });
   }
 
-  render() {
+  verify() {
     const { email, password } = this.state;
+    const passlength = 6;
+    if (email.split('@').length === 2
+      && email.includes('.com')
+      && password.length >= passlength) {
+      const button = document.querySelector('#buttonwallet');
+      button.addEventListener('click', this.handleClick);
+      button.disabled = false;
+    }
+  }
+
+  render() {
+    const { email, password, carteira } = this.state;
+    if (carteira === true) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <div>
         <h1>Login</h1>
@@ -63,6 +84,8 @@ class Login extends React.Component {
           <button
             type="button"
             onClick={ this.handleClick }
+            disabled
+            id="buttonwallet"
           >
             Entrar
           </button>
