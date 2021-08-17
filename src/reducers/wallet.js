@@ -1,45 +1,54 @@
-import { SAVE_COINS, ADD_EXPENSE, DELETE_EXPENSE,
-  UPDATE_STATE, EDIT_ITEM, START_EDIT } from '../actions';
+import {
+  SAVE_CURRENCIES, ADD_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE, FINISH_EDIT,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   edit: false,
-  editing: 999,
+  itemID: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_COINS:
-    console.log(action.payload);
-    return { ...state, currencies: action.payload };
+  case SAVE_CURRENCIES:
+    return { ...state,
+      currencies: Object
+        .keys(action.payload)
+        .filter((currency) => currency !== 'USDT'),
+    };
   case ADD_EXPENSE:
-    return { ...state, expenses: [...state.expenses, action.payload] };
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          ...action.expense,
+          exchangeRates: action.response,
+        },
+      ],
+    };
   case DELETE_EXPENSE:
     return {
       ...state,
       expenses: state.expenses.filter((item) => item.id !== action.payload),
     };
-  case UPDATE_STATE:
+  case EDIT_EXPENSE:
     return {
-      ...state,
-      expenses: state.expenses.map((item, index) => {
-        item.id = index;
-        return item;
-      }) };
-  case START_EDIT:
-    return { ...state, edit: true, editing: action.payload };
-  case EDIT_ITEM:
+      ...state, edit: true, itemID: action.payload,
+    };
+  case FINISH_EDIT:
     return {
       ...state,
       edit: false,
-      editing: 999,
+      itemID: 0,
       expenses: state.expenses.map((item) => {
         if (item.id === action.payload.id) {
           return { ...item, ...action.payload };
         }
         return item;
-      }) };
+      }),
+    };
   default:
     return state;
   }
