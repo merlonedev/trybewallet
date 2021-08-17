@@ -1,6 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Loading from './Loading';
+import { fetchApi } from '../actions';
 
 class FormsWallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.renderLoading = this.renderLoading.bind(this);
+    this.getCoins = this.getCoins.bind(this);
+    this.renderCoins = this.renderCoins.bind(this);
+  }
+
+  async componentDidMount() {
+    await this.getCoins();
+  }
+
+  async getCoins() {
+    const { requestApi } = this.props;
+    await requestApi();
+  }
+
+  renderLoading() {
+    const { isFetching } = this.props;
+    if (isFetching) return <Loading />;
+  }
+
+  renderCoins() {
+    const { resolveApi } = this.props;
+    const resolveApiKeys = Object.keys(resolveApi);
+    return resolveApiKeys.map((option, index) => (
+      <option key={ `option${index}` }>{ option.code }</option>
+    ));
+  }
+
   renderForms() {
     return (
       <form>
@@ -16,7 +50,7 @@ class FormsWallet extends React.Component {
 
         <label htmlFor="coin">
           Moeda
-          <select id="coin"> </select>
+          <select id="coin">{ this.renderCoins() }</select>
         </label>
 
         <label htmlFor="payment-method">
@@ -43,10 +77,28 @@ class FormsWallet extends React.Component {
   }
 
   render() {
-    return (
-      this.renderForms()
-    );
+    this.renderLoading();
+    return (this.renderForms());
   }
 }
 
-export default FormsWallet;
+const mapStateToProps = (state) => ({
+  isFetching: state.isFetching,
+  resolveApi: state.fetchApi,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  requestApi: () => dispatch(fetchApi()),
+});
+
+FormsWallet.propTypes = {
+  isFetching: PropTypes.bool,
+  requestApi: PropTypes.func.isRequired,
+  resolveApi: PropTypes.shape({}).isRequired,
+};
+
+FormsWallet.defaultProps = {
+  isFetching: false,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormsWallet);
