@@ -11,7 +11,8 @@ const INITIAL_STATE = {
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_COINS:
-    return { ...state, currencies: [action.payload] };
+    console.log(action.payload);
+    return { ...state, currencies: action.payload };
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
   case DELETE_EXPENSE:

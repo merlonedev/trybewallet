@@ -1,46 +1,42 @@
+import fetchAPI from '../services/currencyAPI';
+
 export const SAVE_EMAIL = 'SAVE_EMAIL';
-export const SAVE_COINS = 'SAVE_COINS';
+export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
-export const UPDATE_STATE = 'UPDATE_STATE';
-export const START_EDIT = 'START_EDIT';
-export const EDIT_ITEM = 'EDIT_ITEM';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const FINISH_EDIT = 'FINISH_EDIT';
 
 export const saveEmail = (payload) => (
   { type: SAVE_EMAIL, payload }
 );
 
-export const saveCoins = (payload) => (
-  { type: SAVE_COINS, payload }
+export const saveCurrencies = (payload) => (
+  { type: SAVE_CURRENCIES, payload }
 );
 
-export const addExpense = (payload) => (
-  { type: ADD_EXPENSE, payload }
+export const addExpense = (expense, response) => (
+  { type: ADD_EXPENSE, expense, response }
 );
 
 export const removeExpense = (payload) => (
   { type: DELETE_EXPENSE, payload }
 );
 
-export const updateState = () => (
-  { type: UPDATE_STATE }
+export const editExpense = (payload) => (
+  { type: EDIT_EXPENSE, payload }
 );
 
-export const startEdit = (payload) => (
-  { type: START_EDIT, payload }
+export const finishEdit = (payload) => (
+  { type: FINISH_EDIT, payload }
 );
 
-export const editItem = (payload) => (
-  { type: EDIT_ITEM, payload }
-);
+export const actionAddExpense = (state) => async (dispatch) => {
+  const response = await fetchAPI();
+  dispatch(addExpense(state, response));
+};
 
-export function getCoins() {
-  return (dispatch) => (
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(saveCoins(json));
-        return json;
-      })
-  );
-}
+export const fetchCurrencies = () => async (dispatch) => {
+  const response = await fetchAPI();
+  dispatch(saveCurrencies(response));
+};

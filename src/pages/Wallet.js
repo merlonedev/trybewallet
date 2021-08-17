@@ -48,8 +48,8 @@ class Wallet extends React.Component {
   async getCurrency() {
     const { coinsApi } = this.props;
     await coinsApi();
-    const { wallet } = this.props;
-    const keys = Object.keys(wallet[0]);
+    const { currencies } = this.props;
+    const keys = Object.keys(currencies[0]);
     const formattedCurrency = keys.filter((item) => item !== 'USDT');
     this.setState({
       currency: formattedCurrency,
