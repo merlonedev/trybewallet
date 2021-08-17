@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeExpense } from '../actions';
 
 class ListExpenses extends React.Component {
+  constructor() {
+    super();
+
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
   calculateValue() {
     const { expense } = this.props;
     const { currency, value, exchangeRates } = expense;
@@ -12,7 +20,8 @@ class ListExpenses extends React.Component {
   }
 
   deleteExpense() {
-
+    const { removeExpe, expense } = this.props;
+    removeExpe(removeExpe(expense.id));
   }
 
   render() {
@@ -33,7 +42,15 @@ class ListExpenses extends React.Component {
         <td>{Number(ask).toFixed(2)}</td>
         <td>{cambio.toFixed(2)}</td>
         <td>Real</td>
-        <td><button type="button">deletar</button></td>
+        <td>
+          <button
+            type="button"
+            onClick={ this.deleteExpense }
+            data-testid="delete-btn"
+          >
+            deletar
+          </button>
+        </td>
       </tr>
     );
   }
@@ -49,6 +66,11 @@ ListExpenses.propTypes = {
     tag: PropTypes.string.isRequired,
     exchangeRates: PropTypes.shape(PropTypes.object),
   }).isRequired,
+  removeExpe: PropTypes.func.isRequired,
 };
 
-export default ListExpenses;
+const mapDispatchToProps = (dispatch) => ({
+  removeExpe: (value) => dispatch(removeExpense(value)),
+});
+
+export default connect(null, mapDispatchToProps)(ListExpenses);
