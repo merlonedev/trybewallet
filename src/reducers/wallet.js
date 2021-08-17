@@ -9,11 +9,11 @@ const userWallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_CURRENCIES:
     return {
-      ...state, currencies: [...action.payload],
+      ...state, currencies: [payload.currencies],
     };
   case USER_EXPENSES:
     return {
-      ...state, expenses: [...state.expenses, action.payload],
+      ...state, expencies: [...state.expenses, action.expenses],
     };
   default:
     return state;

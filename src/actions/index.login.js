@@ -8,12 +8,12 @@ export const userEmail = (payload) => ({
 });
 
 export const userExpencies = (expenses) => ({
-  type: USER_EXPENSES,
+  type: USER_CURRENCIES,
   payload: expenses,
 });
 
 export const userCurrencies = (currencies) => ({
-  type: USER_CURRENCIES,
+  USER_EXPENSES,
   payload: currencies,
 });
 
