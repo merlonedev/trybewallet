@@ -21,15 +21,15 @@ class Header extends React.Component {
   }
 }
 
-const { string, number } = PropTypes;
+const { string, number, arrayOf } = PropTypes;
 Header.propTypes = {
   email: string.isRequired,
   expenses: number,
-  currencies: string,
+  currencies: arrayOf(string),
 };
 
 Header.defaultProps = {
-  currencies: 'BRL',
+  currencies: ['BRL'],
   expenses: 0,
 };
 
