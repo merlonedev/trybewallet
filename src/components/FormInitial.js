@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addNewUser } from '../actions';
 
-class LoginForm extends Component {
+class FormInitial extends Component {
   constructor() {
     super();
     this.state = {
@@ -77,8 +77,8 @@ const mapDispatchToProps = (dispatch) => ({
   isEmail: (payload) => dispatch(addNewUser(payload)),
 });
 
-LoginForm.propTypes = {
+FormInitial.propTypes = {
   isEmail: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(null, mapDispatchToProps)(FormInitial);

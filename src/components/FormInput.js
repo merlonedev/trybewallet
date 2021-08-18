@@ -42,7 +42,6 @@ class FormInput extends Component {
         exchangeRates: arraApi
           .map((e) => ({
             [e[1].code]: { code: e[1].code, name: e[1].name, ask: e[1].ask } })),
-      // linhas 34-44 copiadas de jorgemeyrellles
       },
     });
   }
@@ -147,7 +146,5 @@ FormInput.propTypes = {
   toCurrency: PropTypes.number.isRequired,
   fromCurrencies: PropTypes.number.isRequired,
 };
-
-// implementação da moeda foi feita em consulta à branch de jorgemeyrelles
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormInput);

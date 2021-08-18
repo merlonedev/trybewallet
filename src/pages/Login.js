@@ -1,12 +1,12 @@
 import React from 'react';
-import LoginForm from '../components/LoginForm';
+import FormInitial from '../components/FormInitial';
 
 class Login extends React.Component {
   render() {
     return (
       <>
         <div>Login</div>
-        <LoginForm />
+        <FormInitial />
       </>
     );
   }
