@@ -25,7 +25,7 @@ class Wallet extends React.Component {
           <p data-testid="total-field">
             Despesa Total:
             { totalExpenses }
-            <p>
+            <p data-testid="header-currency-field">
               { currency }
             </p>
           </p>
