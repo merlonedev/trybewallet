@@ -7,10 +7,11 @@ import { LoginUser } from '../actions/index';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
       password: '',
-      disabled: false,
+      button: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,14 +30,15 @@ class Login extends React.Component {
   validUser() {
     const { email, password } = this.state;
     const lengthPass = 6;
-    const emailLogin = email.split('@').length === 2 && email.split('.com')[1] === '';
-    if (emailLogin && password.length > lengthPass) {
+    // const emailLogin = email.split('@').length === 2 && email.split('.com')[1] === '';
+    // if (emailLogin && password.length > lengthPass) {
+    if (email.includes('@') && email.includes('.com') && password.length >= lengthPass) {
       this.setState({
-        disabled: false,
+        button: false,
       });
     } else {
       this.setState({
-        disabled: true,
+        button: true,
       });
     }
   }
@@ -48,7 +50,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disabled } = this.state;
+    const { email, password, button } = this.state;
     return (
       <div>
         <h1>Wallet</h1>
@@ -57,31 +59,32 @@ class Login extends React.Component {
           <label htmlFor="email">
             Email:
             <input
-              type="email"
-              id="email"
-              data-testid="email-input"
               value={ email }
+              name="email"
+              type="email"
+              id="input-email"
+              data-testid="email-input"
               onChange={ this.handleChange }
-              onKeyUp={ this.handleLogin }
+
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="input-password">
             Senha:
             <input
+              name="password"
               type="password"
-              id="password"
+              id="input-password"
               data-testid="password-input"
               value={ password }
               onChange={ this.handleChange }
-              onKeyUp={ this.handleLogin }
             />
           </label>
           <Link to="/carteira">
             <button
               id="button"
               type="button"
+              disabled={ button }
               onClick={ this.handleLogin }
-              disabled={ !disabled }
             >
               Entrar
             </button>
