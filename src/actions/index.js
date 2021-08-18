@@ -22,3 +22,8 @@ export const GET_API = () => (dispatch) => {
       dispatch(GET_CURRENCY_SUCESS(MOEDAS));
     });
 };
+
+export const GET_EXPENSES = (value) => ({
+  type: 'get_expenses',
+  value,
+});
