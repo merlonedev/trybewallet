@@ -1,7 +1,7 @@
 export const LOGIN = 'LOGIN';
-export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const FETCHING = 'FETCHING';
-export const FETCH_ERROR = 'FETCH_ERROR';
+export const FETCH_SUCCESS_COINS = 'FETCH_SUCCESS_COINS';
+export const FETCH_ERROR_CASES = 'FETCH_ERROR_CASES';
+export const FETCH_SUCCESS_CURRENT = 'FETCH_SUCCESS_CURRENT';
 
 const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -12,35 +12,46 @@ export const addUser = (email) => ({
 
 // Actions fetch na api
 
-const isFetching = () => ({
-  type: FETCHING,
-  isFetching: true,
-});
-
-const fetchSuccessCase = (response) => ({
-  type: FETCH_SUCCESS,
+const getCoinsSuccessCase = (response) => ({
+  type: FETCH_SUCCESS_COINS,
   response,
-  isFetching: false,
 });
 
-const fetchFailCase = (error) => ({
-  type: FETCH_ERROR,
+const failCases = (error) => ({
+  type: FETCH_ERROR_CASES,
   error,
-  isFetching: false,
 });
 
-export const fetchAwesomeAPI = () => (async (dispatch) => {
-  dispatch(isFetching());
+export const fetchCoins = () => (async (dispatch) => {
   try {
     const request = await fetch(END_POINT);
-    const response = request.json();
+    const response = await request.json();
     const currencies = Object.keys(response);
     const result = currencies.filter(
       (currency) => currency !== 'USDT' && currency !== 'DOGE',
     );
+    const coins = result.map((coin) => ({ val: coin, lab: coin }));
 
-    dispatch(fetchSuccessCase(result));
+    dispatch(getCoinsSuccessCase(coins));
   } catch (error) {
-    dispatch(fetchFailCase(error));
+    dispatch(failCases(error));
+  }
+});
+
+// actions para salvas=r despesas
+
+const getCurrentSuccessCase = (payload) => ({
+  type: FETCH_SUCCESS_CURRENT,
+  payload,
+});
+
+export const saveExpenses = (expense) => (async (dispatch) => {
+  try {
+    const request = await fetch(END_POINT);
+    const response = await request.json();
+    const payload = { ...expense, exchangeRates: response };
+    dispatch(getCurrentSuccessCase(payload));
+  } catch (error) {
+    dispatch(failCases(error));
   }
 });
