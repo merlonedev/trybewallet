@@ -1,12 +1,11 @@
-import GET_USER from '../actions';
-
 // Esse reducer será responsável por tratar as informações da pessoa usuária
+import { GET_USER } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
 };
 
-const reducerUser = (state = INITIAL_STATE, action) => {
+function reducerUser(state = INITIAL_STATE, action) {
   switch (action.type) {
   case GET_USER:
     return {
@@ -16,6 +15,6 @@ const reducerUser = (state = INITIAL_STATE, action) => {
   default:
     return state;
   }
-};
+}
 
 export default reducerUser;
