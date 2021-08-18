@@ -1,6 +1,8 @@
 export const ADD_LOGIN = 'ADD_LOGIN';
 export const API_DATA = 'API_DATA';
-export const EXPENSES_DATA = 'EXPENSES_DATA';
+export const GET_EXPENSE = 'GET_EXPENSE';
+export const EXPENSE_DATA = 'EXPENSE_DATA';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const addLogin = (login) => ({
   type: ADD_LOGIN,
@@ -12,13 +14,14 @@ export const getAPI = (payload) => ({
   payload,
 });
 
-export const getExpenses = (state, request) => ({
-  type: EXPENSES_DATA,
-  payload: {
+export const getExpenses = (state, response) => ({
+  type: EXPENSE_DATA,
+  test: {
     ...state,
-    exchangeRates: request,
+    exchangeRates: response,
   },
 });
+
 export const fetchAPI = () => async (dispatch) => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   const request = await fetch(endpoint);

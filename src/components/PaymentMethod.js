@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class PaymentMethod extends Component {
-  constructor() {
-    super();
-    this.state = {
-      paymentMethod: 'money',
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange({ target }) {
-    this.state({
-      paymentMethod: target.value,
-    });
-  }
-
+class PaymentMethod extends Component {
   render() {
-    const { paymentMethod } = this.state;
+    const { name, value, onChange } = this.props;
     return (
-      <label htmlFor="paymentMethod">
+      <label htmlFor="method">
         Método de pagamento
-        <select id="paymentMethod" onChange={ this.handleChange } value={ paymentMethod }>
+        <select id="method" onChange={ onChange } value={ value } name={ name }>
           <option value="money">Dinheiro</option>
           <option value="credit">Cartão de Crédito</option>
           <option value="debit">Cartão de Débito</option>
@@ -30,3 +17,9 @@ export default class PaymentMethod extends Component {
     );
   }
 }
+
+PaymentMethod.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

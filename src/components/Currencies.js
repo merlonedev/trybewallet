@@ -4,25 +4,17 @@ import { connect } from 'react-redux';
 import { fetchAPI } from '../actions/index';
 
 class Currencies extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currency: 'USD',
-    };
-  }
-
   componentDidMount() {
     const { coinsToRedux } = this.props;
     coinsToRedux();
   }
 
   render() {
-    const { currency } = this.state;
-    const { currenciesFromRedux } = this.props;
+    const { currenciesFromRedux, name, value, onChange } = this.props;
     return (
-      <label htmlFor="moedas">
+      <label htmlFor="currency">
         Moeda
-        <select id="moedas" value={ currency }>
+        <select id="currency" value={ value } onChange={ onChange } name={ name }>
           {currenciesFromRedux
             .map((curr) => <option key={ curr }>{curr}</option>)}
         </select>
@@ -42,6 +34,9 @@ const mapDispatchToProps = (dispatch) => ({
 Currencies.propTypes = {
   currenciesFromRedux: PropTypes.arrayOf(string).isRequired,
   coinsToRedux: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Currencies);
