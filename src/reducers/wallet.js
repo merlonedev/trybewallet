@@ -1,14 +1,14 @@
-// const INITIAL_STATE = {
-//   state: '',
-// };
+const INITIAL_STATE = {
+  state: '',
+};
 
-// function wallet(state = INITIAL_STATE, action) {
-//   switch (action.type) {
-//   case 'NEW_ACTION':
-//     return { state: action.state };
-//   default:
-//     return state;
-//   }
-// }
+function wallet(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case 'NEW_ACTION':
+    return { state: action.state };
+  default:
+    return state;
+  }
+}
 
-// export default wallet;
+export default wallet;
