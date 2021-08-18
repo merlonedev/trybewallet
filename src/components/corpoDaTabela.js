@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class TableBody extends React.Component {
-  deleteFunc(event) {
+  deleteFunc() {
     const remover = document.getElementById('tabela');
     const pai = document.getElementById('pai-da-tabela');
     pai.removeChild(remover);
@@ -27,7 +27,15 @@ class TableBody extends React.Component {
               <td>{ total }</td>
               <td>Real</td>
               <td><button data-testid="edit-btn" type="button">editar</button></td>
-              <td><button data-testid="delete-btn" type="button" onClick={ this.deleteFunc }>excluir</button></td>
+              <td>
+                <button
+                  data-testid="delete-btn"
+                  type="button"
+                  onClick={ this.deleteFunc }
+                >
+                  excluir
+                </button>
+              </td>
             </tr>
           );
         })}
