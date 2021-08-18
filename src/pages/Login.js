@@ -30,8 +30,6 @@ class Login extends React.Component {
   validUser() {
     const { email, password } = this.state;
     const lengthPass = 6;
-    // const emailLogin = email.split('@').length === 2 && email.split('.com')[1] === '';
-    // if (emailLogin && password.length > lengthPass) {
     if (email.includes('@') && email.includes('.com') && password.length >= lengthPass) {
       this.setState({
         button: false,
