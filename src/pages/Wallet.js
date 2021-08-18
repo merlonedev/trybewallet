@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ExpenseForm from '../Components/ExpenseForm';
 
 class Wallet extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <div>Trybe Wallet</div>
-        <div>
-          Email:
-          <p data-testid="email-field">{` ${email}`}</p>
-        </div>
-        <div>
-          <p data-testid="total-field">{0}</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </div>
-      </header>
+      <>
+        <header>
+          <div>Trybe Wallet</div>
+          <div>
+            Email:
+            <p data-testid="email-field">{` ${email}`}</p>
+          </div>
+          <div>
+            <p data-testid="total-field">{0}</p>
+            <p data-testid="header-currency-field">BRL</p>
+          </div>
+        </header>
+        <ExpenseForm />
+      </>
     );
   }
 }
