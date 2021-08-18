@@ -14,24 +14,21 @@ class Login extends React.Component {
 
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
-    this.validateSubmit = this.validateSubmit.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  validadeEmail() {
-    const { email } = this.state;
+  validateEmail({ target: { value } }) {
     const validEmail = /\S+@\S+\.\S+/;
-    if (validEmail.test(email)) {
+    if (validEmail.test(value) === true) {
       this.setState({
         email: value,
       });
     }
-    return false;
   }
 
-  validatePassword() {
-    const { password } = this.state;
-    const minLengthPassword = 6;
-    if (password.length >= minLengthPassword) {
+  validatePassword({ target: { value } }) {
+    const minLength = 6;
+    if (value.length >= minLength) {
       this.setState({
         password: value,
       });
@@ -40,7 +37,7 @@ class Login extends React.Component {
 
   submit() {
     const { email, password } = this.state;
-    if (password && email) return false;
+    if (email && password) return false;
 
     return true;
   }
@@ -50,15 +47,15 @@ class Login extends React.Component {
       <div className="login-area">
         <input
           type="text"
-          placeholder="Insira seu e-mail aqui :)"
+          placeholder="Email"
           data-testid="email-input"
           onChange={ (email) => this.validateEmail(email) }
         />
         <input
           type="password"
-          placeholder="Insira sua senha aqui"
+          placeholder="Password"
           data-testid="password-input"
-          onChange={ (password) => this.validatePassword(password) }
+          onChange={ (pass) => this.validatePassword(pass) }
         />
         <Link to="/carteira">
           <button type="button" disabled={ this.submit() }>ENTRAR</button>
