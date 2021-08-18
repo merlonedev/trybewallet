@@ -6,7 +6,6 @@ import Form from '../components/Form';
 class Wallet extends React.Component {
   constructor() {
     super();
-
     this.state = {
       currency: 'BRL',
       totalExpenses: 0,
@@ -24,27 +23,22 @@ class Wallet extends React.Component {
             { email }
           </p>
           <p data-testid="total-field">
-            Despesa Total: R$
+            Despesa Total:
             { totalExpenses }
-            <p>
+            <p data-testid="header-currency-field">
               { currency }
             </p>
           </p>
-          <p>
-            <Form />
-          </p>
         </header>
+        <Form />
       </section>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
-
 Wallet.propTypes = {
   email: string.isRequired,
 };
-
 export default connect(mapStateToProps, null)(Wallet);
