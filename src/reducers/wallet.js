@@ -2,7 +2,7 @@
 import { REQUEST_API, RESOLVE_API } from '../actions';
 
 const INITIAL_STATE = {
-  fecthAPI: [],
+  fetchAPI: {},
   isFetching: false,
 };
 
@@ -11,7 +11,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_API:
     return ({ ...state, isFetching: true });
   case RESOLVE_API:
-    return ({ ...state, isFetching: false, fecthAPI: action.payload });
+    return ({ ...state, isFetching: false, fetchAPI: action.payload });
   default:
     return state;
   }

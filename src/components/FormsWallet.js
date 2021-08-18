@@ -23,16 +23,19 @@ class FormsWallet extends React.Component {
   }
 
   renderLoading() {
-    const { isFetching } = this.props;
+    const { wallet: { isFetching } } = this.props;
     if (isFetching) return <Loading />;
   }
 
   renderCoins() {
-    const { resolveApi } = this.props;
-    const resolveApiKeys = Object.keys(resolveApi);
-    return resolveApiKeys.map((option, index) => (
-      <option key={ `option${index}` }>{ option.code }</option>
-    ));
+    const { wallet: { fetchAPI } } = this.props;
+    if (fetchAPI) {
+      const resolveApiKeys = Object.keys(fetchAPI);
+      const filteredCoins = resolveApiKeys.filter((coin) => coin !== 'USDT');
+      return filteredCoins.map((option, index) => (
+        <option key={ `option${index}` }>{ option }</option>
+      ));
+    }
   }
 
   renderForms() {
@@ -78,13 +81,12 @@ class FormsWallet extends React.Component {
 
   render() {
     this.renderLoading();
-    return (this.renderForms());
+    return this.renderForms();
   }
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.isFetching,
-  resolveApi: state.fetchApi,
+  wallet: state.wallet,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -92,13 +94,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormsWallet.propTypes = {
-  isFetching: PropTypes.bool,
+  wallet: PropTypes.shape({
+    fetchAPI: PropTypes.shape({}).isRequired,
+    isFetching: PropTypes.bool.isRequired,
+  }).isRequired,
   requestApi: PropTypes.func.isRequired,
-  resolveApi: PropTypes.shape({}).isRequired,
-};
-
-FormsWallet.defaultProps = {
-  isFetching: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormsWallet);
