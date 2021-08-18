@@ -17,3 +17,9 @@ export const expenseCategory = [
   { value: 'Transporte' },
   { value: 'Saúde' },
 ];
+
+export const tableCategories = [
+  'Descrição', 'Tag', 'Método de pagamento',
+  'Valor', 'Moeda', 'Câmbio utilizado', 'Valor convertido',
+  'Moeda de conversão', 'Editar/Excluir',
+];

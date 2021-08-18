@@ -17,7 +17,7 @@ class Header extends Component {
         const valorBRL = exchangeRates[currency].ask * value;
         return acc + valorBRL;
       }, 0);
-      return total;
+      return total.toFixed(2);
     }
     return 0;
   }

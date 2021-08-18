@@ -33,7 +33,6 @@ export const fetchCurrencies = () => async (dispatch) => {
     const coins = Object.keys(results)
       .map((coin) => ({ name: coin, value: coin }))
       .filter((coin) => coin.name !== 'USDT' && coin.name !== 'DOGE');
-    console.log(coins);
     dispatch(successCurrencies(coins));
   } catch (error) {
     dispatch(errorCurrencies(error));
@@ -73,3 +72,10 @@ export const actionAddExpense = (state, id) => async (dispatch) => {
     dispatch(errorAddtion(error));
   }
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const actionDeleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});

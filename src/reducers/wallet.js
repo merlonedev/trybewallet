@@ -5,6 +5,7 @@ import {
   ADD_EXPENSE,
   ADD_SUCCESSFUL,
   ADD_ERROR,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -14,14 +15,14 @@ const INITIAL_STATE = {
   messageError: '',
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const walletReducer = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
   case FETCH_CURRENCIES:
     return { ...state, isFetching: true };
   case FETCH_SUCCESS_CURRENCIES:
-    return { ...state, currencies: action.payload, isFetching: false };
+    return { ...state, currencies: payload, isFetching: false };
   case FETCH_ERROR_CURRENCIES:
-    return { ...state, messageError: action.payload, isFetching: false };
+    return { ...state, messageError: payload, isFetching: false };
   case ADD_EXPENSE:
     return state;
   case ADD_SUCCESSFUL:
@@ -31,14 +32,20 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         [
           ...state.expenses,
           {
-            id: action.payload.idExpense,
-            ...action.payload.newExpense,
-            exchangeRates: action.payload.results,
+            id: payload.idExpense,
+            ...payload.newExpense,
+            exchangeRates: payload.results,
           },
         ],
+      isFetching: false,
     };
   case ADD_ERROR:
-    return { ...state, messageError: action.payload, isFetching: false };
+    return { ...state, messageError: payload, isFetching: false };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(({ id }) => id !== +payload)],
+    };
   default:
     return state;
   }
