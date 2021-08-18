@@ -29,14 +29,11 @@ class Login extends React.Component {
     const emailInput = email.split('@').length === 2 && email.split('.com')[1] === '';
     const lengthPassword = 6;
 
-    if (emailInput && password.length > lengthPassword) {
+    if (emailInput && password.length >= lengthPassword) {
       this.setState({
         disabled: true,
       });
-    } else {
-      this.setState({
-        disabled: false,
-      });
+      return false;
     }
   }
 
