@@ -8,10 +8,29 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // email: '',
-      // password: '',
+      email: '',
+      password: '',
       disable: true,
     };
+    this.validation = this.validation.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  validation() {
+    const { email, password } = this.state;
+    const emailRegex = /\S+@\S+\.\S+/;
+    const emailIsValid = emailRegex.test(email);
+    const minLength = 6;
+    if (emailIsValid && password.length >= minLength) {
+      this.setState({ disable: false });
+    } else {
+      this.setState({ disable: true });
+    }
+  }
+
+  handleChange({ target }) {
+    const { id, value } = target;
+    this.setState({ [id]: value }, this.validation);
   }
 
   render() {
@@ -25,6 +44,7 @@ class Login extends React.Component {
             id="email"
             data-testid="email-input"
             type="text"
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="password">
@@ -32,7 +52,7 @@ class Login extends React.Component {
             id="password"
             data-testid="password-input"
             type="password"
-            minLength="6"
+            onChange={ this.handleChange }
           />
         </label>
         <Link to="/carteira">
