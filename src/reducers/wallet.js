@@ -1,31 +1,34 @@
-import { FETCH_ERROR, FETCH_SUCCESS, FETCHING } from '../actions';
+import { FETCH_ERROR_CASES,
+  FETCH_SUCCESS_COINS,
+  FETCH_SUCCESS_CURRENT } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  isFetching: false,
   error: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-  const { type, error, response, isFetching } = action;
+  const { type, error, response, payload } = action;
   switch (type) {
-  case FETCHING:
+  case FETCH_SUCCESS_COINS:
     return {
       ...state,
-      isFetching,
+      currencies: response,
     };
-  case FETCH_SUCCESS:
+  case FETCH_ERROR_CASES:
+    console.log(error);
     return {
       ...state,
-      isFetching,
-      currencies: [...response],
-    };
-  case FETCH_ERROR:
-    return {
-      ...state,
-      isFetching,
       error,
+    };
+  case FETCH_SUCCESS_CURRENT:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        payload,
+      ],
     };
   default:
     return state;
