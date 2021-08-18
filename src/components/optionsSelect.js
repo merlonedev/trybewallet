@@ -1,35 +1,35 @@
 export const methods = [
   {
-    val: 'cash',
+    val: 'Dinheiro',
     lab: 'Dinheiro',
   },
   {
-    val: 'cred',
+    val: 'Cartão de crédito',
     lab: 'Cartão de crédito',
   },
   {
-    val: 'debt',
+    val: 'Cartão de débito',
     lab: 'Cartão de débito',
   }];
 
 export const category = [
   {
-    val: 'food',
+    val: 'Alimentação',
     lab: 'Alimentação',
   },
   {
-    val: 'laze',
+    val: 'Lazer',
     lab: 'Lazer',
   },
   {
-    val: 'wook',
+    val: 'Trabalho',
     lab: 'Trabalho',
   },
   {
-    val: 'trans',
+    val: 'Transporte',
     lab: 'Transporte',
   },
   {
-    val: 'health',
+    val: 'Saúde',
     lab: 'Saúde',
   }];
