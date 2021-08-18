@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addEmail } from '../actions';
+import { addEmail, deleteBtn } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
       password: '',
       disabled: false,
     };
@@ -38,8 +37,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disabled } = this.state;
-    const { emailAdd } = this.props;
+    const { password, disabled } = this.state;
+    const { email, emailAdd, toDelete } = this.props;
     return (
       <form>
         <h1>Login</h1>
@@ -75,18 +74,31 @@ class Login extends React.Component {
           >
             Entrar
           </button>
+          <button
+            data-testind="delete-btn"
+            type="button"
+            onClick={ () => toDelete(id) }
+          >
+            Excluir
+          </button>
         </Link>
       </form>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  emailAdd: (email) => dispatch(addEmail(email)),
+const mapStateToProps = (state) => ({
+  email: state.user.email,
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  emailAdd: (email) => dispatch(addEmail(email)),
+  toDelete: (id) => dispatch(deleteBtn(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   emailAdd: PropTypes.func,
+  toDelete: PropTypes.func,
 }.isRequired;
