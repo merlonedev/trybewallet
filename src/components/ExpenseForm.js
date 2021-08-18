@@ -64,15 +64,6 @@ class ExpenseForm extends React.Component {
           Valor:
           <input type="text" id="value" name="value" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="description">
-          Descrição:
-          <input
-            type="text"
-            id="description"
-            name="description"
-            onChange={ this.handleChange }
-          />
-        </label>
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency" onChange={ this.handleChange }>
@@ -91,6 +82,15 @@ class ExpenseForm extends React.Component {
           <select id="expense" name="tag" onChange={ this.handleChange }>
             {tag.map((item, index) => <option key={ index }>{ item }</option>)}
           </select>
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            type="text"
+            id="description"
+            name="description"
+            onChange={ this.handleChange }
+          />
         </label>
         <button
           type="button"
