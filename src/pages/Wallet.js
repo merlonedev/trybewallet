@@ -1,10 +1,11 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
   render() {
     const { loginEmail } = this.props;
+    const gasto = 0;
     return (
       <div>
         <header>
@@ -38,7 +39,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           <label htmlFor="tag">
-            Tipo de Despesa
+            Tag
             <select id="tag">
               <option>Alimentação</option>
               <option>Lazer</option>
@@ -58,7 +59,6 @@ const mapStateToProps = (state) => ({
 });
 
 Wallet.propTypes = {
-  loginEmail: PropTypes.string.isRequired,
+  loginEmail: propTypes.string.isRequired,
 };
-
 export default connect(mapStateToProps)(Wallet);
