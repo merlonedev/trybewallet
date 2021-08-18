@@ -1,29 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Input from './Input';
+import { fetchCurrencyAction } from '../actions/index';
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { func } = this.props;
+    func();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
       <form>
-        <label htmlFor="value">
-          Valor:
-          <input
-            id="value"
-            type="text"
-            name="value"
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input
-            id="description"
-            type="text"
-            name="descricao"
-            label="Descrição: "
-          />
-        </label>
+        <Input />
         <label htmlFor="currency">
           Moeda:
-          <select id="currency" name="currency" label="Moeda: "> </select>
+          <select id="currency" name="currency" label="Moeda: ">
+            {
+              currencies
+                .map((currencyName) => (
+                  <option
+                    key={ currencyName }
+                  >
+                    {currencyName}
+                  </option>
+                ))
+            }
+
+          </select>
         </label>
         <label htmlFor="selected-currency">
           Método de pagamento:
@@ -48,4 +54,17 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchtoProps = (dispatch) => ({
+  func: () => dispatch(fetchCurrencyAction()),
+});
+
+Form.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  func: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchtoProps)(Form);
