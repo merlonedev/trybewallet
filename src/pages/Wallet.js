@@ -23,7 +23,7 @@ class Wallet extends React.Component {
             { email }
           </p>
           <p data-testid="total-field">
-            Despesa Total: R$
+            Despesa Total:
             { totalExpenses }
             <p>
               { currency }
