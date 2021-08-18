@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { actionDelete } from '../actions/actionGastos';
 
 class TableBody extends React.Component {
-  deleteFunc() {
-    const remover = document.getElementById('tabela');
-    const pai = document.getElementById('pai-da-tabela');
-    pai.removeChild(remover);
+  constructor() {
+    super();
+    this.deleteFunc = this.deleteFunc.bind(this);
+  }
+
+  deleteFunc(id, total) {
+    const { deletaTabela } = this.props;
+    deletaTabela(id, total);
   }
 
   render() {
@@ -31,7 +36,7 @@ class TableBody extends React.Component {
                 <button
                   data-testid="delete-btn"
                   type="button"
-                  onClick={ this.deleteFunc }
+                  onClick={ () => this.deleteFunc(custo.id, total) }
                 >
                   excluir
                 </button>
@@ -48,8 +53,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deletaTabela: (id, total) => dispatch(actionDelete(id, total)),
+});
+
 TableBody.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deletaTabela: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(TableBody);
+export default connect(mapStateToProps, mapDispatchToProps)(TableBody);

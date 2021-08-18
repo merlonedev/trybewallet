@@ -1,11 +1,11 @@
 export const PEGANDO_MOEDAS = 'PEGANDO_MOEDAS';
 export const PEGOU_AS_MOEDAS = 'PEGOU_AS_MOEDAS';
 export const PEGOU_GASTOS = 'PEGOU_GASTOS';
+export const DELETA_GASTOS = 'DELETA_GASTOS';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
 };
 
 const reducerFetch = (state = INITIAL_STATE, action) => {
@@ -18,8 +18,11 @@ const reducerFetch = (state = INITIAL_STATE, action) => {
       currencies: action.state };
   case PEGOU_GASTOS:
     return { ...state,
-      expenses: [...state.expenses, action.state],
-      total: state.total + action.total };
+      expenses: [...state.expenses, action.state] };
+  case DELETA_GASTOS:
+    return { ...state,
+      expenses: state.expenses.filter((remove) => remove.id !== action.id),
+    };
   default:
     return state;
   }
