@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import WalletHeader from './WalletHeader';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return <WalletHeader />;
   }
 }
 
-export default Wallet;
+export default connect()(Wallet);

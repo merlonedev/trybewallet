@@ -39,3 +39,11 @@
     transform: rotate(360deg);
   }
 }
+
+.ok-color {
+  color: green;
+}
+
+.wrong-color {
+  color: red;
+}
