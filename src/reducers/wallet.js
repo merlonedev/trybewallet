@@ -15,10 +15,12 @@ const userWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state, expenses: [...state.expenses, action.payload],
     };
-    // case USER_SUM_TOTAL:
-    //   return {
-    //     ...state,
-    //   };
+  case USER_DELETE:
+    return {
+      ...state,
+      expenses: state.expenses
+        .filter((expense) => expense.id !== action.payload),
+    };
   default:
     return state;
   }
