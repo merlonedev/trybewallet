@@ -5,6 +5,7 @@ import { fetchCoinAPI, fetchExpenses } from '../actions';
 import Pagamento from '../componentes/Pagamento';
 import Motivo from '../componentes/Motivo';
 import Header from '../componentes/Header';
+import Tabela from '../componentes/Tabela';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class Wallet extends React.Component {
           <Pagamento handleChange={ this.handleChange } />
           <Motivo handleChange={ this.handleChange } />
           <button type="button" onClick={ this.add }>Adicionar despesa</button>
+          <Tabela />
         </form>
       </body>
     );
