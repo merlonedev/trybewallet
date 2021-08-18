@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formulario from '../components/Formulario';
+import Tabela from '../components/Tabela';
 import { GET_API } from '../actions/index';
 
 class Wallet extends React.Component {
@@ -33,6 +34,7 @@ class Wallet extends React.Component {
           <h3 data-testid="header-currency-field">Câmbio atual: BRL </h3>
         </header>
         <Formulario />
+        <Tabela />
       </div>
     );
   }
