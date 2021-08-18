@@ -1,4 +1,4 @@
-import { USER_CURRENCIES, USER_EXPENSES } from '../actions/index.login';
+import { USER_CURRENCIES, USER_EXPENSES, USER_TABLE } from '../actions/index.login';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -15,12 +15,12 @@ const userWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state, expenses: [...state.expenses, action.payload],
     };
-  // case USER_DELETE:
-  //   return {
-  //     ...state,
-  //     expenses: state.expenses
-  //       .filter((expense) => expense.id !== action.payload),
-  //   };
+  case USER_TABLE:
+    return {
+      ...state,
+      expenses: state.expenses
+        .filter((expense) => expense.id !== action.payload),
+    };
   default:
     return state;
   }

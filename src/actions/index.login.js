@@ -1,7 +1,7 @@
 export const USER_EMAIL = 'USER_EMAIL';
 export const USER_CURRENCIES = 'USER_CURRENCIES';
 export const USER_EXPENSES = 'USER_EXPENSES';
-export const USER_SUM_TOTAL = 'USER_SUM_TOTAL';
+export const USER_TABLE = 'USER_TABLE';
 
 export const userEmail = (payload) => ({
   type: USER_EMAIL,
@@ -18,9 +18,9 @@ export const userCurrencies = (currencies) => ({
   payload: currencies,
 });
 
-export const userSumTotal = (sumTotal) => ({
-  type: USER_SUM_TOTAL,
-  payload: sumTotal,
+export const userSumTotal = (table) => ({
+  type: USER_TABLE,
+  payload: table,
 });
 
 // export const userDelete = => {
