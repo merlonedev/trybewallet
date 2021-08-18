@@ -1,27 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Form from '../components/Form';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { currencies: {} };
-  }
-
   componentDidMount() {
-    this.fetchCurrencies();
-  }
-
-  async fetchCurrencies() {
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-    const results = await fetch(URL).then((data) => data.json());
-    delete results.USDT;
-    this.setState({ currencies: results });
+    const { fetchCurrenciesInComponent } = this.props;
+    fetchCurrenciesInComponent();
   }
 
   render() {
-    const { currencies } = this.state;
+    console.log(this.props);
+    const { currencies } = this.props;
     return (
       <main>
         <Header />
@@ -31,4 +23,17 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrenciesInComponent: () => dispatch(fetchCurrencies()),
+});
+
+Wallet.propTypes = {
+  fetchCurrenciesInComponent: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

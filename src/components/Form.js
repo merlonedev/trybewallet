@@ -10,6 +10,7 @@ class Form extends Component {
 
   renderCurrencies() {
     const { currencies } = this.props;
+    delete currencies.USDT;
     const currenciesKeys = Object.keys(currencies);
     return currenciesKeys.map(
       (currency) => <option key={ currency }>{ currency }</option>,
