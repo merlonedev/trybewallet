@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class TableBody extends React.Component {
+  deleteFunc(event) {
+    const remover = document.getElementById('tabela');
+    const pai = document.getElementById('pai-da-tabela');
+    pai.removeChild(remover);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
-      <tbody>
+      <tbody id="pai-da-tabela">
         {expenses.map((custo, index) => {
           const total = Number(custo.exchangeRates[custo.currency].ask) * custo.value;
           const cambioUtilizado = custo.exchangeRates[custo.currency].ask;
           return (
-            <tr key={ index }>
+            <tr id="tabela" key={ index }>
               <td>{ custo.description }</td>
               <td>{ custo.tag }</td>
               <td>{ custo.method }</td>
@@ -21,7 +27,7 @@ class TableBody extends React.Component {
               <td>{ total }</td>
               <td>Real</td>
               <td><button data-testid="edit-btn" type="button">editar</button></td>
-              <td><button data-testid="delete-btn" type="button">excluir</button></td>
+              <td><button data-testid="delete-btn" type="button" onClick={ this.deleteFunc }>excluir</button></td>
             </tr>
           );
         })}
