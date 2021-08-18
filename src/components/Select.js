@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Select extends React.Component {
   render() {
-    const { id, value, testId, onChange, name, options } = this.props;
+    const { id, testId, onChange, name, options } = this.props;
     return (
       <label htmlFor={ id }>
         { name }
@@ -15,10 +15,10 @@ class Select extends React.Component {
           {
             options.map((option) => (
               <option
-                value={ value }
-                key={ `option[${Object.keys(option)}]` }
+                value={ typeof (option) === 'object' ? Object.values(option) : option }
+                key={ typeof (option) === 'object' ? Object.values(option) : option }
               >
-                { typeof (option) === 'object' ? Object.values(option) : option}
+                { typeof (option) === 'object' ? Object.values(option) : option }
               </option>))
           }
         </select>
@@ -31,7 +31,6 @@ const { string, func, object, arrayOf, oneOfType } = PropTypes;
 
 Select.propTypes = {
   id: string.isRequired,
-  value: string,
   testId: string,
   onChange: func.isRequired,
   name: string,
@@ -39,7 +38,6 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  value: '',
   name: '',
   options: [],
   testId: null,

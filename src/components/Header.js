@@ -3,34 +3,43 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currency: 'BRL',
+    };
+  }
+
   render() {
-    const { props: { email, expenses, currencies } } = this;
+    const {
+      props: { email, expenses },
+      state: { currency },
+    } = this;
     return (
       <div>
         <div data-testid="email-field">
           { email }
         </div>
         <div data-testid="total-field">
-          { `Gastos: ${expenses}`}
+          { `Despesa Total R$${expenses}`}
           {/* perguntar na monitoria sobre o erro de expenses */}
         </div>
         <div data-testid="header-currency-field">
-          { `Moeda corrente: ${currencies}` }
+          { currency }
         </div>
       </div>
     );
   }
 }
 
-const { string, number, arrayOf } = PropTypes;
+const { string, number } = PropTypes;
 Header.propTypes = {
   email: string.isRequired,
   expenses: number,
-  currencies: arrayOf(string),
 };
 
 Header.defaultProps = {
-  currencies: ['BRL'],
   expenses: 0,
 };
 
