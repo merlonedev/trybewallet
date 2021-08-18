@@ -27,3 +27,8 @@ export const GET_EXPENSES = (value) => ({
   type: 'get_expenses',
   value,
 });
+
+export const DELETE_EXPENSE = (value) => ({
+  type: 'detele_expense',
+  value,
+});

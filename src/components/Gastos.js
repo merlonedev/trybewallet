@@ -1,14 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { DELETE_EXPENSE } from '../actions/index';
 
 class Gastos extends React.Component {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   valorConvertido() {
     const { expense } = this.props;
     const { value, currency, exchangeRates } = expense;
     const { [currency]: moeda } = exchangeRates;
     const valorConvertido = moeda.ask * Number(value);
     return valorConvertido;
+  }
+
+  handleClick() {
+    const { deleteExp, expense } = this.props;
+    deleteExp(expense.id);
   }
 
   render() {
@@ -26,7 +38,16 @@ class Gastos extends React.Component {
         <td>{Number(ask).toFixed(2)}</td>
         <td>{this.valorConvertido().toFixed(2)}</td>
         <td>Real</td>
-        <td>Editar/Excluir</td>
+        <td>
+          <button type="button" data-testid="edit-btn">Editar</button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ this.handleClick }
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
     );
   }
@@ -34,6 +55,10 @@ class Gastos extends React.Component {
 
 Gastos.propTypes = {
   expense: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExp: PropTypes.func.isRequired,
 };
 
-export default connect()(Gastos);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (value) => dispatch(DELETE_EXPENSE(value)),
+});
+export default connect(null, mapDispatchToProps)(Gastos);
