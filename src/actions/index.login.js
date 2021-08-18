@@ -23,6 +23,11 @@ export const userSumTotal = (sumTotal) => ({
   payload: sumTotal,
 });
 
+// export const userDelete = => {
+//   type: USER_DELETE,
+//     pay
+// }
+
 export const fetchApiCurriencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const currencies = await response.json();
