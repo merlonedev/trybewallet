@@ -1,2 +1,5 @@
-export const userEmail = (value) => ({ type: 'EMAIL', value });
-export const Action = (value) => ({ type: 'action', value });
+export const ADD_USER = 'ADD_USER';
+
+export const saveUserInfo = (value) => ({
+  type: ADD_EMAIL, payload: value,
+});
