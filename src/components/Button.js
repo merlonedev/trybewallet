@@ -18,9 +18,13 @@ class Button extends React.Component {
 
 const { string, func, bool } = PropTypes;
 
+Button.defaultProps = {
+  disabled: false,
+};
+
 Button.propTypes = {
   label: string.isRequired,
-  disabled: bool.isRequired,
+  disabled: bool,
   submit: func.isRequired,
 };
 
