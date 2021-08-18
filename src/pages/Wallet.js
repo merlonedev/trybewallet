@@ -30,7 +30,9 @@ class Wallet extends React.Component {
               { currency }
             </p>
           </p>
-          <Form />
+          <p>
+            <Form />
+          </p>
         </header>
       </section>
     );
