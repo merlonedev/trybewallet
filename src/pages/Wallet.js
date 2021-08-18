@@ -19,21 +19,21 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="value">
             Valor
-            <input type="text" name="value" />
+            <input type="text" id="value" />
           </label>
           <label htmlFor="description">
             Descrição
-            <input type="text" name="description" />
+            <textarea type="text" id="description" rows="3" cols="10" />
           </label>
           <label htmlFor="currency">
             Moeda
-            <select name="currency">
+            <select id="currency" role="combobox">
               <option value="BRL" selected>BRL</option>
             </select>
           </label>
           <label htmlFor="payment">
-            Método de Pagamento
-            <select name="payment">
+            Método de pagamento
+            <select id="payment">
               <option value="money" selected>Dinheiro</option>
               <option value="credit">Cartão de Crédito</option>
               <option value="debit">Cartão de Débito</option>
@@ -41,7 +41,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="tag">
             Tag
-            <select name="tag">
+            <select id="tag">
               <option value="food" selected>Alimentação</option>
               <option value="fun">Lazer</option>
               <option value="work">Trabalho</option>
