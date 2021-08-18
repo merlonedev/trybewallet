@@ -7,15 +7,22 @@ class FormsWallet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: 0,
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
-      expenses: [],
+      // expenses: '',
       exchangeRates: {},
+      id: 0,
     };
     this.getCoins = this.getCoins.bind(this);
+    this.inputDescription = this.inputDescription.bind(this);
+    this.inputLabel = this.inputLabel.bind(this);
+    this.inputPaymente = this.inputPaymente.bind(this);
+    this.inputTag = this.inputTag.bind(this);
+    this.handlerSubmit = this.handlerSubmit.bind(this);
+    this.handlerChange = this.handlerChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,22 +40,22 @@ class FormsWallet extends Component {
   }
 
   async handlerSubmit(event) {
-    const { expenses, setExpenses } = this.state;
+    const { expenses, setExpenses } = this.props;
     event.preventDefault();
     const id = expenses.length;
     await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((resolver) => resolver.json())
       .then((result) => {
-        this.setState = {
+        this.setState({
           id,
           exchangeRates: result,
-        };
+        });
       });
     setExpenses(this.state);
   }
 
   handlerChange({ target: { value, name } }) {
-    this.setState = ({
+    this.setState({
       [name]: value,
     });
   }
@@ -59,9 +66,9 @@ class FormsWallet extends Component {
         Valor
         <input
           type="number"
+          value={ value }
           id="value"
           name="value"
-          value={ value }
           onChange={ this.handlerChange }
         />
       </label>
@@ -70,12 +77,12 @@ class FormsWallet extends Component {
 
   inputPaymente(method) {
     return (
-      <label htmlFor="payment">
+      <label htmlFor="method">
         Método de pagamento
         <select
-          id="payment"
+          id="method"
           value={ method }
-          name="payment"
+          name="method"
           onChange={ this.handlerChange }
         >
           <option value="Dinheiro">Dinheiro</option>
@@ -90,7 +97,7 @@ class FormsWallet extends Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select id="tag" name="tag" value={ tag } onChange={ this.handlerChange }>
+        <select id="tag" name="tag" onChange={ this.handlerChange } value={ tag }>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -106,10 +113,10 @@ class FormsWallet extends Component {
       <label htmlFor="description">
         Descrição
         <input
+          value={ description }
           type="text"
           id="description"
           name="description"
-          value={ description }
           onChange={ this.handlerChange }
         />
       </label>
@@ -117,13 +124,18 @@ class FormsWallet extends Component {
   }
 
   render() {
-    const { currency, tag, method, value, description } = this.state;
+    const { description, value, tag, method, currency } = this.state;
     return (
-      <form>
+      <form onSubmit={ this.handlerSubmit }>
         { this.inputLabel(value) }
-        <label htmlFor="coins">
+        <label htmlFor="currency">
           Moedas
-          <select id="coins" value={ currency }>
+          <select
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ this.handlerChange }
+          >
             { this.getCoins() }
           </select>
         </label>
@@ -138,15 +150,18 @@ class FormsWallet extends Component {
 
 FormsWallet.propTypes = {
   setDispatch: PropTypes.func.isRequired,
-  coinsMap: PropTypes.func.isRequired,
+  coinsMap: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   coinsMap: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setExpenses: () => dispatch(userExpencies()),
+  setExpenses: (payload) => dispatch(userExpencies(payload)),
   setDispatch: () => dispatch(fetchApiCurriencies()),
 });
 

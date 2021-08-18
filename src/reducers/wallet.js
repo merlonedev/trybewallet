@@ -15,6 +15,10 @@ const userWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state, expenses: [...state.expenses, action.payload],
     };
+    // case USER_SUM_TOTAL:
+    //   return {
+    //     ...state,
+    //   };
   default:
     return state;
   }

@@ -11,9 +11,20 @@ class Header extends Component {
     };
   }
 
+  sumTotal() {
+    const { expenses } = this.props;
+    if (expenses.length < 1) return 0;
+    const total = expenses.reduce((acc, expense) => {
+      const { [expense.currency]: coinCurrency } = expense.exchangeRates;
+      acc += coinCurrency.ask * expense.value;
+      return acc;
+    }, 0);
+    return total.toFixed(2);
+  }
+
   render() {
     const { email } = this.props;
-    const { coins, total } = this.state;
+    const { coins } = this.state;
     return (
       <header>
         {/* <img /> */}
@@ -21,7 +32,7 @@ class Header extends Component {
           {email}
         </span>
         <span data-testid="total-field">
-          { total }
+          { this.sumTotal() }
         </span>
         <span data-testid="header-currency-field">
           {coins}
@@ -33,6 +44,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, null)(Header);

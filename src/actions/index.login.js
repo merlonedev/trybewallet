@@ -1,6 +1,7 @@
 export const USER_EMAIL = 'USER_EMAIL';
 export const USER_CURRENCIES = 'USER_CURRENCIES';
 export const USER_EXPENSES = 'USER_EXPENSES';
+export const USER_SUM_TOTAL = 'USER_SUM_TOTAL';
 
 export const userEmail = (payload) => ({
   type: USER_EMAIL,
@@ -15,6 +16,11 @@ export const userExpencies = (expenses) => ({
 export const userCurrencies = (currencies) => ({
   type: USER_CURRENCIES,
   payload: currencies,
+});
+
+export const userSumTotal = (sumTotal) => ({
+  type: USER_SUM_TOTAL,
+  payload: sumTotal,
 });
 
 export const fetchApiCurriencies = () => async (dispatch) => {
