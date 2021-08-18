@@ -1,7 +1,14 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
 
 function App() {
-  return <div>Hello, Trybe-Wallet!</div>;
+  return (
+    <Switch>
+      <Route exat path="/" component={ Login } />
+    </Switch>
+
+  );
 }
 
 export default App;
