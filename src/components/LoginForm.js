@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { userAction } = this.props;
+    const { emailDispatch } = this.props;
 
     return (
       <section>
@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
         <Link to="/carteira">
           <input
             type="button"
-            onClick={ () => userAction(email) }
+            onClick={ () => emailDispatch(email) }
             name="button"
             disabled={ !this.validate(email, password) }
             value="Entrar"
@@ -65,6 +65,10 @@ class LoginForm extends React.Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  emailDispatch: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   userAction: (email) => dispatch(userAction(email)),
