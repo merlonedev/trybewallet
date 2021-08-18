@@ -9,15 +9,14 @@ class Header extends React.Component {
   }
 
   setTotalField() {
-    const { expenses } = this.props;
+    const { props: { expenses } } = this;
     if (expenses.length > 0) {
       const totalField = expenses.reduce((acc, curr) => {
-        const value = parseFloat(curr.value);
-        const { currency, exchangeRates } = curr;
-        const convert = exchangeRates[currency].ask * value;
+        const { currency, exchangeRates, value } = curr;
+        const convert = Number(exchangeRates[currency].ask) * Number(value);
         return acc + convert;
       }, 0);
-      return totalField;
+      return totalField.toFixed(2);
     }
     return 0;
   }
@@ -31,7 +30,7 @@ class Header extends React.Component {
             {`E-mail: ${userEmail}`}
           </h2>
           <h3 data-testid="total-field">
-            {`Total de despesas: ${setTotalField()}`}
+            {`Total de Despesas: ${setTotalField()}`}
           </h3>
           <h4 data-testid="header-currency-field">BRL</h4>
         </aside>
