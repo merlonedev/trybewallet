@@ -104,7 +104,6 @@ class Form extends Component {
         />
         <Currency
           htmlFor="Moeda"
-          nome="Moeda"
           id="Moeda"
           array={ newCurrencies }
           onChange={ this.inputValue }
@@ -118,7 +117,6 @@ class Form extends Component {
         />
         <LabelSelect
           htmlFor="Tag"
-          nome="Tag"
           id="Tag"
           array={ food }
           target={ this.inputValue }
@@ -126,11 +124,16 @@ class Form extends Component {
         <LabelInput
           htmlFor="Descrição"
           type="text"
-          nome="Descrição"
           id="Descrição"
           onChange={ this.inputValue }
         />
-        <button type="button" onClick={ this.getCrurrencies }>adicionar despesa</button>
+        <button
+          data-testid="total-field"
+          type="button"
+          onClick={ this.getCrurrencies }
+        >
+          adicionar despesa
+        </button>
       </form>
     );
   }
