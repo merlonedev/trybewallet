@@ -13,8 +13,11 @@ class Header extends Component {
       <div>
         <header>
           TrybeWallet
-          <p data-testid="email-field">{`email: ${email}`}</p>
-          <p data-testid="total-field">{total}</p>
+          <p data-testid="email-field">{`E-mail: ${email}`}</p>
+          <p data-testid="total-field">
+            Total:
+            {total}
+          </p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
       </div>
