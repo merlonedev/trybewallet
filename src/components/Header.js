@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { props: { getEmail, getExpenses, getCurrencies } } = this;
-    console.log(getCurrencies);
+    const { props: { email, expenses, currencies } } = this;
     return (
       <div>
         <div data-testid="email-field">
-          { getEmail }
+          { email }
         </div>
         <div data-testid="total-field">
-          { getExpenses }
+          { expenses }
         </div>
         <div data-testid="header-currency-field">
-          { getCurrencies }
+          { currencies }
         </div>
       </div>
     );
@@ -24,19 +23,20 @@ class Header extends React.Component {
 
 const { string, number } = PropTypes;
 Header.propTypes = {
-  getEmail: string.isRequired,
-  getExpenses: number.isRequired,
-  getCurrencies: string,
+  email: string.isRequired,
+  expenses: number,
+  currencies: string,
 };
 
 Header.defaultProps = {
-  getCurrencies: 'BRL',
+  currencies: 'BRL',
+  expenses: 0,
 };
 
 const mapStateToProps = (state) => ({
-  getEmail: state.user.email,
-  getExpenses: state.wallet.wallet.expenses,
-  getCurrencies: state.wallet.wallet.currencies,
+  email: state.user.email,
+  expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Header);
