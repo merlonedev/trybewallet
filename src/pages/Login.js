@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { getUserData } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,10 +12,19 @@ class Login extends React.Component {
       email: '',
       password: '',
       disabled: true,
+      redirect: false,
     };
 
     this.loginCheck = this.loginCheck.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getUserEmail = this.getUserEmail.bind(this);
+  }
+
+  getUserEmail() {
+    const { email } = this.state;
+    const { submitEmail } = this.props;
+    this.setState({ redirect: true });
+    submitEmail(email);
   }
 
   loginCheck() {
@@ -33,7 +46,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disabled } = this.state;
+    const { email, password, disabled, redirect } = this.state;
     return (
       <section>
         <div>Login</div>
@@ -64,14 +77,23 @@ class Login extends React.Component {
         <button
           type="submit"
           id="button-submit"
-          onClick={ this.loginCheck }
+          onClick={ this.getUserEmail }
           disabled={ disabled }
         >
           Entrar
         </button>
+        {redirect && <Redirect to="/carteira" />}
       </section>
     );
   }
 }
 
-export default Login;
+const mapDispatchtoProps = (dispatch) => ({
+  submitEmail: (email) => dispatch(getUserData(email)),
+});
+
+Login.propTypes = {
+  submitEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchtoProps)(Login);
