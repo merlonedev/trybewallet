@@ -22,11 +22,10 @@ class Form extends Component {
     this.saveToRedux = this.saveToRedux.bind(this);
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
+  handleChange({ target: { id, value } }) {
+    this.setState(({
+      [id]: value,
+    }));
   }
 
   async saveToRedux() {
@@ -39,49 +38,33 @@ class Form extends Component {
     });
   }
 
-  // eslint-disable-next-line max-lines-per-function
   render() {
     const { value, description, method, tag, currency } = this.state;
     const inputValor = {
       htmlFor: 'input-valor',
       labelText: 'Valor',
       type: 'text',
-      id: 'input-valor',
-      name: 'value',
+      id: 'value',
       value,
       onChange: this.handleChange,
     };
+
     const inputDescription = {
       htmlFor: 'input-description',
       labelText: 'Descrição',
       type: 'text',
-      id: 'input-description',
-      name: 'descritpion',
+      id: 'description',
       value: description,
       onChange: this.handleChange,
     };
-    const currencyProps = {
-      value: currency,
-      onChange: this.handleChange,
-      id: 'currency',
-    };
-    const paymentMethodProps = {
-      value: method,
-      id: 'method',
-      onChange: this.handleChange,
-    };
-    const tagProps = {
-      value: tag,
-      id: 'tag',
-      onChange: this.handleChange,
-    };
+
     return (
       <form>
         <Inputs { ...inputValor } />
         <Inputs { ...inputDescription } />
-        <PaymentMethod { ...currencyProps } />
-        <Currencies { ...paymentMethodProps } />
-        <Tag { ...tagProps } />
+        <PaymentMethod onChange={ this.handleChange } value={ method } id="method" />
+        <Currencies onChange={ this.handleChange } value={ currency } id="currency" />
+        <Tag onChange={ this.handleChange } value={ tag } id="tag" />
         <button
           onClick={ this.saveToRedux }
           type="button"
@@ -90,7 +73,6 @@ class Form extends Component {
 
         </button>
       </form>
-
     );
   }
 }

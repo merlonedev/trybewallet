@@ -8,11 +8,11 @@ class Tag extends Component {
       <label htmlFor="tag">
         Tag
         <select id="tag" onChange={ onChange } value={ value } name={ name }>
-          <option value="food">Alimentação</option>
-          <option value="recreation">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="mobility">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
 
