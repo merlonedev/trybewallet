@@ -22,9 +22,8 @@ class Wallet extends React.Component {
   }
 
   getTotal(maney) {
-    const { totalExpenses } = this.state;
     const value = +maney;
-    this.setState({ totalExpenses: (totalExpenses + value) });
+    this.setState({ totalExpenses: value });
   }
 
   render() {
@@ -37,10 +36,8 @@ class Wallet extends React.Component {
           email={ user.email }
           totalExpenses={ totalExpenses }
         />
-        <Form
-          getTotal={ this.getTotal }
-        />
-        <Table />
+        <Form />
+        <Table getTotal={ this.getTotal } />
       </div>
     );
   }

@@ -55,12 +55,6 @@ class Form extends Component {
   submitStore(data) {
     const { id, value, description, currency,
       method, tag } = this.state;
-    const { getTotal } = this.props;
-    const price = Object.values(data)
-      .filter((item) => item.code === currency);
-    const priceFinish = (value * price[0].ask).toFixed(2);
-    getTotal(priceFinish);
-
     const { submit } = this.props;
     submit({
       id,
@@ -151,6 +145,5 @@ Form.propTypes = {
     XRP: PropTypes.shape({ code: PropTypes.string.isRequired }),
   }).isRequired,
   submit: PropTypes.func.isRequired,
-  getTotal: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

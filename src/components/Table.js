@@ -17,17 +17,17 @@ class Table extends Component {
   }
 
   sState() {
-    const { wallet: { expenses } } = this.props;
+    const { wallet: { expenses }, getTotal } = this.props;
     if (expenses.length > 1) {
       return (
-        <TableTd counter={ 1 } />
+        <TableTd getTotal={ getTotal } counter={ 1 } />
       );
     }
   }
 
   render() {
     const { hearder } = this.state;
-    const { wallet: { expenses } } = this.props;
+    const { wallet: { expenses }, getTotal } = this.props;
     if (expenses.length > 0) {
       console.log(expenses[0].id);
       return (
@@ -38,7 +38,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            <TableTd counter={ 0 } />
+            <TableTd getTotal={ getTotal } counter={ 0 } />
           </tbody>
         </table>
       );
@@ -55,6 +55,7 @@ Table.propTypes = {
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  getTotal: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

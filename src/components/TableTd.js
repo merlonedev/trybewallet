@@ -18,13 +18,23 @@ class TableTd extends Component {
   }
 
   table() {
-    const { wallet: { expenses } } = this.props;
+    const { wallet: { expenses }, getTotal } = this.props;
+    if (expenses.length > 0 && expenses.length < 2) {
+      const { exchangeRates } = expenses[0];
+      const arr = Object.entries(exchangeRates)
+        .filter((item) => item[0] === expenses[0].currency);
+      getTotal((expenses[0].value * arr[0][1].ask));
+    }
+
     if (expenses.length > 1) {
       const { exchangeRates } = expenses[1];
       const array = Object.entries(exchangeRates)
         .filter((item) => item[0] === expenses[1].currency);
       const array2 = array[0][1].ask;
-      console.log(array2);
+      const total1 = (expenses[1].value * array[0][1].ask);
+      const total2 = (expenses[0].value * array[0][1].ask);
+      getTotal(total1 + total2);
+      console.log(total1 + total2);
       return (
         <tr>
           <td>{expenses[1].description}</td>
@@ -96,6 +106,7 @@ TableTd.propTypes = {
   }).isRequired,
   counter: PropTypes.number.isRequired,
   submit: PropTypes.func.isRequired,
+  getTotal: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableTd);
