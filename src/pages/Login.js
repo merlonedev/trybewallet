@@ -72,6 +72,7 @@ class Login extends React.Component {
             name="email"
             value={ email }
             data-testid="email-input"
+            placeholder="Digite seu Email"
             onChange={ this.getInputValue }
             required
           />

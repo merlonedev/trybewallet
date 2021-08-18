@@ -1,0 +1,14 @@
+.table {
+  display: flexbox;
+  border: 1px solid black ;
+}
+
+.table th {
+  display: flexbox;
+  border: 1px solid black ;
+}
+
+.table td {
+  justify-items: center;
+  border: 1px solid black ;
+}
