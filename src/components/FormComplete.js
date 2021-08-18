@@ -81,9 +81,9 @@ class FormComplete extends Component {
 }
 
 FormComplete.propTypes = {
-  currency: PropTypes.string.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
