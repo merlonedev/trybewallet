@@ -1,4 +1,5 @@
-import { USER, WALLET, WALLET_SUCESS, WALLET_ERROR, FORMWALLET } from './actionTypes';
+import { USER, WALLET, WALLET_SUCESS,
+  WALLET_ERROR, FORMWALLET, DELETE_ITEM } from './actionTypes';
 
 export const formWallet = (state) => ({
   type: FORMWALLET,
@@ -21,6 +22,11 @@ export const walletCurrenciesSucess = (state) => ({
 
 export const walletCurrenciesError = (state) => ({
   type: WALLET_ERROR,
+  state,
+});
+
+export const deletItem = (state) => ({
+  type: DELETE_ITEM,
   state,
 });
 

@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deletItem } from '../actions';
 
 class TableTd extends Component {
   constructor(props) {
     super(props);
     this.table = this.table.bind(this);
+    this.dispathc = this.dispathc.bind(this);
+  }
+
+  dispathc() {
+    const { wallet: { expenses } } = this.props;
+    const { submit } = this.props;
+    console.log(expenses);
+    submit(expenses[0]);
   }
 
   table() {
@@ -26,7 +35,15 @@ class TableTd extends Component {
           <td>{(+array2).toFixed(2)}</td>
           <td>{(expenses[1].value * array[0][1].ask).toFixed(2)}</td>
           <td><p>Real</p></td>
-          <td>{}</td>
+          <td>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ this.dispathc }
+            >
+              Delet
+            </button>
+          </td>
         </tr>
       );
     }
@@ -49,7 +66,15 @@ class TableTd extends Component {
           <td>{(+array2).toFixed(2)}</td>
           <td>{(expenses[counter].value * array[counter][1].ask).toFixed(2)}</td>
           <td><p>Real</p></td>
-          <td>{}</td>
+          <td>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ this.dispathc }
+            >
+              Delet
+            </button>
+          </td>
         </tr>
         { this.table() }
       </>
@@ -61,11 +86,16 @@ const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
 
+const mapDispatchToProps = (dispathc) => ({
+  submit: (state) => dispathc(deletItem(state)),
+});
+
 TableTd.propTypes = {
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   counter: PropTypes.number.isRequired,
+  submit: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(TableTd);
+export default connect(mapStateToProps, mapDispatchToProps)(TableTd);

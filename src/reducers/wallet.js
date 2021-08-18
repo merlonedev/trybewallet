@@ -1,4 +1,5 @@
-import { WALLET, WALLET_SUCESS, WALLET_ERROR, FORMWALLET } from '../actions/actionTypes';
+import { WALLET, WALLET_SUCESS, WALLET_ERROR,
+  FORMWALLET, DELETE_ITEM } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: {},
@@ -22,6 +23,10 @@ const wallet = (state = INITIAL_STATE, action) => {
   case FORMWALLET: return {
     ...state,
     expenses: [...state.expenses, action.state],
+  };
+  case DELETE_ITEM: return {
+    ...state,
+    expenses: state.expenses.filter((item) => action.state !== item),
   };
   default: return state;
   }
