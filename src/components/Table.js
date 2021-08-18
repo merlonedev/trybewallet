@@ -23,15 +23,15 @@ class Table extends Component {
         <tbody>
           {expenses.map((expense, data) => (
             <tr key={ data }>
-              <td>{ expense.Description }</td>
+              <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
               <td>{ expense.value }</td>
               <td>{ expense.exchangeRates[expense.currency].name }</td>
               <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
               <td>
-                {Number(expense.value
-              * expense.exchangeRates[expense.currency].ask).toFixed(2)}
+                {Number((expense.value)
+                  * expense.exchangeRates[expense.currency].ask).toFixed(2)}
               </td>
               <td> Real </td>
               <td>
@@ -42,6 +42,7 @@ class Table extends Component {
                 </button>
                 <button
                   type="button"
+                  data-testid="delete-btn"
                 >
                   Excluir
                 </button>
@@ -59,7 +60,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
-  expenses: PropTypes.shape.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Table);
