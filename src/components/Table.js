@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeTableLine } from '../actions';
 
 class Table extends Component {
+  removeTable(id) {
+    const { removeLine } = this.props;
+    removeLine(id);
+  }
+
   render() {
     const campos = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
@@ -30,7 +36,13 @@ class Table extends Component {
               <td>Real</td>
               <td>
                 <button type="button">Editar</button>
-                <button type="button">Excluir</button>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.removeTable(data.id) }
+                >
+                  Excluir
+                </button>
               </td>
             </tr>))}
         </tbody>
@@ -43,8 +55,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  removeLine: (state) => { dispatch(removeTableLine(state)); },
+});
+
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  removeLine: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

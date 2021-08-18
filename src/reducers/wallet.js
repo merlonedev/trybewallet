@@ -1,5 +1,5 @@
 import { GET_EXCHANGE, GET_EXCHANGE_SUCCES,
-  GET_EXCHANGE_ERROR, ADD_EXCHANGE_SUCCES } from '../actions';
+  GET_EXCHANGE_ERROR, ADD_EXCHANGE_SUCCES, REMOVE_TABLE_LINE } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
@@ -32,6 +32,12 @@ function wallet(state = INITIAL_STATE, action) {
     };
   default:
     return state;
+
+  case REMOVE_TABLE_LINE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
   }
 }
 export default wallet;
