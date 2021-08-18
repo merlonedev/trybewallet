@@ -8,6 +8,7 @@ import TipoMoeda from '../components/FomsFunctions/TipoMoeda';
 import ValorDespesa from '../components/FomsFunctions/ValorDespesa';
 import { fetchAPI } from '../actions';
 import Header from '../components/Header';
+import Table from '../components/Table';
 // import wallet from '../reducers/wallet';
 
 class Wallet extends React.Component {
@@ -76,6 +77,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <Table />
       </div>
     );
   }
