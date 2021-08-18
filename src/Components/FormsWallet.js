@@ -9,16 +9,26 @@ class FormsWallet extends Component {
     this.state = {
       // balance: '',
       // description: '',
-      // currency: 0,
+      currency: 'USD',
       // payment: 'dinheiro',
       // tag: 'alimentação',
       // expencies: [],
     };
+    this.getCoins = this.getCoins.bind(this);
   }
 
   componentDidMount() {
     const { setDispatch } = this.props;
     setDispatch();
+  }
+
+  getCoins() {
+    const { coinsMap } = this.props;
+    const setMoedas = [];
+    coinsMap.forEach((el, index) => setMoedas.push(
+      (<option key={ index }>{el}</option>),
+    ));
+    return setMoedas;
   }
 
   handlerChange({ target: { value, name } }) {
@@ -28,19 +38,22 @@ class FormsWallet extends Component {
   }
 
   render() {
+    const { currency } = this.state;
     return (
       <form>
         <label htmlFor="balance">
-          Valor
-          <input type="text" name="balance" />
+          valor
+          <input type="text" id="balance" />
         </label>
         <label htmlFor="coins">
-          Moeda
-          {/* <select name="coins" /> */}
+          Moedas
+          <select id="coins" value={ currency }>
+            { this.getCoins() }
+          </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento
-          <select name="payment">
+          <select id="payment">
             <option value="dinheiro">Dinheiro</option>
             <option value="crédito">Cartão de crédito</option>
             <option value="débito">Cartão de débito</option>
@@ -48,17 +61,17 @@ class FormsWallet extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag">
+          <select id="tag">
             <option value="alimenta">Alimentação</option>
             <option value="lazer">Lazer</option>
             <option value="trabalho">Trabalho</option>
-            <option value="transporte">transporte</option>
+            <option value="transporte">Transporte</option>
             <option value="saude">Saúde</option>
           </select>
         </label>
         <label htmlFor="description">
           Descrição
-          <input type="text" name="description" />
+          <input type="text" id="description" />
         </label>
       </form>
     );
@@ -67,10 +80,11 @@ class FormsWallet extends Component {
 
 FormsWallet.propTypes = {
   setDispatch: PropTypes.func.isRequired,
+  coinsMap: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  coinsMap: state.currency,
+  coinsMap: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
