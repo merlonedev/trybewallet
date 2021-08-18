@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
+  constructor() {
+    super();
+
+    this.renderCurrencies = this.renderCurrencies.bind(this);
+  }
+
+  renderCurrencies() {
+    const { currencies } = this.props;
+    const currenciesKeys = Object.keys(currencies);
+    return currenciesKeys.map(
+      (currency) => <option key={ currency }>{ currency }</option>,
+    );
+  }
+
   render() {
     return (
       <form>
@@ -15,7 +30,7 @@ class Form extends Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            <option>blablabla</option>
+            { this.renderCurrencies() }
           </select>
         </label>
         <label htmlFor="payment-method">
@@ -40,5 +55,9 @@ class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default Form;
