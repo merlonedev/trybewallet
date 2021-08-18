@@ -19,5 +19,3 @@ export {
   getRatesError,
   fetchAPI2,
 } from './ratesAction';
-
-export { ADD_EXPENSE, addExpense } from './expenseAction';

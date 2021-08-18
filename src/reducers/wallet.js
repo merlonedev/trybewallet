@@ -5,7 +5,6 @@ import {
   GET_RATES,
   GET_RATES_SUCCESS,
   GET_RATES_ERROR,
-  ADD_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -21,17 +20,15 @@ function walletReducer(state = INITIAL_STATE, action) {
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS:
-    return { ...state, error: null, currencies: action.payload, isLoading: false };
+    return { ...state, currencies: action.payload, isLoading: false };
   case GET_CURRENCIES_ERROR:
     return { ...state, error: action.error, isLoading: false };
   case GET_RATES:
     return { ...state, isLoading: true };
   case GET_RATES_SUCCESS:
-    return { ...state, error: null, rates: action.payload, isLoading: false };
+    return { ...state, expenses: action.payload, isLoading: false };
   case GET_RATES_ERROR:
     return { ...state, error: action.error, isLoading: false };
-  case ADD_EXPENSE:
-    return { ...state, expenses: action.expenses };
   default:
     return state;
   }

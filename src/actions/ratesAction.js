@@ -16,11 +16,14 @@ export const getRatesError = (error) => ({
   error,
 });
 
-export const fetchAPI2 = () => async (dispatch) => {
+export const fetchAPI2 = (expense) => async (dispatch) => {
   dispatch(getRates);
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   fetch(endpoint)
     .then((data) => data.json())
-    .then((results) => dispatch(getRatesSuccess(results)))
+    .then((results) => dispatch(getRatesSuccess({
+      ...expense,
+      exchangeRates: results,
+    })))
     .catch((error) => dispatch(getRatesError(error)));
 };

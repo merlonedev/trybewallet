@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI2, addExpense } from '../actions';
+import { fetchAPI2 } from '../actions';
 import Input from './Input';
 import Select from './Select';
 import { payMethodOptions, tagList } from '../helpers/selectOptions';
@@ -18,7 +18,6 @@ class Form extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
-      exchangeRates: {},
     };
 
     this.baseState = this.state;
@@ -34,11 +33,10 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { state, props: { rates, expenseDispatch, ratesDispatch } } = this;
+    const { state, props: { ratesDispatch } } = this;
 
-    ratesDispatch();
-    const expense = [{ ...state, exchangeRates: rates }];
-    expenseDispatch(addExpense(expense));
+    const expense = { ...state };
+    ratesDispatch(expense);
 
     this.setState(this.baseState, state.id += 1);
     // baseState tirado de https://medium.com/@justintulk/best-practices-for-resetting-an-es6-react-components-state-81c0c86df98d
@@ -70,7 +68,7 @@ class Form extends React.Component {
             onChange={ this.handleChange }
           />
           <Select
-            id="payMethod"
+            id="method"
             name="Método de pagamento"
             options={ payMethodOptions }
             value={ method }
@@ -104,29 +102,24 @@ const { bool, arrayOf, string, func, objectOf } = PropTypes;
 Form.propTypes = {
   loading: bool.isRequired,
   currencies: arrayOf(string),
-  rates: objectOf(objectOf(string)),
   expenses: objectOf(objectOf(string)),
   ratesDispatch: func.isRequired,
-  expenseDispatch: func.isRequired,
 };
 
 Form.defaultProps = {
   currencies: 'BRL',
-  rates: {},
   expenses: 0,
 };
 
 const mapStateToProps = (state) => {
-  const { rates, expenses } = state.wallet;
+  const { expenses } = state.wallet;
   return {
-    rates,
     expenses,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  ratesDispatch: () => dispatch(fetchAPI2()),
-  expenseDispatch: (expense) => dispatch(addExpense(expense)),
+  ratesDispatch: (expense) => dispatch(fetchAPI2(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
