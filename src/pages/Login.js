@@ -15,6 +15,7 @@ class Login extends React.Component {
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.submit = this.submit.bind(this);
+    this.saveUserInfo = this.saveUserInfo.bind(this);
   }
 
   saveUserInfo() {
