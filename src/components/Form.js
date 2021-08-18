@@ -56,8 +56,6 @@ class Form extends React.Component {
 
     const infoExpense = { ...state };
     await saveExpense(infoExpense);
-
-    this.setState(INITIAL_STATE);
   }
 
   render() {
