@@ -1,9 +1,6 @@
 // Coloque aqui suas actions
 export const LOGIN = 'LOGIN';
-export const getLogin = (email) => ({
-  type: LOGIN,
-  email,
-});
+export const getLogin = (email) => ({ type: LOGIN, email });
 
 export const COIN = 'COIN';
 export const getCoin = () => ({ type: COIN });
@@ -44,3 +41,9 @@ export const fetchExpenses = (payload) => async (dispatch) => {
     return dispatch(getCoinFailed(error));
   }
 };
+
+export const TOTAL = 'TOTAL';
+export const getTotal = (total) => ({ type: TOTAL, total });
+
+export const REMOVE = 'REMOVE';
+export const removeLine = (line) => ({ type: REMOVE, line });

@@ -69,7 +69,7 @@ class Wallet extends React.Component {
           <Pagamento handleChange={ this.handleChange } />
           <Motivo handleChange={ this.handleChange } />
           <button type="button" onClick={ this.add }>Adicionar despesa</button>
-          <Tabela />
+          <Tabela add={ this.add } />
         </form>
       </body>
     );
