@@ -3,26 +3,28 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { handleChange, coin, money, tag } = this.props;
+    const { handleChange, currency, method, tag, currencies } = this.props;
     return (
       <div>
         <label htmlFor="moeda">
           Moeda:
           <select
-            name="moeda"
+            name="currency"
             id="moeda"
-            value={ coin }
+            value={ currency }
             onChange={ handleChange }
           >
-            <option>MoedaMap</option>
+            {currencies.map((curr, index) => (
+              <option key={ index }>{curr.code}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="método de pagamento">
           Método de Pagamento:
           <select
-            name="money"
+            name="method"
             id="método de pagamento"
-            value={ money }
+            value={ method }
             onChange={ handleChange }
           >
             <option>Dinheiro</option>
@@ -52,8 +54,8 @@ class Select extends Component {
 
 Select.propTypes = {
   handleChange: PropTypes.func.isRequired,
-  coin: PropTypes.string.isRequired,
-  money: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
 };
 
