@@ -15,7 +15,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disable } = this.state;
+    const { email, disable } = this.state;
     const { dispatchLogin } = this.props;
     return (
       <div>

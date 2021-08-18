@@ -1,5 +1,5 @@
 export const userLogin = (email) => ({
-  type: USER_LOGIN,
+  type: 'USER_LOGIN',
   payload: {
     email,
   },
