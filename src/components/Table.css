@@ -1,14 +1,14 @@
 .table {
+  border: 1px solid black;
   display: flexbox;
-  border: 1px solid black ;
 }
 
 .table th {
+  border: 1px solid black;
   display: flexbox;
-  border: 1px solid black ;
 }
 
 .table td {
+  border: 1px solid black;
   justify-items: center;
-  border: 1px solid black ;
 }
