@@ -10,31 +10,28 @@ class TableTd extends Component {
     this.dispathc = this.dispathc.bind(this);
   }
 
+  componentDidUpdate() {
+    const { wallet: { expenses }, counter, getTotal } = this.props;
+    const { exchangeRates } = expenses[0];
+    const array = Object.entries(exchangeRates)
+      .filter((item) => item[0] === expenses[0].currency);
+    getTotal((expenses[counter].value * array[counter][1].ask));
+  }
+
   dispathc() {
     const { wallet: { expenses } } = this.props;
     const { submit } = this.props;
-    console.log(expenses);
     submit(expenses[0]);
   }
 
   table() {
-    const { wallet: { expenses }, getTotal } = this.props;
-    if (expenses.length > 0 && expenses.length < 2) {
-      const { exchangeRates } = expenses[0];
-      const arr = Object.entries(exchangeRates)
-        .filter((item) => item[0] === expenses[0].currency);
-      getTotal((expenses[0].value * arr[0][1].ask));
-    }
+    const { wallet: { expenses } } = this.props;
 
     if (expenses.length > 1) {
       const { exchangeRates } = expenses[1];
       const array = Object.entries(exchangeRates)
         .filter((item) => item[0] === expenses[1].currency);
       const array2 = array[0][1].ask;
-      const total1 = (expenses[1].value * array[0][1].ask);
-      const total2 = (expenses[0].value * array[0][1].ask);
-      getTotal(total1 + total2);
-      console.log(total1 + total2);
       return (
         <tr>
           <td>{expenses[1].description}</td>

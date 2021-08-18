@@ -36,7 +36,7 @@ class Wallet extends React.Component {
           email={ user.email }
           totalExpenses={ totalExpenses }
         />
-        <Form />
+        <Form getTotal={ this.getTotal } />
         <Table getTotal={ this.getTotal } />
       </div>
     );

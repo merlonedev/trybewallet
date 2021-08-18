@@ -13,23 +13,12 @@ class Table extends Component {
         'Moeda', 'Câmbio utilizado', 'Valor convertido',
         'Moeda de conversão', 'Editar/Excluir'],
     };
-    this.sState = this.sState.bind(this);
-  }
-
-  sState() {
-    const { wallet: { expenses }, getTotal } = this.props;
-    if (expenses.length > 1) {
-      return (
-        <TableTd getTotal={ getTotal } counter={ 1 } />
-      );
-    }
   }
 
   render() {
     const { hearder } = this.state;
     const { wallet: { expenses }, getTotal } = this.props;
     if (expenses.length > 0) {
-      console.log(expenses[0].id);
       return (
         <table className="table">
           <thead>
