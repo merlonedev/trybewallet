@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import getApi from '../api';
+import getApi from '../services/api';
 import { wallet, currencies } from '../actions';
 
 class FormInput extends Component {
