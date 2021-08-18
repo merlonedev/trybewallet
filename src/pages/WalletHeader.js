@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class WalletHeader extends React.Component {
   render() {
     // const { email, total, currency } = this.props;
     const total = 0;
-    const email = '';
+    const { email } = this.props;
     const currency = 'BRL';
     return (
       <header>
@@ -15,13 +16,13 @@ class WalletHeader extends React.Component {
             htmlFor="email-field"
           >
             E-mail:
-            <h4 name="email-field" data-testid="email-fieild">{ email }</h4>
+            <h4 name="email-field" data-testid="email-field">{ email }</h4>
           </label>
           <label
             htmlFor="total-field"
           >
             Total:
-            <h4 name="total-field" data-testid="total-fieild">{ total }</h4>
+            <h4 name="total-field" data-testid="total-field">{ total }</h4>
           </label>
           <label
             htmlFor="header-currency-field"
@@ -37,4 +38,12 @@ class WalletHeader extends React.Component {
   }
 }
 
-export default connect()(WalletHeader);
+WalletHeader.propTypes = {
+  email: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStateToProps)(WalletHeader);
