@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { userEmail } from '../actions';
+import { saveUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -15,6 +15,12 @@ class Login extends React.Component {
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.submit = this.submit.bind(this);
+  }
+
+  saveUserInfo() {
+    const { switchEmail } = this.props;
+    const { email } = this.state;
+    switchEmail(email);
   }
 
   validateEmail({ target: { value } }) {
@@ -58,14 +64,25 @@ class Login extends React.Component {
           onChange={ (pass) => this.validatePassword(pass) }
         />
         <Link to="/carteira">
-          <button type="button" disabled={ this.submit() }>ENTRAR</button>
+          <button
+            type="button"
+            disabled={ this.submit() }
+            onClick={ () => this.saveUserInfo() }
+          >
+            ENTRAR
+          </button>
         </Link>
       </div>
     );
   }
 }
+
+Login.propTypes = {
+  switchEmail: func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  emailValue: (value) => dispatch(userEmail(value)),
+  switchEmail: (payload) => dispatch(saveUserInfo(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
