@@ -7,7 +7,6 @@ class Header extends Component {
     super(props);
     this.state = {
       coins: 'BRL',
-      total: 0,
     };
   }
 
@@ -51,4 +50,6 @@ export default connect(mapStateToProps, null)(Header);
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  length: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayof(PropTypes.object).isRequired,
 };
