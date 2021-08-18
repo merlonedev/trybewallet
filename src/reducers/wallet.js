@@ -5,6 +5,7 @@ import {
   USER_EXPENSE,
   USER_EXPENSE_SUCCES,
   USER_EXPENSE_ERROR,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -43,6 +44,11 @@ function wallet(state = INITIAL_STATE, action) {
   }
   case USER_EXPENSE_ERROR:
     return { ...state, error: action.error };
+
+  case REMOVE_EXPENSE:
+    return { ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
 
   default:
     return state;

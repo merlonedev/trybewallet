@@ -6,6 +6,7 @@ export const ADD_CURRENCIE_ERROR = 'ADD_CURRENCIE_ERROR';
 export const USER_EXPENSE = 'USER_EXPENSE';
 export const USER_EXPENSE_SUCCES = 'USER_EXPENSE_SUCCES';
 export const USER_EXPENSE_ERROR = 'USER_EXPENSE_ERROR';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const userEmail = (value) => ({ type: USER_EMAIL, value });
 export const addCurrencie = () => ({ type: ADD_CURRENCIE });
@@ -14,6 +15,7 @@ export const addCurrencieError = (error) => ({ type: ADD_CURRENCIE_ERROR, error 
 export const userExpense = () => ({ type: USER_EXPENSE });
 export const userExpenseSucces = (payload) => ({ type: USER_EXPENSE_SUCCES, payload });
 export const userExpenseError = (error) => ({ type: USER_EXPENSE_ERROR, error });
+export const removeExpense = (id) => ({ type: REMOVE_EXPENSE, id });
 
 export const fetchAPICurrencie = () => async (dispatch) => {
   dispatch(addCurrencie());
