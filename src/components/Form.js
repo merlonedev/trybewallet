@@ -39,23 +39,18 @@ class Form extends React.Component {
     this.setState((state) => ({ ...state }));
   }
 
-  handleChange({ target: { name, type, value, checked } }) {
-    function newValue() {
-      switch (type) {
-      case 'checkbox': return checked;
-      case 'number': return +value;
-      default: return value;
-      }
-    }
-    this.setState((state) => ({ ...state, [name]: newValue() }));
+  handleChange({ target: { name, value } }) {
+    this.setState((state) => ({ ...state, [name]: value }));
   }
 
   async handleSubmit() {
     const { state, state: { id }, props: { saveExpense } } = this;
-    await this.setState({ ...state, id: id + 1 });
+    this.setState({ ...state, id: id + 1 });
 
     const infoExpense = { ...state };
     await saveExpense(infoExpense);
+
+    this.setState(INITIAL_STATE);
   }
 
   render() {
