@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
-import { payMethodOptions, tag } from '../helpers/selectOptions';
+import { payMethodOptions, tagList } from '../helpers/selectOptions';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      valor: 0,
+      currency: 'BRL',
+      payMethod: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -24,28 +33,41 @@ class Form extends React.Component {
   }
 
   render() {
-    const { props: { loading, currencies } } = this;
+    const {
+      props: { loading, currencies },
+      state: { valor, currency, payMethod, tag, description },
+    } = this;
     return (
       <div>
         { loading && <h3>Carregando...</h3> }
         <form onSubmit={ this.handleSubmit }>
-          Form
-          <Input id="valor-input" name="Valor" />
-          <Input id="descr-input" name="Descrição" />
+          <Input id="valor" name="Valor" value={ valor } onChange={ this.handleChange } />
           <Select
-            id="moeda-input"
+            id="currency"
             name="Moeda"
             options={ currencies }
+            value={ currency }
+            onChange={ this.handleChange }
           />
           <Select
-            id="paymethod-input"
+            id="payMethod"
             name="Método de pagamento"
             options={ payMethodOptions }
+            value={ payMethod }
+            onChange={ this.handleChange }
           />
           <Select
-            id="tag-input"
+            id="tag"
             name="Tag"
-            options={ tag }
+            options={ tagList }
+            value={ tag }
+            onChange={ this.handleChange }
+          />
+          <Input
+            id="description"
+            name="Descrição"
+            value={ description }
+            onChange={ this.handleChange }
           />
         </form>
       </div>

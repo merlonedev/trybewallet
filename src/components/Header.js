@@ -11,10 +11,11 @@ class Header extends React.Component {
           { email }
         </div>
         <div data-testid="total-field">
-          { expenses }
+          { `Gastos: ${expenses}`}
+          {/* perguntar na monitoria sobre o erro de expenses */}
         </div>
         <div data-testid="header-currency-field">
-          { currencies }
+          { `Moeda corrente: ${currencies}` }
         </div>
       </div>
     );

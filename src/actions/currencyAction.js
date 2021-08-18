@@ -21,7 +21,14 @@ export const fetchAPI = () => async (dispatch) => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   fetch(endpoint)
     .then((data) => data.json())
-    .then((coins) => coins.filter((coin) => coin.name !== 'USDT'))
+    .then((currencies) => {
+      const currencyList = [...Object.keys(currencies)];
+      return currencyList;
+    })
+    .then((coins) => {
+      const filteredCoins = coins.filter((coin) => coin !== 'USDT');
+      return filteredCoins;
+    })
     .then((results) => dispatch(getCurrencySuccess(results)))
     .catch((error) => dispatch(getCurrencyError(error)));
 };

@@ -9,17 +9,16 @@ class Select extends React.Component {
         { name }
         <select
           id={ id }
-          value={ value }
           data-testid={ testId }
           onChange={ onChange }
         >
           {
             options.map((option) => (
               <option
-                value={ Object.keys(option) }
-                key={ Object.keys(option) }
+                value={ value }
+                key={ `option[${Object.keys(option)}]` }
               >
-                { Object.values(option) }
+                { typeof (option) === 'object' ? Object.values(option) : option}
               </option>))
           }
         </select>
@@ -28,7 +27,7 @@ class Select extends React.Component {
   }
 }
 
-const { string, func, arrayOf } = PropTypes;
+const { string, func, object, arrayOf, oneOfType } = PropTypes;
 
 Select.propTypes = {
   id: string.isRequired,
@@ -36,7 +35,7 @@ Select.propTypes = {
   testId: string,
   onChange: func.isRequired,
   name: string,
-  options: arrayOf(PropTypes.object),
+  options: oneOfType([arrayOf(string), arrayOf(object)]),
 };
 
 Select.defaultProps = {

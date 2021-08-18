@@ -4,7 +4,7 @@ const payMethodOptions = [
   { debitCard: 'Cartão de Débito' },
 ];
 
-const tag = [
+const tagList = [
   { food: 'Alimentação' },
   { recreation: 'Lazer' },
   { work: 'Trabalho' },
@@ -12,4 +12,4 @@ const tag = [
   { health: 'Saúde' },
 ];
 
-export { payMethodOptions, tag };
+export { payMethodOptions, tagList };

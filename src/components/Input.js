@@ -20,13 +20,13 @@ class Input extends React.Component {
   }
 }
 
-const { string, func } = PropTypes;
+const { string, func, number, oneOfType } = PropTypes;
 
 Input.propTypes = {
   id: string.isRequired,
   placeholder: string,
   type: string,
-  value: string,
+  value: oneOfType([string, number]),
   testId: string,
   onChange: func.isRequired,
   name: string,
