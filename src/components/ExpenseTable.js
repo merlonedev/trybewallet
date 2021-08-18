@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions/wallet';
 
 class ExpenseTable extends Component {
   constructor(props) {
     super(props);
 
     this.renderTableHeader = this.renderTableHeader.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick({ target }) {
+    const { expenses, delExpense } = this.props;
+    const newExpenses = expenses.filter(({ id }) => id !== +target.value);
+    delExpense(newExpenses);
   }
 
   renderTableHeader() {
@@ -45,7 +53,7 @@ class ExpenseTable extends Component {
 
       const { name, ask } = exchangeRates[currency];
 
-      const currencyName = name.split('/', 1);
+      const currencyType = name.split('/', 1);
       const price = (value * ask).toFixed(2);
 
       return (
@@ -54,10 +62,19 @@ class ExpenseTable extends Component {
           <td>{ tag }</td>
           <td>{ method }</td>
           <td>{ value }</td>
-          <td>{ currencyName[0] }</td>
+          <td>{ currencyType[0] }</td>
           <td>{ Number(ask).toFixed(2) }</td>
           <td>{ price }</td>
           <td>Real</td>
+          <td>
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="delete-btn"
+            >
+              X
+            </button>
+          </td>
         </tr>
       );
     });
@@ -81,8 +98,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  delExpense: (expense) => dispatch(deleteExpense(expense)),
+});
+
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(Object),
 }.isrequired;
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

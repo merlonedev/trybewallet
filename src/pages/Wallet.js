@@ -42,7 +42,6 @@ class Wallet extends Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
-  // total: state.wallet.total,
 });
 
 Wallet.propTypes = {
