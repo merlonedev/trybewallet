@@ -24,7 +24,9 @@ export const fetchApiCurrency = () => async (dispatch) => {
   const URL = 'https://economia.awesomeapi.com.br/json/all';
   const fetchCurrencyApi = await fetch(URL);
   const data = await fetchCurrencyApi.json();
-  const filterData = Object.keys(data).filter((item) => item !== 'USDT');
+  const filterData = Object.keys(data)
+    .filter((item) => item !== 'USDT')
+    .filter((item) => item !== 'DOGE');
 
   dispatch(addCurrency(filterData));
 };

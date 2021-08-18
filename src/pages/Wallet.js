@@ -8,6 +8,13 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
+        <button
+          type="button"
+          data-testid="delete-btn"
+          onClick={ () => expenseToDelete({ index }) }
+        >
+          X
+        </button>
       </div>
     );
   }
