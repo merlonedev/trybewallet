@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class Wallet extends React.Component {
   render() {
     const { loginEmail } = this.props;
-    const gasto = 0;
     return (
       <div>
         <header>
@@ -39,7 +38,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           <label htmlFor="tag">
-            Tag
+            Tipo de Despesa
             <select id="tag">
               <option>Alimentação</option>
               <option>Lazer</option>
