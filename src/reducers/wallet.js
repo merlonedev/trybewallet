@@ -8,8 +8,21 @@ const wallet = (state = INITIAL_STATE, action) => {
   case 'WALLET_CHANGE':
     return {
       ...state,
-      currencies: [],
-      expenses: [],
+      currencies: action.currencies,
+      expenses: action.expenses,
+    };
+  case 'API_DATA':
+    return {
+      ...state,
+      currencies: action.payload,
+    };
+  case 'EXPENSES_DATA':
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        action.payload,
+      ],
     };
   default:
     return state;

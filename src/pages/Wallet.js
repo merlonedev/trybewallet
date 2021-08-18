@@ -1,28 +1,14 @@
-import React from 'react';
-// import { connect } from 'react-redux';
-import Inputs from '../components/Inputs';
-import Button from '../components/Button';
+import React, { Component } from 'react';
 import Header from '../components/Header';
+import Form from '../components/Form';
 
-class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-
-    };
-  }
-
+export default class Wallet extends Component {
   render() {
     return (
       <div>
         TrybeWallet
         <Header />
-        <form>
-          <Inputs />
-          <Button />
-        </form>
+        <Form />
       </div>);
   }
 }
-
-export default Wallet;
