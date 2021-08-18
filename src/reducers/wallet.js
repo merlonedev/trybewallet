@@ -1,4 +1,5 @@
-import { GET_COINS, GET_COINS_SUCCESS, GET_COINS_ERROR } from '../actions';
+import { GET_COINS, GET_COINS_SUCCESS, GET_COINS_ERROR,
+  GET_EXPENSES_SUCCESS, GET_EXPENSES_ERROR } from '../actions';
 
 const INITIAL_WALLET_STATE = {
   currencies: [],
@@ -24,6 +25,17 @@ function wallet(state = INITIAL_WALLET_STATE, action) {
   case GET_COINS_ERROR:
     return { ...state, error: action.error, isLoading: false };
 
+  case GET_EXPENSES_ERROR: {
+    return { ...state, error: action.error, isLoading: false };
+  }
+
+  case GET_EXPENSES_SUCCESS: {
+    return {
+      ...state,
+      expenses: [...state.expenses,
+        { id: state.expenses.length, ...action.payload }],
+    };
+  }
   default:
     return state;
   }

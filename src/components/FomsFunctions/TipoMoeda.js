@@ -10,12 +10,17 @@ class TipoMoeda extends Component {
   }
 
   render() {
-    const { wallet: { currencies } } = this.props;
+    const { wallet: { currencies }, currency, handleChange } = this.props;
     return (
       <div>
         <label htmlFor="teste-moeda">
           Moeda
-          <select id="teste-moeda">
+          <select
+            id="teste-moeda"
+            name="currency"
+            value={ currency }
+            onChange={ handleChange }
+          >
             { Object.values(currencies).map((currencie, index) => (
               <option value={ currencie } key={ index }>
                 {currencie}
@@ -37,6 +42,8 @@ TipoMoeda.propTypes = {
     ])),
   }).isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

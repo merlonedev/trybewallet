@@ -10,24 +10,18 @@ export const getCoinsError = (error) => ({ type: GET_COINS_ERROR, error });
 
 export const GET_EXPENSES_SUCCESS = 'GET_EXPENSES_SUCCESS';
 export const GET_EXPENSES_ERROR = 'GET_EXPENSES_ERROR';
-export const getExpensesSuccess = () => ({ type: GET_EXPENSES_SUCCESS });
-export const getExpensesError = () => ({ type: GET_EXPENSES_ERROR });
+export const getExpensesSuccess = (payload) => ({ type: GET_EXPENSES_SUCCESS, payload });
+export const getExpensesError = (error) => ({ type: GET_EXPENSES_ERROR, error });
 
-export const fetchAPI = () => async (dispatch) => {
+export const fetchAPI = (state) => async (dispatch) => {
   dispatch(getCoins());
-  // if (!teste) {
   try {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const currencies = await response.json();
-    dispatch(getCoinsSuccess(currencies));
+    if (!state) return dispatch(getCoinsSuccess(currencies));
+    dispatch(getExpensesSuccess({ ...state, exchangeRates: currencies }));
     return currencies;
   } catch (error) {
     dispatch(getCoinsError(error));
   }
-  // } else {
-  //   const resp2 = await fetch('https://economia.awesomeapi.com.br/json/all');
-  //   if (!resp2.ok) return dispach(getExpensesError);
-  //   const currenciesData = await respJson.json();
-  //   dispach(getExpensesSucess({ ...teste, exchangeRates: currenciesData }));
-  // }
 };
