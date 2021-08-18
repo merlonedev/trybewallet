@@ -3,7 +3,6 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -12,8 +11,10 @@ function wallet(state = INITIAL_STATE, action) {
     return ({ ...state, currencies: [action.state] });
   case 'ADD_NEW_EXPENSE':
     return ({ ...state, expenses: [...state.expenses, action.state] });
-  case 'ADD_MOUNT':
-    return ({ ...state, total: (state.total + parseFloat(action.state)) });
+  case 'EXPENSES':
+    return ({ ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.state),
+    });
   default:
     return state;
   }

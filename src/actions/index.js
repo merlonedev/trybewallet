@@ -15,8 +15,8 @@ export const newCurrencies = (state) => ({
   state,
 });
 
-export const newTotal = (state) => ({
-  type: 'ADD_MOUNT',
+export const attexpenses = (state) => ({
+  type: 'EXPENSES',
   state,
 });
 

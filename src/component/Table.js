@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { newTotal } from '../actions';
+import { attexpenses } from '../actions';
 
 class Table extends React.Component {
-  onClick(e) {
-    // const { Total } = this.props;
-    const { id } = e.target;
-    const linha = document.getElementById(id);
-    console.log(linha.children[6]);
-    linha.remove();
+  constructor(props) {
+    super(props);
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(expense) {
+    const { newListExpenses } = this.props;
+    newListExpenses(expense.id);
   }
 
   listExpenses() {
@@ -26,8 +29,15 @@ class Table extends React.Component {
           <td>{parseFloat(value)}</td>
           <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
           <td>Real</td>
-          <td data-testid="delete-btn">
-            <button type="button" id={ id } onClick={ this.onClick }>Excluir</button>
+          <td>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              id={ id }
+              onClick={ () => this.onClick(expense) }
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       );
@@ -62,11 +72,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  Total: (value) => dispatch(newTotal(value)),
+  newListExpenses: (value) => dispatch(attexpenses(value)),
 });
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newListExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { newExpense, newTotal } from '../actions';
+import { newExpense } from '../actions';
 
 class Formulario extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class Formulario extends React.Component {
 
   async onSubmit(e) {
     e.preventDefault();
-    const { Expense, Total, expenses } = this.props;
+    const { Expense, expenses } = this.props;
     const id = expenses.length;
     await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((r) => r.json())
@@ -36,8 +36,6 @@ class Formulario extends React.Component {
         });
       }).catch(() => 'Error');
     Expense(this.state);
-    const { value, exchangeRates, currency } = this.state;
-    Total(parseFloat(value * exchangeRates[currency].ask).toFixed(2));
     this.clearInputs();
   }
 
@@ -59,7 +57,7 @@ class Formulario extends React.Component {
       value: '',
       currency: 'USD',
       method: '',
-      tag: 'food',
+      tag: 'Alimentação',
       description: '',
       exchangeRates: {},
     });
@@ -158,7 +156,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   Expense: (value) => dispatch(newExpense(value)),
-  Total: (value) => dispatch(newTotal(value)),
 });
 
 Formulario.propTypes = ({
