@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Form extends Component {
-  constructor() {
-    super();
-
-    this.renderCurrencies = this.renderCurrencies.bind(this);
-  }
-
   renderCurrencies() {
     const { currencies } = this.props;
     delete currencies.USDT;
@@ -57,8 +52,12 @@ class Form extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
 Form.propTypes = {
   currencies: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default Form;
+export default connect(mapStateToProps)(Form);

@@ -1,7 +1,7 @@
 import { SAVE_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: {},
   expenses: [],
 };
 
