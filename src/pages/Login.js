@@ -8,6 +8,7 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
+      email: '',
       password: '',
       disabled: false,
     };
@@ -20,7 +21,7 @@ class Login extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
+    }, () => this.handleLogin());
   }
 
   handleLogin() {
@@ -37,8 +38,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { password, disabled } = this.state;
-    const { email, emailAdd, toDelete } = this.props;
+    const { email, password, disabled } = this.state;
+    const { emailAdd, toDelete } = this.props;
     return (
       <form>
         <h1>Login</h1>
@@ -87,16 +88,16 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
+// const mapStateToProps = (state) => ({
+//   email: state.user.email,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   emailAdd: (email) => dispatch(addEmail(email)),
   toDelete: (id) => dispatch(deleteBtn(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   emailAdd: PropTypes.func,

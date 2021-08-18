@@ -4,7 +4,7 @@ export const BTN_DELETE = 'BTN_DELETE';
 
 export const addEmail = (email) => ({
   type: 'LOGIN',
-  payload: email,
+  email,
 });
 
 export const apiMoeda = (currency) => ({
