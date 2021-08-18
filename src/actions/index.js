@@ -22,6 +22,11 @@ export const getExpenses = (state, response) => ({
   },
 });
 
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
+});
+
 export const fetchAPI = () => async (dispatch) => {
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   const request = await fetch(endpoint);
