@@ -1,13 +1,15 @@
+import { LOGIN } from '../actions';
+
 const INITIAL_STATE = {
   email: 'alguem@email.com',
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'LOGIN':
+  case LOGIN:
     return {
       ...state,
-      emial: action.email,
+      email: action.email,
     };
   default:
     return state;

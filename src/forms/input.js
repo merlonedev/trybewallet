@@ -1,6 +1,41 @@
 import React from 'react';
+import PropTypes, { string } from 'prop-types';
+import { connect } from 'react-redux';
+import fetchApi from './fetchApiMoeda';
 
 class Input extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currency: 'USD',
+    };
+
+    this.renderSelect = this.renderSelect.bind(this);
+  }
+
+  componentDidMount() {
+    const { getApi } = this.props;
+    getApi();
+  }
+
+  renderSelect() {
+    const { currency } = this.state;
+    const { currencies } = this.props;
+    return (
+      <label htmlFor="coin">
+        Moeda
+        <select
+          id="coin"
+          name="currency"
+          value={ currency }
+          onChange={ this.handleChange }
+        >
+          { currencies.map((coin) => (<option key={ coin }>{ coin }</option>)) }
+        </select>
+      </label>
+    );
+  }
+
   render() {
     return (
       <form>
@@ -20,12 +55,7 @@ class Input extends React.Component {
             id="descriçao"
           />
         </label>
-        <label htmlFor="moeda">
-          Moeda
-          <select name="moeda" id="moeda">
-            <option value="$">$</option>
-          </select>
-        </label>
+        { this.renderSelect() }
         <label htmlFor="metodopg">
           Método de pagamento
           <select name="metodopg" id="metodopg">
@@ -49,4 +79,17 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getApi: () => dispatch(fetchApi()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
+
+Input.propTypes = {
+  currencies: PropTypes.arrayOf(string),
+  getApi: PropTypes.func,
+}.isRequired;
