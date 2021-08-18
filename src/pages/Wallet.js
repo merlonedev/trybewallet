@@ -16,7 +16,7 @@ class Wallet extends React.Component {
     const { email } = this.props;
     const { totalExpenses, currency } = this.state;
     return (
-      <div>
+      <section className="wallet-header">
         <header>
           <p data-testid="email-field">
             E-mail:
@@ -30,7 +30,7 @@ class Wallet extends React.Component {
             </p>
           </p>
         </header>
-      </div>
+      </section>
     );
   }
 }
