@@ -53,7 +53,6 @@ class Login extends React.Component {
       <div>
         <h1>Wallet</h1>
         <form>
-          <h1>Login</h1>
           <label htmlFor="email">
             Email:
             <input

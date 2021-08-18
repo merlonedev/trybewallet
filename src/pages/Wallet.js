@@ -9,19 +9,46 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          <h1
-            data-testid="email-field"
-          >
-            { loginEmail }
-          </h1>
-          <p data-testid="total-field">
-            gastos totais: $
+          <div data-testid="email-field">{ `Email: ${loginEmail}` }</div>
+          <div data-testid="total-field">
             { gasto }
-          </p>
-          <p data-testid="header-currency-field">
-            BRL
-          </p>
+          </div>
+          <div data-testid="header-currency-field">BRL</div>
         </header>
+        <form>
+          <label htmlFor="valor">
+            Valor
+            <input id="valor" type="text" />
+          </label>
+          <label htmlFor="description">
+            Descrição
+            <input id="description" type="text" />
+          </label>
+          <label htmlFor="currency">
+            Moeda
+            <select id="currency">
+              <option>Empty</option>
+            </select>
+          </label>
+          <label htmlFor="payment-option">
+            Método de pagamento
+            <select id="payment-option">
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select id="tag">
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
+            </select>
+          </label>
+        </form>
       </div>
     );
   }
