@@ -29,7 +29,7 @@ class WalletHeader extends React.Component {
             Moeda para câmbio:
             <h4 name="header-currency-field" data-testid="header-currency-field">
               { currency }
-            </h4> 
+            </h4>
           </label>
         </section>
       </header>

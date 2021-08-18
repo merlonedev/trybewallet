@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { setEmail, setPassword } from '../actions';
 
@@ -112,12 +111,6 @@ class Login extends React.Component {
         </label>
         <span className={ pwSpan } value={ pwMessage } />
         <br />
-        {/* <Button 
-          name="entry-btn"
-          disabled={ enable }
-          label="Entrar"
-          to="/carteira"
-        /> */}
         <button
           name="entry-btn"
           type="submit"
