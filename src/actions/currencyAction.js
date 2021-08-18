@@ -16,7 +16,7 @@ export const getCurrencyError = (error) => ({
   error,
 });
 
-export const fetchAPI = () => async (dispatch) => {
+export const fetchAPI1 = () => async (dispatch) => {
   dispatch(getCurrency);
   const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   fetch(endpoint)

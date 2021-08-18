@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI } from '../actions';
+import { fetchAPI1 } from '../actions';
 import Header from '../components/Header';
 import Form from '../components/Form';
 
@@ -17,7 +17,10 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-        <Form loading={ isLoading } currencies={ currencies } />
+        <Form
+          loading={ isLoading }
+          currencies={ currencies }
+        />
         TrybeWallet
       </div>
     );
@@ -40,7 +43,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  currenciesDispatch: () => dispatch(fetchAPI()),
+  currenciesDispatch: () => dispatch(fetchAPI1()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

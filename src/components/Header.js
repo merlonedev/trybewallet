@@ -16,13 +16,20 @@ class Header extends React.Component {
       props: { email, expenses },
       state: { currency },
     } = this;
+    let total = 0;
+    if (expenses.length > 0) {
+      expenses.map((expense) => {
+        total += parseFloat(expense.value);
+        return total;
+      });
+    }
     return (
       <div>
         <div data-testid="email-field">
           { email }
         </div>
         <div data-testid="total-field">
-          { `Despesa Total R$${expenses}`}
+          { `Despesa Total R$${total}`}
           {/* perguntar na monitoria sobre o erro de expenses */}
         </div>
         <div data-testid="header-currency-field">
@@ -33,10 +40,10 @@ class Header extends React.Component {
   }
 }
 
-const { string, number } = PropTypes;
+const { string, number, object, oneOfType } = PropTypes;
 Header.propTypes = {
   email: string.isRequired,
-  expenses: number,
+  expenses: oneOfType([number, object]),
 };
 
 Header.defaultProps = {
