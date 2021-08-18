@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import AddExpense from './AddExpense';
+import ShowExpenses from './ShowExpenses';
 
 class Wallet extends Component {
   render() {
@@ -8,6 +9,7 @@ class Wallet extends Component {
       <div>
         <Header />
         <AddExpense />
+        <ShowExpenses />
       </div>
     );
   }

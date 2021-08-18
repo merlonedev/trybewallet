@@ -41,7 +41,8 @@ export const removeExpense = (payload) => ({
   payload,
 });
 
-export const editarExpense = (payload) => ({
-  type: EDIT_EXPENSE,
-  payload,
-});
+// Descomentar ao reabilitar o botão de editar
+// export const editExpense = (payload) => ({
+//   type: EDIT_EXPENSE,
+//   payload,
+// });
