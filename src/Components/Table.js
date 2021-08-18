@@ -17,6 +17,7 @@ class Table extends Component {
           <td>{exchangeRates[currency].name.split('/')[0]}</td>
           <td>{parseFloat(value)}</td>
           <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
+          <td>Real</td>
         </tr>
       );
     });
