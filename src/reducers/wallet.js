@@ -41,7 +41,13 @@ const wallet = (state = STATE_INITIAL, action) => {
   case REMOVE:
     return {
       ...state,
-      expenses: [...action.line],
+      expenses: [...state.expenses, {
+        id: state.expenses.length,
+        ...action.line,
+        exchangeRates: {
+          ...action.exchangeRates,
+        },
+      }],
     };
   default:
     return state;
