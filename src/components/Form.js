@@ -8,9 +8,9 @@ import Button from './Button';
 import Select from './Select';
 
 const INITIAL_STATE = {
-  expense: 0,
-  coin: 'USD',
+  value: 0,
   description: '',
+  currency: 'USD',
   method: 'Dinheiro',
   tag: 'Alimentação',
 };
@@ -20,9 +20,8 @@ class Form extends React.Component {
     super(props);
 
     this.state = {
-      ...INITIAL_STATE,
       id: 0,
-      isLoading: true,
+      ...INITIAL_STATE,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,10 +36,7 @@ class Form extends React.Component {
   async getCurrency() {
     const { props: { queryAPI } } = this;
     await queryAPI();
-    this.setState((state) => ({
-      ...state,
-      isLoading: false,
-    }));
+    this.setState((state) => ({ ...state }));
   }
 
   handleChange({ target: { name, type, value, checked } }) {
@@ -59,15 +55,15 @@ class Form extends React.Component {
     await this.setState({ ...state, id: id + 1 });
 
     const infoExpense = { ...state };
-    saveExpense(infoExpense);
+    await saveExpense(infoExpense);
 
     this.setState(INITIAL_STATE);
   }
 
   render() {
-    const { state: { expense, description, isLoading, method, tag, coin },
-      props: { currency }, handleChange, handleSubmit } = this;
-    if (isLoading) {
+    const { state: { value, description, method, tag, currency },
+      props: { currencies }, handleChange, handleSubmit } = this;
+    if (currencies.length < 1) {
       return <h1>Carregando...</h1>;
     }
     return (
@@ -75,8 +71,8 @@ class Form extends React.Component {
         <Input
           label="Valor"
           type="number"
-          name="expense"
-          value={ expense }
+          name="value"
+          value={ value }
           handleChange={ handleChange }
         />
         <Input
@@ -87,22 +83,22 @@ class Form extends React.Component {
           handleChange={ handleChange }
         />
         <Select
-          name="coin"
           label="Moeda"
-          value={ coin }
-          options={ currency }
+          name="currency"
+          value={ currency }
+          options={ currencies }
           handleChange={ handleChange }
         />
         <Select
-          name="method"
           label="Método de pagamento"
+          name="method"
           value={ method }
           options={ methods }
           handleChange={ handleChange }
         />
         <Select
-          name="tag"
           label="Tag"
+          name="tag"
           value={ tag }
           options={ category }
           handleChange={ handleChange }
@@ -119,12 +115,12 @@ const { func, arrayOf, string } = PropTypes;
 
 Form.propTypes = {
   queryAPI: func.isRequired,
-  currency: arrayOf(string).isRequired,
+  currencies: arrayOf(string).isRequired,
   saveExpense: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currency: state.wallet.currencies,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({

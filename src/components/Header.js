@@ -12,9 +12,9 @@ class Header extends React.Component {
     const { expenses } = this.props;
     if (expenses.length > 0) {
       const totalField = expenses.reduce((acc, curr) => {
-        const value = parseFloat(curr.expense);
-        const { coin, exchangeRates } = curr;
-        const convert = exchangeRates[coin].ask * value;
+        const value = parseFloat(curr.value);
+        const { currency, exchangeRates } = curr;
+        const convert = exchangeRates[currency].ask * value;
         return acc + convert;
       }, 0);
       return totalField;

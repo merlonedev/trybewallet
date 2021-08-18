@@ -51,7 +51,6 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    console.log('oi more');
     const {
       props: { history, setUser },
       state: { email },
