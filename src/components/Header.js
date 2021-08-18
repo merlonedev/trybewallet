@@ -30,7 +30,6 @@ class Header extends React.Component {
         </div>
         <div data-testid="total-field">
           { `Despesa Total R$${total}`}
-          {/* perguntar na monitoria sobre o erro de expenses */}
         </div>
         <div data-testid="header-currency-field">
           { currency }
