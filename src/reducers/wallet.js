@@ -1,5 +1,5 @@
 import { GET_COINS, GET_COINS_SUCCESS, GET_COINS_ERROR,
-  GET_EXPENSES_SUCCESS, GET_EXPENSES_ERROR } from '../actions';
+  GET_EXPENSES_SUCCESS, GET_EXPENSES_ERROR, DELETE_TABLE } from '../actions';
 
 const INITIAL_WALLET_STATE = {
   currencies: [],
@@ -36,6 +36,13 @@ function wallet(state = INITIAL_WALLET_STATE, action) {
         { id: state.expenses.length, ...action.payload }],
     };
   }
+
+  case DELETE_TABLE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== Number(action.id)),
+    };
+
   default:
     return state;
   }

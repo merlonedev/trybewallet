@@ -13,6 +13,9 @@ export const GET_EXPENSES_ERROR = 'GET_EXPENSES_ERROR';
 export const getExpensesSuccess = (payload) => ({ type: GET_EXPENSES_SUCCESS, payload });
 export const getExpensesError = (error) => ({ type: GET_EXPENSES_ERROR, error });
 
+export const DELETE_TABLE = 'DELETE_TABLE';
+export const deleteTable = (id) => ({ type: DELETE_TABLE, id });
+
 export const fetchAPI = (state) => async (dispatch) => {
   dispatch(getCoins());
   try {
