@@ -12,7 +12,7 @@ const updateEmail = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       user: {
-        email: action,
+        email: action.state,
       },
     };
   default:
