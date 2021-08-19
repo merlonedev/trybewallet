@@ -5,7 +5,7 @@ export default class Moedas extends Component {
     return (
       <label htmlFor="moeda">
         Moeda
-        <select>
+        <select id="moeda">
           <option>USD</option>
           <option>CAD</option>
           <option>EUR</option>
