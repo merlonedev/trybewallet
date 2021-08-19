@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAPI2 } from '../actions';
 import Input from './Input';
-import Select from './Select';
-import { payMethodOptions, tagList } from '../helpers/selectOptions';
+import SelectList from './SelectList';
+import { tagList } from '../helpers/selectOptions';
 import Button from './Button';
 
 class Form extends React.Component {
@@ -14,13 +14,12 @@ class Form extends React.Component {
     this.state = {
       id: 0,
       value: 0,
-      currency: 'BRL',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      currency: 'Selecione',
+      method: 'Selecione',
+      tag: 'Selecione',
       description: '',
     };
 
-    this.baseState = this.state;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -39,13 +38,13 @@ class Form extends React.Component {
     ratesDispatch(expense);
 
     this.setState({
-      ...this.baseState,
-    }, () => {
-      this.setState({
-        id: id + 1,
-      });
+      id: id + 1,
+      value: 0,
+      currency: 'Selecione',
+      method: 'Selecione',
+      tag: 'Selecione',
+      description: '',
     });
-    // baseState tirado de https://medium.com/@justintulk/best-practices-for-resetting-an-es6-react-components-state-81c0c86df98d
   }
 
   handleChange(e) {
@@ -59,33 +58,28 @@ class Form extends React.Component {
   render() {
     const {
       props: { loading, currencies },
-      state: { value, currency, tag, description, method },
+      state: { value, tag, description, method, currency },
     } = this;
     return (
       <div>
         { loading && <h3>Carregando...</h3> }
         <form onSubmit={ this.handleSubmit }>
           <Input id="value" name="Valor" value={ value } onChange={ this.handleChange } />
-          <Select
-            id="currency"
-            name="Moeda"
-            options={ currencies }
-            value={ currency }
-            onChange={ this.handleChange }
-          />
-          <Select
-            id="method"
-            name="Método de pagamento"
-            options={ payMethodOptions }
-            value={ method }
-            onChange={ this.handleChange }
-          />
-          <Select
-            id="tag"
-            name="Tag"
-            options={ tagList }
-            value={ tag }
-            onChange={ this.handleChange }
+          <SelectList
+            id1="currency"
+            name1="Moeda"
+            options1={ currencies }
+            value1={ currency }
+            onChange1={ this.handleChange }
+            id2="method"
+            name2="método de pagamento"
+            value2={ method }
+            onChange2={ this.handleChange }
+            id3="tag"
+            name3="Tag"
+            options3={ tagList }
+            value3={ tag }
+            onChange3={ this.handleChange }
           />
           <Input
             id="description"

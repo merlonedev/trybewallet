@@ -21,7 +21,7 @@ class DelEditButton extends React.Component {
     return (
       <>
         <td>
-          Real
+          Real Brasileiro
         </td>
         <td>
           <Button

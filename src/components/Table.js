@@ -23,16 +23,21 @@ class Table extends React.Component {
                 { expense.method }
               </td>
               <td>
+                { expense.currency }
                 { expense.value }
               </td>
               <td>
-                { expense.currency }
+                {
+                  (Object.entries(expense.exchangeRates).find(
+                    (coin) => coin[0] === expense.currency,
+                  )[1].name).split('/')[0]
+                }
               </td>
               <td>
                 {
-                  Object.entries(expense.exchangeRates).find(
+                  parseFloat((Object.entries(expense.exchangeRates).find(
                     (coin) => coin[0] === expense.currency,
-                  )[1].name
+                  )[1].ask)).toFixed(2)
                 }
               </td>
               <td>

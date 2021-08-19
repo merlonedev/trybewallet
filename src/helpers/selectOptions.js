@@ -1,15 +1,15 @@
 const payMethodOptions = [
-  { money: 'Dinheiro' },
-  { creditCard: 'Cartão de Crédito' },
-  { debitCard: 'Cartão de Débito' },
+  'Dinheiro',
+  'Cartão de Crédito',
+  'Cartão de Débito',
 ];
 
 const tagList = [
-  { food: 'Alimentação' },
-  { recreation: 'Lazer' },
-  { work: 'Trabalho' },
-  { transport: 'Transporte' },
-  { health: 'Saúde' },
+  'Alimentação',
+  'Lazer',
+  'Trabalho',
+  'Transporte',
+  'Saúde',
 ];
 
 export { payMethodOptions, tagList };

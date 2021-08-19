@@ -13,13 +13,14 @@ class Select extends React.Component {
           onChange={ onChange }
           value={ value }
         >
+          <option>Selecione</option>
           {
             options.map((option) => (
               <option
-                value={ typeof (option) === 'object' ? Object.values(option) : option }
-                key={ typeof (option) === 'object' ? Object.values(option) : option }
+                value={ option }
+                key={ option }
               >
-                { typeof (option) === 'object' ? Object.values(option) : option }
+                { option }
               </option>))
           }
         </select>
