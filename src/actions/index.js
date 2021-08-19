@@ -5,7 +5,7 @@ export const CATCH_ERROR = 'CATCH_ERROR';
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 export const SUM_EXPENSES = 'SUM_EXPENSES';
 
-export const saveEmailAndPassword = (email) => ({
+export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
   payload: {
     email,
