@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 class LabelSelect extends Component {
   render() {
     const { htmlFor,
-      array, id, target } = this.props;
+      array, id, target, nome } = this.props;
     return (
       <div>
         <label htmlFor={ htmlFor }>
           {nome}
-          <select name={ id } id={ id } onChange={ target }>
+          <select name={ nome } id={ id } onChange={ target }>
             {array.map((item) => (
-              <option key={ item }>{item}</option>
+              <option key={ item } value={ item }>{item}</option>
             ))}
           </select>
         </label>
@@ -25,5 +25,6 @@ LabelSelect.propTypes = {
   array: PropTypes.arrayOf(PropTypes.string).isRequired,
   id: PropTypes.string.isRequired,
   target: PropTypes.func.isRequired,
+  nome: PropTypes.string.isRequired,
 };
 export default LabelSelect;

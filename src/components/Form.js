@@ -41,7 +41,7 @@ class Form extends Component {
     switch (e.target.name) {
     case 'Valor': this.setState({ value: e.target.value });
       break;
-    case 'método de pagamento': this.setState({ method: e.target.value });
+    case 'Método de pagamento': this.setState({ method: e.target.value });
       break;
     case 'Moeda': this.setState({ currency: e.target.value });
       break;
@@ -105,19 +105,21 @@ class Form extends Component {
         <Currency
           htmlFor="Moeda"
           id="Moeda"
+          nome="Moeda"
           array={ newCurrencies }
           onChange={ this.inputValue }
         />
         <LabelSelect
           htmlFor="Pagamento"
-          nome="método de pagamento"
-          id="Pagamento"
+          id="Método de pagamento"
+          nome="Método de pagamento"
           array={ payment }
           target={ this.inputValue }
         />
         <LabelSelect
           htmlFor="Tag"
           id="Tag"
+          nome="Tag"
           array={ food }
           target={ this.inputValue }
         />
