@@ -10,7 +10,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          <FormWallet /> 
+          <FormWallet />
           <div data-testid="email-field">{ `Email: ${loginEmail}` }</div>
           <div data-testid="total-field">
             { gasto }
