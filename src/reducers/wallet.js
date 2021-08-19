@@ -1,11 +1,18 @@
+import { GET_CURRENCIES } from '../actions/index';
+
 const INITIAL_STATE = {
-  state: '',
+  Currencies: [],
+  CurrenciesResp: {},
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'NEW_ACTION':
-    return { state: action.state };
+  case GET_CURRENCIES:
+    return {
+      ...state,
+      Currencies: [...Object.keys(action.currencies)],
+      CurrenciesResp: action.currencies,
+    };
   default:
     return state;
   }

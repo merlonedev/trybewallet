@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
-
-  componentDidMount() {
-    async function fetchAPI() {
-      const APIlink = 'https://economia.awesomeapi.com.br/json/all';
-      const result = await fetch(APIlink);
-      const currencies = await result.json();
-      console.log(currencies);
-      return currencies;
-    };
-    fetchAPI()
-  }
-
   render() {
+    const { Currencies } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -27,16 +18,16 @@ class Form extends Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            {/* { currencies.map(({ code }) => <option value={ code }>{ code }</option>) } */}
-            <option value="BRL" selected>BRL</option>
+            { Currencies.map((curr, i) => (
+              <option key={ i } value={ curr }>{ curr }</option>)) }
           </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento
           <select id="payment">
-           <option value="money" selected>Dinheiro</option>
-           <option value="credit">Cartão de Crédito</option>
-           <option value="debit">Cartão de Débito</option>
+            <option value="money" selected>Dinheiro</option>
+            <option value="credit">Cartão de Crédito</option>
+            <option value="debit">Cartão de Débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -49,9 +40,22 @@ class Form extends Component {
             <option value="health">Saúde</option>
           </select>
         </label>
+        <button
+          type="button"
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default Form;
+Form.propTypes = {
+  Currencies: PropTypes.arrayOf(Object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  Currencies: state.wallet.Currencies,
+});
+
+export default connect(mapStateToProps)(Form);
