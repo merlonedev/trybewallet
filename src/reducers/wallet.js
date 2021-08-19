@@ -1,6 +1,8 @@
 import { FETCH_ERROR_CASES,
   FETCH_SUCCESS_COINS,
-  FETCH_SUCCESS_CURRENT } from '../actions';
+  FETCH_SUCCESS_CURRENT,
+  REMOVE_EXPENSES,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,7 +11,7 @@ const INITIAL_STATE = {
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-  const { type, error, response, payload } = action;
+  const { type, error, response, payload, id } = action;
   switch (type) {
   case FETCH_SUCCESS_COINS:
     return {
@@ -29,6 +31,11 @@ const wallet = (state = INITIAL_STATE, action) => {
         ...state.expenses,
         payload,
       ],
+    };
+  case REMOVE_EXPENSES:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== id),
     };
   default:
     return state;
