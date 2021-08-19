@@ -57,9 +57,7 @@ class Login extends React.Component {
     const { loginDispatch } = this.props;
 
     if (redirect) {
-      return (
-        <Redirect to="carteira" />
-      );
+      return <Redirect to="/carteira" />;
     }
 
     return (
