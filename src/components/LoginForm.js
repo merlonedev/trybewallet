@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userAction } from '../actions/index';
+import PropTypes from 'prop-types';
+import { userAction, fetchCurrencies } from '../actions/index';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class LoginForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
+    this.trigger = this.trigger.bind(this);
   }
 
   handleChange({ target }) {
@@ -32,9 +34,14 @@ class LoginForm extends React.Component {
     return false;
   }
 
+  trigger() {
+    const { emailDispatch } = this.props;
+    const { email } = this.state;
+    emailDispatch(email);
+  }
+
   render() {
     const { email, password } = this.state;
-    const { emailDispatch } = this.props;
 
     return (
       <section>
@@ -55,7 +62,7 @@ class LoginForm extends React.Component {
         <Link to="/carteira">
           <input
             type="button"
-            onClick={ () => emailDispatch(email) }
+            onClick={ this.trigger() }
             name="button"
             disabled={ !this.validate(email, password) }
             value="Entrar"
@@ -71,7 +78,8 @@ LoginForm.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  userAction: (email) => dispatch(userAction(email)),
+  emailDispatch: (email) => dispatch(userAction(email)),
+  apiTrigger: () => dispatch(fetchCurrencies()),
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);
