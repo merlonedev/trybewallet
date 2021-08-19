@@ -53,7 +53,6 @@ Select.propTypes = {
   currency: PropTypes.string.isRequired,
   method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Select;

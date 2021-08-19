@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Input from './Input';
-import Select from './Select';
-import sucessFetch from '../actions/wallet';
+import successFetch from '../actions/wallet';
 import fetchCoinApi from '../services/fetchApi';
 
 class FormWallet extends Component {
@@ -13,8 +11,6 @@ class FormWallet extends Component {
     this.state = {
       coins: [],
     };
-
-    this.handleChange = this.handleChange.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
   }
 
@@ -23,11 +19,6 @@ class FormWallet extends Component {
     const { getCoin } = this.props;
     const { coins } = this.state;
     getCoin(coins);
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
   }
 
   async renderCurrency() {
@@ -39,40 +30,50 @@ class FormWallet extends Component {
   }
 
   render() {
-    const { value, currency, tag, method, description, expenses } = this.state;
-    const { currencies } = this.props;
+    const payment = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
+    const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
+    const { coins } = this.state;
     return (
       <form>
-        <Input
-          value={ value }
-          description={ description }
-          handleChange={ this.handleChange }
-        />
-        <Select
-          currency={ currency }
-          method={ method }
-          tag={ tag }
-          handleChange={ this.handleChange }
-          currencies={ currencies }
-        />
-        <button
-          type="button"
-          expenses={ expenses }
-          onClick={ this.getMoedas }
-        >
-          Adicionar Despesa
-        </button>
+        <label htmlFor="value">
+          Valor
+          <input type="text" id="value" />
+        </label>
+        <label htmlFor="description">
+          Descrição
+          <input type="text" id="description" />
+        </label>
+        <label htmlFor="currency">
+          Moeda
+          <select id="currency">
+            <option>BRL</option>
+            {coins.map((coin, index) => <option key={ index }>{ coin }</option>)}
+          </select>
+        </label>
+        <label htmlFor="payment">
+          Método de pagamento
+          <select id="payment">
+            {payment.map((item, index) => <option key={ index }>{ item }</option>)}
+          </select>
+        </label>
+        <label htmlFor="expense">
+          Tag
+          <select id="expense">
+            {tag.map((item, index) => <option key={ index }>{ item }</option>)}
+          </select>
+        </label>
+        <button type="button" onClick={ () => this.renderCurrency() }>console</button>
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getCoin: (value) => dispatch(sucessFetch(value)),
+  getCoin: (value) => dispatch(successFetch(value)),
 });
 
 FormWallet.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCoin: PropTypes.func.isRequired,
 };
 
