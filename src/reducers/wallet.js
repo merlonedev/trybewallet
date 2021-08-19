@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'PRIMEIRA_ACTION':
+  case 'SECOND_ACTION':
     return { ...state, action };
   default:
     return state;

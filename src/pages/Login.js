@@ -5,11 +5,33 @@ class Login extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.validate = this.validate.bind(this);
 
     this.state = {
       email: '',
       senha: '',
+      disable: true,
     };
+  }
+
+  componentDidUpdate() {
+    const { email, senha, disable } = this.state;
+    const emailRegex = /\S+@\S+\.\S+/;
+    const emailValidation = emailRegex.test(email);
+
+    const valido = true;
+    const MIN_PASSWORD = 6;
+    const passValidation = ((senha.length >= MIN_PASSWORD) ? valido : false);
+
+    if (disable) {
+      return (emailValidation && passValidation) ? this.validate() : disable;
+    }
+  }
+
+  validate() {
+    this.setState({
+      disable: false,
+    });
   }
 
   handleChange({ target: { id, value } }) {
@@ -23,7 +45,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, senha } = this.state;
+    const { email, senha, disable } = this.state;
 
     return (
       <form>
@@ -31,7 +53,7 @@ class Login extends React.Component {
           E-mail:
           <input
             id="email"
-            type="text"
+            type="email"
             data-testid="email-input"
             value={ email }
             onChange={ (e) => this.handleChange(e) }
@@ -47,7 +69,12 @@ class Login extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <button type="submit" onClick={ this.handleClick }>Entrar</button>
+        <button
+          disabled={ disable }
+          type="submit"
+        >
+          Entrar
+        </button>
       </form>);
   }
 }

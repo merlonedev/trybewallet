@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'PRIMEIRA_ACTION':
+  case 'FIRST_ACTION':
     return { ...state, action };
   default:
     return state;
