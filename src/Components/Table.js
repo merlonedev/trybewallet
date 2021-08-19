@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { userSumTotal } from '../actions/index.login';
+import { userDelete, userSumTotal } from '../actions/index.login';
 
 class Table extends Component {
+  constructor(props) {
+    super(props);
+
+    this.deleteItem = this.deleteItem.bind(this);
+  }
+
   resultsTable() {
     const { expenses } = this.props;
     const valueResult = expenses.map((expense) => {
@@ -18,15 +24,29 @@ class Table extends Component {
           <td>{parseFloat(value)}</td>
           <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
           <td>Real</td>
+          <td>
+            <button
+              data-testid="delete-btn"
+              type="button"
+              onClick={ () => { this.deleteItem(expense); } }
+            >
+              Deletar
+            </button>
+          </td>
         </tr>
       );
     });
     return valueResult;
   }
 
+  deleteItem(del) {
+    const { setResults } = this.props;
+    setResults(del.id);
+  }
+
   handlerClick(expenses) {
     const { setResults } = this.props;
-    setResults(expenses.id);
+    setResults(expenses.payload.id);
   }
 
   render() {
@@ -55,6 +75,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setResults: (payload) => dispatch(userSumTotal(payload)),
+  delete: (del) => dispatch(userDelete(del)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

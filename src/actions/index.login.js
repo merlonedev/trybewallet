@@ -2,6 +2,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const USER_CURRENCIES = 'USER_CURRENCIES';
 export const USER_EXPENSES = 'USER_EXPENSES';
 export const USER_TABLE = 'USER_TABLE';
+export const USER_DELETE = 'USER_DELETE';
 
 export const userEmail = (payload) => ({
   type: USER_EMAIL,
@@ -23,10 +24,10 @@ export const userSumTotal = (table) => ({
   payload: table,
 });
 
-// export const userDelete = => {
-//   type: USER_DELETE,
-//     pay
-// }
+export const userDelete = (del) => ({
+  type: USER_DELETE,
+  payload: del,
+});
 
 export const fetchApiCurriencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
