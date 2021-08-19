@@ -4,8 +4,28 @@ import { connect } from 'react-redux';
 import Moedas from './Moedas';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      moedas: {},
+    };
+  }
+
+  componentDidMount() {
+    this.fetchMoedas();
+  }
+
+  async fetchMoedas() {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(url);
+    const json = await response.json();
+    delete json.USDT;
+    this.setState({ moedas: json });
+  }
+
   render() {
     const { email } = this.props;
+    const { moedas } = this.state;
     return (
       <div>
         <header>
@@ -23,7 +43,7 @@ class Wallet extends React.Component {
             Descrição:
             <input type="text" id="description" />
           </label>
-          <Moedas />
+          <Moedas moedas={ moedas } />
           <label htmlFor="pagamento">
             Método de pagamento
             <select id="pagamento">

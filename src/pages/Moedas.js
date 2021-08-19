@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Moedas extends Component {
+  constructor(props) {
+    super(props);
+    this.moedas = this.moedas.bind(this);
+  }
+
+  moedas() {
+    const { moedas } = this.props;
+    const moedasKey = Object.keys(moedas);
+    return moedasKey.map(
+      (moeda) => <option key={ moeda } value={ moeda }>{ moeda }</option>,
+    );
+  }
+
   render() {
     return (
       <label htmlFor="moeda">
         Moeda
         <select id="moeda">
-          <option>USD</option>
-          <option>CAD</option>
-          <option>EUR</option>
-          <option>GBP</option>
-          <option>ARS</option>
-          <option>BTC</option>
-          <option>LTC</option>
-          <option>JPY</option>
-          <option>CHF</option>
-          <option>AUD</option>
-          <option>CNY</option>
-          <option>ILS</option>
-          <option>ETH</option>
-          <option>XRP</option>
+          { this.moedas() }
         </select>
       </label>
     );
   }
 }
+
+Moedas.propTypes = {
+  moedas: PropTypes.objectOf.isRequired,
+};
