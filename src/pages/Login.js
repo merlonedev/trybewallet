@@ -1,4 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import loginAction from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +15,7 @@ class Login extends React.Component {
       email: '',
       senha: '',
       disable: true,
+      redirect: false,
     };
   }
 
@@ -40,12 +45,22 @@ class Login extends React.Component {
     });
   }
 
-  handleClick() {
-
+  handleClick(callBack, email) {
+    callBack(email);
+    this.setState({
+      redirect: true,
+    });
   }
 
   render() {
-    const { email, senha, disable } = this.state;
+    const { email, senha, disable, redirect } = this.state;
+    const { loginDispatch } = this.props;
+
+    if (redirect) {
+      return (
+        <Redirect to="carteira" />
+      );
+    }
 
     return (
       <form>
@@ -72,6 +87,7 @@ class Login extends React.Component {
         <button
           disabled={ disable }
           type="submit"
+          onClick={ () => this.handleClick(loginDispatch, email) }
         >
           Entrar
         </button>
@@ -79,4 +95,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginDispatch: (state) => dispatch(loginAction(state)),
+});
+
+Login.propTypes = {
+  loginDispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

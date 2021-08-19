@@ -1,4 +1,4 @@
 // Coloque aqui suas actions
-const firstAction = (value) => ({ type: 'FIRST_ACTION', value });
+const loginAction = (value) => ({ type: 'LOGIN', value });
 
-export default firstAction;
+export default loginAction;
