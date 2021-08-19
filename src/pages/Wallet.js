@@ -22,14 +22,14 @@ class Wallet extends React.Component {
   }
 
   gastos() {
-    const { wallet: { expenses }, getTotal } = this.props;
+    const { wallet: { expenses } } = this.props;
     if (expenses.length > 0 && expenses.length < 2) {
       const { exchangeRates } = expenses[0];
       const arr = Object.entries(exchangeRates)
         .filter((item) => item[0] === expenses[0].currency);
       this.setState({
-        totalExpenses: (+expenses[0].value * +arr[0][1].ask)
-      })
+        totalExpenses: (+expenses[0].value * +arr[0][1].ask),
+      });
     }
     if (expenses.length > 1) {
       const { totalExpenses } = this.state;
@@ -38,8 +38,8 @@ class Wallet extends React.Component {
         .filter((item) => item[0] === expenses[1].currency);
       const total2 = (+expenses[1].value * +array[0][1].ask);
       this.setState({
-        totalExpenses: (totalExpenses + total2)
-      })
+        totalExpenses: (totalExpenses + total2),
+      });
     }
   }
 
@@ -53,7 +53,7 @@ class Wallet extends React.Component {
           email={ user.email }
           totalExpenses={ totalExpenses }
         />
-        <Form 
+        <Form
           gastos={ this.gastos }
         />
         <Table
