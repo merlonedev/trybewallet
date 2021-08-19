@@ -1,51 +1,103 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiCurrencies } from '../actions';
+import { fetchApiExpenses, fetchApiCurrencies } from '../actions';
 
 class ExpenseForm extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     value: '',
-  //     description: '',
-  //     currency: '',
-  //     method: '',
-  //     tag: '',
-  //   };
-  //   this.onChange = this.onChange.bind(this);
-  // }
-
-  // onChange({ target }) {
-  //   const { name, value } = target;
-  //   this.setState({ [name]: value });
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
 
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
   }
 
+  onChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  onClick() {
+    const { expenses, getExpenses } = this.props;
+    const id = expenses.length;
+    getExpenses({ ...this.state, id });
+  }
+
+  descriptionGenerator(description) {
+    return (
+      <textarea
+        id="description"
+        name="description"
+        type="text"
+        value={ description }
+        onChange={ this.onChange }
+      />
+    );
+  }
+
+  methodGenerator(method) {
+    return (
+      <select id="method" name="method" value={ method } onChange={ this.onChange }>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de crédito">Cartão de crédito</option>
+        <option value="Cartão de débito">Cartão de débito</option>
+      </select>
+    );
+  }
+
+  tagGenerator(tag) {
+    return (
+      <select
+        id="tag"
+        name="tag"
+        value={ tag }
+        onChange={ this.onChange }
+      >
+        <option value="Alimentação">Alimentação</option>
+        <option value="Lazer">Lazer</option>
+        <option value="Trabalho">Trabalho</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Saúde">Saúde</option>
+      </select>
+    );
+  }
+
   render() {
+    const { value, description, currency, method, tag } = this.state;
     const { currenciesList } = this.props;
     return (
       <form>
         <label htmlFor="value">
           Valor
-          <input id="value" name="value" type="text" onChange={ this.onChange } />
-        </label>
-        <label htmlFor="des">
-          Descrição
-          <textarea id="des" name="description" type="text" onChange={ this.onChange } />
+          <input
+            id="value"
+            name="value"
+            type="text"
+            value={ value }
+            onChange={ this.onChange }
+          />
         </label>
         <label htmlFor="currency">
           Moeda
-          <select id="currency" name="currency" onChange={ this.onChange }>
+          <select
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ this.onChange }
+          >
             { currenciesList.map((item) => (
-              <option
-                key={ item }
-                value={ item }
-              >
+              <option key={ item } value={ item }>
                 { item }
               </option>
             )) }
@@ -53,23 +105,17 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select id="method" name="method" onChange={ this.onChange }>
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
+          { this.methodGenerator(method) }
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag" name="tag" onChange={ this.onChange }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
+          { this.tagGenerator(tag) }
         </label>
-        <button type="submit">Adicionar</button>
+        <label htmlFor="description">
+          Descrição
+          { this.descriptionGenerator(description) }
+        </label>
+        <button type="button" onClick={ this.onClick }>Adicionar despesa</button>
       </form>
     );
   }
@@ -82,11 +128,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchApiCurrencies()),
+  getExpenses: (expense) => dispatch(fetchApiExpenses(expense)),
 });
 
 ExpenseForm.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   currenciesList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

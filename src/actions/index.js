@@ -29,8 +29,10 @@ export function fetchApiCurrencies() {
   };
 }
 
-export const fetchApiExpenses = (expense) => (dispatch) => {
-  fetch('https://economia.awesomeapi.com.br/json/all')
+// O projeto de Bruno Affonso me ajudou a entender e consertar o problema com 'USDT': https://github.com/tryber/sd-010-b-project-trybewallet/pull/44/files
+
+export const fetchApiExpenses = (expense) => async (dispatch) => {
+  const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json());
-  dispatch(newExpenses(expense));
+  dispatch(newExpenses({ ...expense, exchangeRates }));
 };
