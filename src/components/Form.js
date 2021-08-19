@@ -59,7 +59,7 @@ class Form extends React.Component {
   render() {
     const {
       props: { loading, currencies },
-      state: { value, currency, method, tag, description },
+      state: { value, currency, tag, description, method },
     } = this;
     return (
       <div>
@@ -96,7 +96,7 @@ class Form extends React.Component {
           <Button
             type="submit"
             disabled={ false }
-            name="Adicionar"
+            name="Adicionar despesa"
           />
         </form>
       </div>

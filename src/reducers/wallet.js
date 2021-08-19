@@ -27,7 +27,6 @@ function walletReducer(state = INITIAL_STATE, action) {
   case GET_RATES:
     return { ...state, isLoading: true };
   case GET_RATES_SUCCESS:
-    console.log(payload);
     return {
       ...state,
       expenses: expenses.concat(payload),

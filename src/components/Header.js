@@ -19,7 +19,7 @@ class Header extends React.Component {
     let total = 0;
     if (expenses.length > 0) {
       expenses.map((expense) => {
-        total += parseFloat(expense.value);
+        total = (total + parseFloat(expense.value)).toFixed(2);
         return total;
       });
     }

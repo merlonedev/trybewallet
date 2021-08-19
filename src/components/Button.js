@@ -22,12 +22,13 @@ Button.propTypes = {
   name: string,
   disabled: bool.isRequired,
   testId: string,
-  type: string.isRequired,
+  type: string,
 };
 
 Button.defaultProps = {
   testId: null,
   name: 'Entrar',
+  type: 'button',
 };
 
 export default Button;
