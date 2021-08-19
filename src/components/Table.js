@@ -23,7 +23,6 @@ class Table extends React.Component {
                 { expense.method }
               </td>
               <td>
-                { expense.currency }
                 { expense.value }
               </td>
               <td>
@@ -38,10 +37,8 @@ class Table extends React.Component {
               </td>
               <td>
                 {
-                  (
-                    (Number(
-                      expense.exchangeRates[expense.currency].ask,
-                    )).toFixed(2) * parseFloat(expense.value)
+                  Number(
+                    expense.exchangeRates[expense.currency].ask * expense.value,
                   ).toFixed(2)
                 }
               </td>
