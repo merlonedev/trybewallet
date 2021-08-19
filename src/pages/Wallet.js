@@ -3,6 +3,7 @@ import PropTypes, { string } from 'prop-types';
 import { connect } from 'react-redux';
 import fetchApi from '../forms/fetchApiMoeda';
 import cotacoesApi from '../components/cotacoesApi';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -174,6 +175,7 @@ class Wallet extends React.Component {
         { this.renderMethod() }
         { this.renderTag() }
         { this.renderBtnAdd() }
+        <Table />
       </div>
     );
   }

@@ -1,9 +1,15 @@
-import { API_COTACAO, API_MOEDA } from '../actions/index';
+import { API_COTACAO, API_MOEDA, BTN_DELETE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   error: '',
+};
+
+const deleteExpense = (state, action) => {
+  const { expenses } = state;
+  const deleteItem = expenses.filter((despesas) => despesas.id !== +action);
+  return deleteItem;
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -20,6 +26,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [
         ...state.expenses, { id: state.expenses.length, ...action.expenses }],
       error: '' };
+  case BTN_DELETE:
+    return {
+      ...state,
+      expenses: deleteExpense(state, action.remove),
+    };
   default:
     return state;
   }
