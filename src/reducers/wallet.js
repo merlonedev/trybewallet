@@ -5,21 +5,21 @@ const INITIAL_STATE = {
   currencies: [],
 };
 
-const updateExpense = (prevState = INITIAL_STATE, action) => {
+const updateExpense = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case ADD_EXPENSE:
-    return { ...prevState, expenses: [...prevState.expenses, action.expenses] };
+    return { ...state, expenses: [...state.expenses, action.payload] };
 
   case ADD_CURRENCIES:
-    return { ...prevState, currencies: [...prevState.currencies, ...action.currencies] };
+    return { ...state, currencies: [...state.currencies, ...action.payload] };
 
   case DELETE_EXPENSE:
     return {
-      ...prevState,
-      expenses: prevState.expenses.filter(({ item }) => item !== action.item) };
+      ...state,
+      expenses: action.payload };
 
   default:
-    return prevState;
+    return state;
   }
 };
 

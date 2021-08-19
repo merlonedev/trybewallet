@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApiExpenses, fetchApiCurrency } from '../actions/index';
+import { addExpense, fetchApiCurrency } from '../actions/index';
 import Input from './Input';
 
 const paymentOption = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -12,8 +12,8 @@ class Form extends React.Component {
     super(props);
     this.state = {
       id: 0,
-      value: '',
-      description: '',
+      value: '100',
+      description: 'teste 1',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Categoria',
@@ -36,11 +36,11 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { addExpense, expenses } = this.props;
+    const { _addExpense, expenses } = this.props;
     const state = { ...this.state };
     const lenght = expenses.length;
 
-    addExpense(state);
+    _addExpense(state);
 
     if (lenght >= 0) {
       this.setState({ id: lenght + 1 });
@@ -48,7 +48,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { currencies, value } = this.props;
+    const { currencies } = this.props;
+    const { value, description } = this.state;
     return (
       <form>
         <Input
@@ -62,28 +63,28 @@ class Form extends React.Component {
           id="Descrição"
           name="description"
           type="text"
-          value={ value }
+          value={ description }
           onChange={ this.handleChange }
         />
-        <label htmlFor="Moeda">
+        <label htmlFor="currency">
           Moeda
-          <select name="currency" id="Moeda" onChange={ this.handleChange }>
-            {currencies.map((item) => (
-              <option key={ item } value={ item }>{ item }</option>
+          <select name="currency" id="currency" onChange={ this.handleChange }>
+            {currencies.map((item, index) => (
+              <option key={ index } value={ item }>{ item }</option>
             ))}
           </select>
         </label>
-        <label htmlFor="Método de pagamento">
+        <label htmlFor="method">
           Método de pagamento
-          <select name="payment" id="Método de pagamento" onChange={ this.handleChange }>
+          <select name="method" id="method" onChange={ this.handleChange }>
             {paymentOption.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
             ))}
           </select>
         </label>
-        <label htmlFor="Tag">
+        <label htmlFor="tag">
           Tag
-          <select name="category" id="Tag" onChange={ this.handleChange }>
+          <select name="tag" id="tag" onChange={ this.handleChange }>
             {categoryOptions.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
             ))}
@@ -101,7 +102,7 @@ const mapStateToProps = (prevState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (expense) => dispatch(fetchApiExpenses(expense)),
+  _addExpense: (expense) => dispatch(addExpense(expense)),
   addCurrencies: () => dispatch(fetchApiCurrency()),
 });
 

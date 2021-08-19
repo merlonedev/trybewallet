@@ -11,7 +11,6 @@ class Table extends React.Component {
       <table>
         <HeaderTable />
         <tbody>
-          { console.log(expenses) }
           { expenses.map((expense, index) => {
             const { description, tag, method, value, exchangeRates, currency } = expense;
             const aux = parseFloat((exchangeRates[currency].ask)
@@ -32,7 +31,7 @@ class Table extends React.Component {
                   <button
                     type="button"
                     data-testid="delete-btn"
-                    onClick={ () => deleteItem(index) }
+                    onClick={ () => deleteItem(expense) }
                   >
                     Deletar
                   </button>

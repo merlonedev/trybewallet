@@ -8,20 +8,31 @@ export const addEmail = (email) => ({
   email,
 });
 
-export const addExpense = (expense) => ({
-  type: ADD_EXPENSE,
-  expense,
-});
+export const addExpense = (expense) => async (dispatch) => {
+  const isEmpty = Object.keys(expense).length === 0;
+  if (!isEmpty) {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const fetchExpensesApi = await fetch(url);
+    const data = await fetchExpensesApi.json();
+    dispatch({
+      type: ADD_EXPENSE,
+      payload: { ...expense, exchangeRates: data },
+    });
+  }
+};
 
 export const addCurrency = (currencies) => ({
   type: ADD_CURRENCIES,
-  currencies,
+  payload: currencies,
 });
 
-export const deleteExpense = (id) => ({
-  type: DELETE_EXPENSE,
-  id,
-});
+export const deleteExpense = (expense) => async (dispatch, getState) => {
+  const { expenses } = getState().wallet;
+  dispatch({
+    type: DELETE_EXPENSE,
+    payload: expenses.filter((e) => e.id !== expense.id),
+  });
+};
 
 export const fetchApiCurrency = () => async (dispatch) => {
   const url = 'https://economia.awesomeapi.com.br/json/all';
@@ -32,11 +43,4 @@ export const fetchApiCurrency = () => async (dispatch) => {
     .filter((item) => item !== 'DOGE');
 
   dispatch(addCurrency(filterData));
-};
-
-export const fetchApiExpenses = (state) => async (dispatch) => {
-  const url = 'https://economia.awesomeapi.com.br/json/all';
-  const fetchExpensesApi = await fetch(url);
-  const data = await fetchExpensesApi.json();
-  dispatch(addExpense({ ...state, exchangeRates: data }));
 };
