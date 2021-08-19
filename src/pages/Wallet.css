@@ -1,0 +1,9 @@
+header {
+    clear: both;
+    display: inline-flexbox;
+    overflow: hidden;
+    padding: 4px;
+    padding-top: 2rem;
+    text-align: center;
+    white-space: nowrap;    
+}

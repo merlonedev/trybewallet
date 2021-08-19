@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { handleChange, currency, method, tag, currencies } = this.props;
+    const { handleChange, currency, method, tag } = this.props;
     return (
       <div>
         <label htmlFor="moeda">
@@ -13,11 +13,7 @@ class Select extends Component {
             id="moeda"
             value={ currency }
             onChange={ handleChange }
-          >
-            {currencies.map((curr, index) => (
-              <option key={ index }>{curr.code}</option>
-            ))}
-          </select>
+          />
         </label>
         <label htmlFor="método de pagamento">
           Método de Pagamento:

@@ -1,22 +1,20 @@
-import { EXPENSES } from '../actions/getExpenses';
-import { CURRENCIES } from '../actions/getCurrencies';
+import { FETCH_COIN_SUCCESS } from '../actions/wallet';
+import { REQUEST_CURRENCY } from '../actions/index';
 
 const INITIAL_STATE = {
-  currencies: [],
-  expenses: [],
+  coin: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case CURRENCIES:
+  case FETCH_COIN_SUCCESS:
     return {
-      ...state,
-      currencies: [...state.currencies, action.currencies],
+      ...state, coin: action.coin,
     };
-  case EXPENSES:
+  case REQUEST_CURRENCY:
     return {
       ...state,
-      expenses: [...state.expenses, action.expenses],
+      currencies: Object.keys(action.payload),
     };
   default:
     return state;

@@ -1,40 +1,28 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import getCurrencies from '../actions/getCurrencies';
-import getExpenses from '../actions/getExpenses';
+import sucessFetch from '../actions/wallet';
+import fetchCoinApi from '../services/fetchApi';
 
 class FormWallet extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: '',
-      currency: 'USD',
-      tag: 'Alimentação',
-      method: 'Dinheiro',
-      description: '',
-      id: -1,
+      coins: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.fetchWallet = this.fetchWallet.bind(this);
+    this.renderCurrency = this.renderCurrency.bind(this);
   }
 
-  async componentDidMount() {
-    const { currency } = this.props;
-    await this.fetchWallet(currency);
-  }
-
-  async fetchWallet(currency) {
-    const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const results = await fetchAPI.json();
-    delete results.USDT;
-    currency(results);
-    return results;
+  componentDidMount() {
+    this.renderCurrency();
+    const { getCoin } = this.props;
+    const { coins } = this.state;
+    getCoin(coins);
   }
 
   handleChange({ target }) {
@@ -42,13 +30,12 @@ class FormWallet extends Component {
     this.setState({ [name]: value });
   }
 
-  async handleSubmit() {
-    const { currency, expenses } = this.props;
-    const result = await this.fetchWallet(currency);
-    this.setState(({ id }) => ({
-      id: id + 1,
-      exchangeRates: result,
-    }), () => { expenses(this.state); });
+  async renderCurrency() {
+    const moedas = await fetchCoinApi();
+    const filteredCoins = Object.keys(moedas).filter((coin) => coin !== 'USDT');
+    this.setState({
+      coins: filteredCoins,
+    });
   }
 
   render() {
@@ -71,7 +58,7 @@ class FormWallet extends Component {
         <button
           type="button"
           expenses={ expenses }
-          onClick={ () => { this.handleSubmit(); } }
+          onClick={ this.getMoedas }
         >
           Adicionar Despesa
         </button>
@@ -80,20 +67,13 @@ class FormWallet extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  getCoin: (value) => dispatch(sucessFetch(value)),
+});
+
 FormWallet.propTypes = {
-  currency: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.func.isRequired,
+  getCoin: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  currency: (currencies) => dispatch(getCurrencies(currencies)),
-  expenses: (expenses) => dispatch(getExpenses(expenses)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
+export default connect(null, mapDispatchToProps)(FormWallet);

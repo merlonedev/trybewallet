@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FormWallet from '../components/formWallet';
+import './Wallet.css';
 
 class Wallet extends React.Component {
   render() {
