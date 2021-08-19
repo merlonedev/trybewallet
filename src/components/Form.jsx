@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApiExpenses, fetchApiCurrency } from '../actions/index';
+import Input from './Input';
 
 const paymentOption = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const categoryOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -49,43 +50,39 @@ class Form extends React.Component {
     const { currencies, value } = this.props;
     return (
       <form>
-        <label htmlFor="value">
-          Valor
-          <input
-            name="value"
-            type="number"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input
-            name="description"
-            type="text"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="currency">
+        <Input
+          id="Valor"
+          name="value"
+          type="number"
+          value={ value }
+          onChange={ this.handleChange }
+        />
+        <Input
+          id="Descrição"
+          name="description"
+          type="text"
+          value={ value }
+          onChange={ this.handleChange }
+        />
+        <label htmlFor="Moeda">
           Moeda
-          <select name="currency" onChange={ this.handleChange }>
+          <select name="currency" id="Moeda" onChange={ this.handleChange }>
             {currencies.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
             ))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="Método de pagamento">
           Método de pagamento
-          <select name="payment" onChange={ this.handleChange }>
+          <select name="payment" id="Método de pagamento" onChange={ this.handleChange }>
             {paymentOption.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
             ))}
           </select>
         </label>
-        <label htmlFor="category">
+        <label htmlFor="Tag">
           Tag
-          <select name="category" onChange={ this.handleChange }>
+          <select name="category" id="Tag" onChange={ this.handleChange }>
             {categoryOptions.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
             ))}
