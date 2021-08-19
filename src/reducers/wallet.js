@@ -6,7 +6,8 @@ const INITIAL_STATE = {
 
   currencies: [],
   expenses: [],
-
+  error: '',
+  isFetching: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -15,7 +16,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return (
       {
         ...state,
-        currencies: action.email,
+        currencies: action.currenciesFiltered,
       }
     );
   case EXPENSES_ACTION:
