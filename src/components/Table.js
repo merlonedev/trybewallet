@@ -28,26 +28,24 @@ class Table extends React.Component {
               </td>
               <td>
                 {
-                  (Object.entries(expense.exchangeRates).find(
-                    (coin) => coin[0] === expense.currency,
-                  )[1].name).split('/')[0]
+                  expense.exchangeRates[expense.currency].name
                 }
               </td>
               <td>
                 {
-                  parseFloat((Object.entries(expense.exchangeRates).find(
-                    (coin) => coin[0] === expense.currency,
-                  )[1].ask)).toFixed(2)
+                  (Number(expense.exchangeRates[expense.currency].ask)).toFixed(2)
                 }
               </td>
               <td>
                 {
-                  ((Object.entries(expense.exchangeRates).find(
-                    (coin) => coin[0] === expense.currency,
-                  )[1].ask) * parseFloat(expense.value)).toFixed(2)
+                  (
+                    (Number(
+                      expense.exchangeRates[expense.currency].ask,
+                    )).toFixed(2) * parseFloat(expense.value)
+                  ).toFixed(2)
                 }
               </td>
-              <DelEditButton target={ expense.id } />
+              <DelEditButton info={ expense.id } />
             </tr>
           ))}
         </tbody>

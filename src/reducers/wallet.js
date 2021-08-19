@@ -30,7 +30,12 @@ function walletReducer(state = INITIAL_STATE, action) {
   case GET_RATES_SUCCESS:
     return {
       ...state,
-      expenses: expenses.concat(payload),
+      expenses: [
+        ...state.expenses,
+        {
+          ...payload,
+        },
+      ],
       isLoading: false,
     };
   case GET_RATES_ERROR:
@@ -38,10 +43,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case RMV_EXPENSE:
     return {
       ...state,
-      expenses: expenses.splice(expenses.indexOf(expenses.find((expense) => {
-        const { id } = expense;
-        return (id === payload);
-      }))),
+      expenses: expenses.filter((expense) => expense.id !== Number(payload)),
     };
   default:
     return state;

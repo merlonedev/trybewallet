@@ -23,7 +23,7 @@ export const fetchAPI2 = (expense) => async (dispatch) => {
     .then((data) => data.json())
     .then((results) => dispatch(getRatesSuccess({
       ...expense,
-      exchangeRates: results,
+      exchangeRates: { ...results },
     })))
     .catch((error) => dispatch(getRatesError(error)));
 };

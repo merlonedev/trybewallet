@@ -12,9 +12,9 @@ class DelEditButton extends React.Component {
   }
 
   handleDelete() {
-    const { props: { deleteDispatch, target } } = this;
+    const { props: { deleteDispatch, info } } = this;
 
-    deleteDispatch(target);
+    deleteDispatch(info);
   }
 
   render() {
@@ -29,7 +29,7 @@ class DelEditButton extends React.Component {
             testId="delete-btn"
             type="button"
             name="Excluir"
-            onCLick={ this.handleDelete() }
+            onCLick={ this.handleDelete }
           />
         </td>
       </>
@@ -39,12 +39,12 @@ class DelEditButton extends React.Component {
 
 const { number, func } = PropTypes;
 DelEditButton.propTypes = {
-  target: number.isRequired,
+  info: number.isRequired,
   deleteDispatch: func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteDispatch: (target) => dispatch(removeExpense(target)),
+  deleteDispatch: (info) => dispatch(removeExpense(info)),
 });
 
 export default connect(null, mapDispatchToProps)(DelEditButton);

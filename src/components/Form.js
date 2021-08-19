@@ -34,8 +34,8 @@ class Form extends React.Component {
     e.preventDefault();
     const { state: { id }, props: { ratesDispatch } } = this;
     const { state } = this;
-    const expense = { ...state };
-    ratesDispatch(expense);
+
+    ratesDispatch(state);
 
     this.setState({
       id: id + 1,
