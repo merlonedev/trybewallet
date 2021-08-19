@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { testId, disabled, type, name, onClick } = this.props;
+    const { testId, disabled, type, name, deleteFunc } = this.props;
     return (
       <button
         id={ testId }
         data-testid={ testId }
         type={ type === 'submit' ? 'submit' : 'button' }
         disabled={ disabled }
-        onClick={ onClick }
+        onClick={ deleteFunc }
       >
         { name }
       </button>
@@ -25,14 +25,14 @@ Button.propTypes = {
   disabled: bool,
   testId: string,
   type: string,
-  onClick: func,
+  deleteFunc: func,
 };
 
 Button.defaultProps = {
   testId: null,
   name: 'Entrar',
   type: 'button',
-  onClick: null,
+  deleteFunc: null,
   disabled: false,
 };
 

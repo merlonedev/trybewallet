@@ -13,6 +13,7 @@ class DelEditButton extends React.Component {
 
   handleDelete() {
     const { props: { deleteDispatch, info } } = this;
+    // console.log(this.props);
 
     deleteDispatch(info);
   }
@@ -29,7 +30,7 @@ class DelEditButton extends React.Component {
             testId="delete-btn"
             type="button"
             name="Excluir"
-            onCLick={ this.handleDelete }
+            deleteFunc={ this.handleDelete }
           />
         </td>
       </>
@@ -37,10 +38,10 @@ class DelEditButton extends React.Component {
   }
 }
 
-const { number, func } = PropTypes;
+const { func, number } = PropTypes;
 DelEditButton.propTypes = {
-  info: number.isRequired,
   deleteDispatch: func.isRequired,
+  info: number.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

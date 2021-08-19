@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
-  const { expenses } = state;
+  // const { expenses } = state;
   const { payload, error, type } = action;
   switch (type) {
   case GET_CURRENCIES:
@@ -43,7 +43,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case RMV_EXPENSE:
     return {
       ...state,
-      expenses: expenses.filter((expense) => expense.id !== payload),
+      expenses: [...state.expenses.filter((expense) => expense.id !== payload)],
     };
   default:
     return state;
