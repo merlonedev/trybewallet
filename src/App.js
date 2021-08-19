@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
-import NotFound from './pages/Wallet';
+import NotFound from './pages/NotFound';
 
 class App extends Component {
   render() {
