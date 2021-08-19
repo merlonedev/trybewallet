@@ -8,16 +8,23 @@ const payMethodOptions = [
   'Cartão de Débito',
 ];
 
+const tagList = [
+  'Alimentação',
+  'Lazer',
+  'Trabalho',
+  'Transporte',
+  'Saúde',
+];
+
 class SelectList extends React.Component {
   render() {
     const {
       onChange1,
-      options1,
+      options,
       value1,
       onChange2,
       value2,
       onChange3,
-      options3,
       value3,
     } = this.props;
     return (
@@ -25,7 +32,7 @@ class SelectList extends React.Component {
         <Select
           id="currency"
           name="Moeda"
-          options={ options1 }
+          options={ options }
           value={ value1 }
           onChange={ onChange1 }
         />
@@ -39,7 +46,7 @@ class SelectList extends React.Component {
         <Select
           id="tag"
           name="Tag"
-          options={ options3 }
+          options={ tagList }
           value={ value3 }
           onChange={ onChange3 }
         />
@@ -52,18 +59,16 @@ const { string, func, object, arrayOf, oneOfType } = PropTypes;
 
 SelectList.propTypes = {
   onChange1: func.isRequired,
-  options1: oneOfType([arrayOf(string), arrayOf(object)]),
+  options: oneOfType([arrayOf(string), arrayOf(object)]),
   value1: string.isRequired,
   onChange2: func.isRequired,
   value2: string.isRequired,
   onChange3: func.isRequired,
-  options3: oneOfType([arrayOf(string), arrayOf(object)]),
   value3: string.isRequired,
 };
 
 SelectList.defaultProps = {
-  options1: [],
-  options3: [],
+  options: [],
 };
 
 export default SelectList;

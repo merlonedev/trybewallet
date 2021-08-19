@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { fetchAPI2 } from '../actions';
 import Input from './Input';
 import SelectList from './SelectList';
-import { tagList } from '../helpers/selectOptions';
 import Button from './Button';
 
 class Form extends React.Component {
@@ -66,18 +65,11 @@ class Form extends React.Component {
         <form onSubmit={ this.handleSubmit }>
           <Input id="value" name="Valor" value={ value } onChange={ this.handleChange } />
           <SelectList
-            id1="currency"
-            name1="Moeda"
-            options1={ currencies }
+            options={ currencies }
             value1={ currency }
             onChange1={ this.handleChange }
-            id2="method"
-            name2="método de pagamento"
             value2={ method }
             onChange2={ this.handleChange }
-            id3="tag"
-            name3="Tag"
-            options3={ tagList }
             value3={ tag }
             onChange3={ this.handleChange }
           />

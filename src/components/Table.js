@@ -28,7 +28,7 @@ class Table extends React.Component {
               </td>
               <td>
                 {
-                  expense.exchangeRates[expense.currency].name
+                  (expense.exchangeRates[expense.currency].name).split('/')[0]
                 }
               </td>
               <td>
