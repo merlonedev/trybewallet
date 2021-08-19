@@ -2,9 +2,18 @@ import { SAVE_CURRENCIES, SAVE_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: {},
-  totalExpenses: 0,
+  totalExpenses: 0.00,
   expenses: [],
 };
+
+function sum(data) {
+  return Number(data.reduce(
+    (
+      accumulator,
+      value,
+    ) => accumulator + (value.value * value.exchangeRates[value.currency].ask), 0,
+  ).toFixed(2));
+}
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -16,8 +25,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   case SAVE_EXPENSES:
     return {
       ...state,
-      totalExpenses: action.payload.totalExpenses,
       expenses: [...state.expenses, action.payload],
+      totalExpenses: sum([...state.expenses, action.payload]),
     };
   default:
     return state;

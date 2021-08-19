@@ -17,10 +17,17 @@ class Form extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { id, value } }) {
     this.setState({ [id]: value });
+  }
+
+  handleClick() {
+    const { saveExpensesFromComponent } = this.props;
+    saveExpensesFromComponent(this.state);
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   renderCurrencies() {
@@ -33,9 +40,8 @@ class Form extends Component {
   }
 
   render() {
-    const { handleChange, state } = this;
+    const { handleChange } = this;
     const { value, description, currency, method, tag } = this.state;
-    const { saveExpensesFromComponent } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -72,10 +78,7 @@ class Form extends Component {
         </label>
         <button
           type="button"
-          onClick={ () => {
-            saveExpensesFromComponent(state);
-            this.setState((prevState) => ({ id: prevState.id + 1 }));
-          } }
+          onClick={ this.handleClick }
         >
           Adicionar despesa
         </button>
