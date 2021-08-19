@@ -1,20 +1,14 @@
-import {
-  LOGIN,
-} from '../actions/index';
-
 const INITIAL_STATE = {
   email: '',
 };
 
-const user = (state = INITIAL_STATE, action) => {
+function saveUserEmail(email = INITIAL_STATE, action) {
   switch (action.type) {
-  case LOGIN:
-    return {
-      email: action.payload,
-    };
+  case 'SAVE_EMAIL':
+    return { email: action.payload.email };
   default:
-    return state;
+    return email;
   }
-};
+}
 
-export default user;
+export default saveUserEmail;

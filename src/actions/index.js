@@ -1,24 +1,18 @@
-export const LOGIN = 'LOGIN';
-export const WALLET = 'WALLET';
-export const CURRENCIES = 'CURRENCIES';
-export const DELETING = 'DELETING';
-
-export const addNewUser = (payload) => ({
-  type: LOGIN,
-  payload,
+export const saveEmail = (email) => ({
+  type: 'SAVE_EMAIL',
+  payload: { email },
 });
 
-export const wallet = (payload) => ({
-  type: WALLET,
-  payload,
+export const saveExpense = (expense) => ({
+  type: 'SAVE_EXPENSE',
+  payload: {
+    expense,
+  },
 });
 
-export const currencies = (payload) => ({
-  type: CURRENCIES,
-  payload,
-});
-
-export const deleting = (payload) => ({
-  type: DELETING,
-  payload,
+export const delExpense = (expense) => ({
+  type: 'DEL_EXPENSE',
+  payload: {
+    expense,
+  },
 });

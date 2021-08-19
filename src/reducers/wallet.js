@@ -1,38 +1,22 @@
-import {
-  CURRENCIES,
-  WALLET,
-  DELETING,
-} from '../actions/index';
-
+// este reducer será responsável por tratar todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  currencies: [],
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
-  const n = -2;
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case WALLET:
+  case 'SAVE_EXPENSE':
+    return { expenses: [...state.expenses, action.payload.expense] };
+  case 'DEL_EXPENSE':
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
-    };
-  case CURRENCIES:
-    return {
-      ...state,
-      currencies: Math.round((action.payload * 100), n) / 100,
-    };
-  case DELETING:
-    return {
-      ...state,
-      currencies: (
-        Math.round(((parseFloat(state.currencies) - action.payload[1]) * 100), n) / 100
-      ),
-      expenses: state.expenses.filter((expense) => expense.id !== action.payload[0]),
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload.expense.id),
+      ],
     };
   default:
     return state;
   }
-};
+}
 
 export default wallet;
