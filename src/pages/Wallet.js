@@ -33,7 +33,6 @@ class Wallet extends React.Component {
 
   async handleExpenses() {
     const cotacao = await fetchCotation();
-    console.log(cotacao);
     const { id, value, description, currency, method, tag } = this.state;
     const { saveExpense, expenses } = this.props;
     const testState = [...expenses,
@@ -47,7 +46,6 @@ class Wallet extends React.Component {
 
   async sunTotalField() {
     const { expenses } = this.props;
-    console.log(expenses);
     const te = expenses
       .reduce((cont, moeda) => cont + (Number(moeda.exchangeRates[moeda.currency].ask
        * moeda.value)), 0);

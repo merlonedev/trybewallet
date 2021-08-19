@@ -29,7 +29,12 @@ class Login extends Component {
     const { email, password } = this.state;
     return (
       <div>
-        <input id="email" type data-testid="email-input" onChange={ this.handleChange } />
+        <input
+          id="email"
+          type="email"
+          data-testid="email-input"
+          onChange={ this.handleChange }
+        />
         <input
           id="password"
           type="password"
