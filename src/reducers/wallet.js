@@ -5,6 +5,7 @@ import {
   GET_RATES,
   GET_RATES_SUCCESS,
   GET_RATES_ERROR,
+  RMV_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -34,6 +35,14 @@ function walletReducer(state = INITIAL_STATE, action) {
     };
   case GET_RATES_ERROR:
     return { ...state, error, isLoading: false };
+  case RMV_EXPENSE:
+    return {
+      ...state,
+      expenses: expenses.splice(expenses.indexOf(expenses.find((expense) => {
+        const { id } = expense;
+        return (id === payload);
+      }))),
+    };
   default:
     return state;
   }

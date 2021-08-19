@@ -42,7 +42,7 @@ class Table extends React.Component {
                   )[1].ask) * parseFloat(expense.value)).toFixed(2)
                 }
               </td>
-              <DelEditButton />
+              <DelEditButton target={ expense.id } />
             </tr>
           ))}
         </tbody>

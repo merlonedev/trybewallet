@@ -19,3 +19,8 @@ export {
   getRatesError,
   fetchAPI2,
 } from './ratesAction';
+
+export {
+  RMV_EXPENSE,
+  removeExpense,
+} from './removeAction';
