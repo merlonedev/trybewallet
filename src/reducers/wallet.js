@@ -9,26 +9,32 @@ import {
 
 const INITIAL_STATE = {
   currencies: ['BRL'],
-  expenses: {},
+  expenses: [],
   error: null,
   isLoading: false,
-  rates: {},
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
+  const { expenses } = state;
+  const { payload, error, type } = action;
+  switch (type) {
   case GET_CURRENCIES:
     return { ...state, isLoading: true };
   case GET_CURRENCIES_SUCCESS:
-    return { ...state, currencies: action.payload, isLoading: false };
+    return { ...state, currencies: payload, isLoading: false };
   case GET_CURRENCIES_ERROR:
-    return { ...state, error: action.error, isLoading: false };
+    return { ...state, error, isLoading: false };
   case GET_RATES:
     return { ...state, isLoading: true };
   case GET_RATES_SUCCESS:
-    return { ...state, expenses: action.payload, isLoading: false };
+    console.log(payload);
+    return {
+      ...state,
+      expenses: expenses.concat(payload),
+      isLoading: false,
+    };
   case GET_RATES_ERROR:
-    return { ...state, error: action.error, isLoading: false };
+    return { ...state, error, isLoading: false };
   default:
     return state;
   }

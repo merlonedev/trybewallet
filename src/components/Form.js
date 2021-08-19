@@ -33,12 +33,18 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { state, props: { ratesDispatch } } = this;
-
+    const { state: { id }, props: { ratesDispatch } } = this;
+    const { state } = this;
     const expense = { ...state };
     ratesDispatch(expense);
 
-    this.setState(this.baseState, state.id += 1);
+    this.setState({
+      ...this.baseState,
+    }, () => {
+      this.setState({
+        id: id + 1,
+      });
+    });
     // baseState tirado de https://medium.com/@justintulk/best-practices-for-resetting-an-es6-react-components-state-81c0c86df98d
   }
 
@@ -59,7 +65,7 @@ class Form extends React.Component {
       <div>
         { loading && <h3>Carregando...</h3> }
         <form onSubmit={ this.handleSubmit }>
-          <Input id="value" name="value" value={ value } onChange={ this.handleChange } />
+          <Input id="value" name="Valor" value={ value } onChange={ this.handleChange } />
           <Select
             id="currency"
             name="Moeda"
@@ -98,17 +104,17 @@ class Form extends React.Component {
   }
 }
 
-const { bool, arrayOf, string, func, objectOf } = PropTypes;
+const { bool, arrayOf, string, func, object, oneOfType } = PropTypes;
 Form.propTypes = {
   loading: bool.isRequired,
   currencies: arrayOf(string),
-  expenses: objectOf(objectOf(string)),
+  expenses: oneOfType([arrayOf(string), arrayOf(object)]),
   ratesDispatch: func.isRequired,
 };
 
 Form.defaultProps = {
   currencies: 'BRL',
-  expenses: 0,
+  expenses: [],
 };
 
 const mapStateToProps = (state) => {

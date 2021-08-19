@@ -39,14 +39,14 @@ class Header extends React.Component {
   }
 }
 
-const { string, number, object, oneOfType } = PropTypes;
+const { string, object, arrayOf, oneOfType } = PropTypes;
 Header.propTypes = {
   email: string.isRequired,
-  expenses: oneOfType([number, object]),
+  expenses: oneOfType([arrayOf(string), arrayOf(object)]),
 };
 
 Header.defaultProps = {
-  expenses: 0,
+  expenses: [],
 };
 
 const mapStateToProps = (state) => ({
