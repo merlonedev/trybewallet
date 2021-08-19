@@ -6,6 +6,12 @@ import Input from './Input';
 import SelectList from './SelectList';
 import Button from './Button';
 
+// const payMethodOptions = [
+//   'Dinheiro',
+//   'Cartão de Crédito',
+//   'Cartão de Débito',
+// ];
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +19,9 @@ class Form extends React.Component {
     this.state = {
       id: 0,
       value: 0,
-      currency: 'Selecione',
-      method: 'Selecione',
-      tag: 'Selecione',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     };
 
@@ -34,14 +40,14 @@ class Form extends React.Component {
     const { state: { id }, props: { ratesDispatch } } = this;
     const { state } = this;
 
-    ratesDispatch(state);
+    ratesDispatch({ ...state });
 
     this.setState({
       id: id + 1,
       value: 0,
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     });
   }
@@ -64,6 +70,12 @@ class Form extends React.Component {
         { loading && <h3>Carregando...</h3> }
         <form onSubmit={ this.handleSubmit }>
           <Input id="value" name="Valor" value={ value } onChange={ this.handleChange } />
+          <Input
+            id="description"
+            name="Descrição"
+            value={ description }
+            onChange={ this.handleChange }
+          />
           <SelectList
             options={ currencies }
             value1={ currency }
@@ -73,15 +85,8 @@ class Form extends React.Component {
             value3={ tag }
             onChange3={ this.handleChange }
           />
-          <Input
-            id="description"
-            name="Descrição"
-            value={ description }
-            onChange={ this.handleChange }
-          />
           <Button
             type="submit"
-            disabled={ false }
             name="Adicionar despesa"
           />
         </form>

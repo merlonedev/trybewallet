@@ -22,7 +22,7 @@ const { bool, string, func } = PropTypes;
 
 Button.propTypes = {
   name: string,
-  disabled: bool.isRequired,
+  disabled: bool,
   testId: string,
   type: string,
   onClick: func,
@@ -33,6 +33,7 @@ Button.defaultProps = {
   name: 'Entrar',
   type: 'button',
   onClick: null,
+  disabled: false,
 };
 
 export default Button;

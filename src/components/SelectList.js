@@ -4,8 +4,8 @@ import Select from './Select';
 
 const payMethodOptions = [
   'Dinheiro',
-  'Cartão de Crédito',
-  'Cartão de Débito',
+  'Cartão de crédito',
+  'Cartão de débito',
 ];
 
 const tagList = [
