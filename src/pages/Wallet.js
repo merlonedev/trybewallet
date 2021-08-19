@@ -4,8 +4,25 @@ import { connect } from 'react-redux';
 import Moedas from './Moedas';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      valor: 0,
+      descricao: '',
+      moeda: 'USD',
+      metodo: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
   render() {
     const { email } = this.props;
+    const { valor, descricao, moeda, metodo, tag } = this.state;
     return (
       <div>
         <header>
@@ -17,16 +34,16 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="despesas">
             Valor
-            <input type="text" name="despesas" />
+            <input type="text" name={ valor } onChange={ this.handleChange } />
           </label>
           <label htmlFor="descrição">
             Descrição
-            <input type="text" name="descrição" />
+            <input type="text" name={ descricao } onChange={ this.handleChange } />
           </label>
-          <Moedas />
+          <Moedas name={ moeda } onChange={ this.handleChange } />
           <label htmlFor="pagamento">
             Método de pagamento
-            <select name="pagamento">
+            <select name={ metodo } onChange={ this.handleChange }>
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
               <option>Cartão de débito</option>
@@ -34,7 +51,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="categoria">
             Tag
-            <select name="categoria">
+            <select name={ tag } onChange={ this.handleChange }>
               <option>Alimentação</option>
               <option>Lazer</option>
               <option>Trabalho</option>
