@@ -3,6 +3,7 @@ import {
   FETCH_CURRENCIES_SUCCESS,
   FETCH_PRICES_SUCCESS,
   FETCH_PRICES_ERROR,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -28,6 +29,11 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: action.payload,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
     };
   default:
     return state;

@@ -4,6 +4,7 @@ const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
 export const FETCH_CURRENCIES_ERROR = 'FETCH_CURRENCIES_ERROR';
 export const FETCH_PRICES_SUCCESS = 'FETCH_PRICES_SUCCESS';
 export const FETCH_PRICES_ERROR = 'FETCH_PRICES_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const getUserData = (payload) => ({
   type: GET_USER,
@@ -43,3 +44,5 @@ export const fetchPricesAction = (expenses) => async (dispatch) => {
     dispatch(fetchPricesError(err));
   }
 };
+
+export const deleteExpansesAction = (id) => ({ type: DELETE_EXPENSE, id });

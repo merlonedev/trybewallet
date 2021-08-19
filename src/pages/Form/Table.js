@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpansesAction } from '../../actions/index';
 
 class Table extends Component {
   constructor(props) {
     super(props);
     this.renderLines = this.renderLines.bind(this);
+    // this.dispatchDelete = this.dispatchDelete.bind(this);
   }
 
+  // dispatchDelete() {
+  // const { delet } = this.props;
+  // delet(id);
+  // }
+
   renderLines() {
-    const { expenses } = this.props;
+    const { expenses, deleteExpansesAction: delet } = this.props;
     return expenses.map(({
+      id,
       description,
       tag,
       method,
@@ -29,7 +37,16 @@ class Table extends Component {
           <td>{ Number(ask).toFixed(2) }</td>
           <td>{ (value * ask).toFixed(2) }</td>
           <td>Real</td>
-          <td>Editar/Excluir</td>
+          <td>
+            Editar/Excluir
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ () => delet(id) }
+            >
+              Deletar
+            </button>
+          </td>
         </tr>
       );
     });
@@ -65,8 +82,11 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = { deleteExpansesAction };
+
 Table.propTypes = {
   expenses: PropTypes.func.isRequired,
+  deleteExpansesAction: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
