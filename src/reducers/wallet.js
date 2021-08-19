@@ -1,9 +1,23 @@
+import { EXPENSES } from '../actions/getExpenses';
+import { CURRENCIES } from '../actions/getCurrencies';
+
 const INITIAL_STATE = {
-  wallet: '',
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case CURRENCIES:
+    return {
+      ...state,
+      currencies: [...state.currencies, action.currencies],
+    };
+  case EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
+    };
   default:
     return state;
   }

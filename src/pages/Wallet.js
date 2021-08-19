@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FormWallet from '../components/formWallet';
 
 class Wallet extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
+          <FormWallet /> 
           <div data-testid="email-field">{ `Email: ${loginEmail}` }</div>
           <div data-testid="total-field">
             { gasto }
