@@ -19,15 +19,17 @@ class Form extends React.Component {
       tag: 'Alimentação',
     };
     this.handlechange = this.handlechange.bind(this);
-    this.addExpanses = this.addExpanses.bind(this);
+    this.addExpenses = this.addExpenses.bind(this);
   }
 
   handlechange({ target }) {
     const { name, value } = target;
+    console.log(name);
+    console.log(value);
     this.setState({ [name]: value });
   }
 
-  addExpanses() {
+  addExpenses() {
     const { value, currency, method, description, tag } = this.state;
     const { getPrice } = this.props;
     getPrice({ value, currency, method, description, tag });
@@ -49,7 +51,7 @@ class Form extends React.Component {
         <Pagamento value={ method } handlechange={ this.handlechange } />
         <Descrição value={ description } handlechange={ this.handlechange } />
         <Tag value={ tag } handlechange={ this.handlechange } />
-        <button type="button" onClick={ this.addExpanses }>Adicionar Despesa</button>
+        <button type="button" onClick={ this.addExpenses }>Adicionar Despesa</button>
       </form>
     );
   }

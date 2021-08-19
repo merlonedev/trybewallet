@@ -13,7 +13,7 @@ class Descrição extends React.Component {
             onChange={ handlechange }
             id="description"
             type="text"
-            name="descricao"
+            name="description"
           />
         </label>
       </div>

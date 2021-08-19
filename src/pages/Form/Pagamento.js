@@ -14,9 +14,9 @@ class Pagamento extends React.Component {
             id="selected-currency"
             name="method"
           >
-            <option>Dinheiro</option>
-            <option>Cartão de Crédito</option>
-            <option>Cartão de Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Cartão de Débito">Cartão de Débito</option>
           </select>
         </label>
       </div>

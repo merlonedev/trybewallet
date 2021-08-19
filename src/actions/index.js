@@ -1,6 +1,4 @@
-// action para pegar dados do usuário
 export const GET_USER = 'GET_USER';
-export const GET_CURRENT_EXCHANGE = 'GET_CURRENT_EXCHANGE';
 export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
 const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
 export const FETCH_CURRENCIES_ERROR = 'FETCH_CURRENCIES_ERROR';
@@ -10,14 +8,6 @@ export const FETCH_PRICES_ERROR = 'FETCH_PRICES_ERROR';
 export const getUserData = (payload) => ({
   type: GET_USER,
   info: 'Get the current email user',
-  payload,
-});
-
-// action cambio
-
-export const getExchange = (payload) => ({
-  type: GET_CURRENT_EXCHANGE,
-  info: '',
   payload,
 });
 
@@ -49,7 +39,7 @@ export const fetchPricesAction = (expenses) => async (dispatch) => {
   try {
     const result = await response.json();
     dispatch(fetchPricesSuccess({ ...expenses, exchangeRates: result }));
-  } catch (error) {
-    dispatch(fetchPricesError(error));
+  } catch (err) {
+    dispatch(fetchPricesError(err));
   }
 };

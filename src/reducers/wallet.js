@@ -1,13 +1,11 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import {
-  GET_CURRENT_EXCHANGE,
   FETCH_CURRENCIES_SUCCESS,
   FETCH_PRICES_SUCCESS,
   FETCH_PRICES_ERROR,
 } from '../actions';
 
 const INITIAL_STATE = {
-  currentExchange: 'BRL',
   currencies: [],
   expenses: [],
 };
@@ -20,11 +18,6 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
       currencies: Object
         .keys(action.payload)
         .filter((currency) => currency !== 'USDT'),
-    };
-  case GET_CURRENT_EXCHANGE:
-    return {
-      ...state,
-      currentExchange: action.payload,
     };
   case FETCH_PRICES_SUCCESS:
     return {

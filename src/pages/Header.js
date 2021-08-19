@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { getExchange } from '../actions';
 
 class Header extends React.Component {
   constructor(props) {
@@ -39,7 +38,6 @@ class Header extends React.Component {
 const mapStatetoProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
-  currentExchange: state.wallet.currentExchange,
 });
 
 Header.propTypes = {
