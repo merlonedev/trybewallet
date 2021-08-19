@@ -10,10 +10,13 @@ class Header extends React.Component {
     let total = 0;
     if (expenses.length > 0) {
       total = expenses.reduce((acc, { value, currency, exchangeRates }) => {
-        const newValue = parseFloat(value) * (Number(
+        const adjustValue = parseFloat(value);
+        const adjustRate = parseFloat(
           exchangeRates[currency].ask,
-        )).toFixed(2);
-        return acc + newValue;
+        );
+        const newValue = adjustValue * adjustRate;
+        const adjustNewValue = Math.floor(newValue * 100) / 100;
+        return acc + adjustNewValue;
       }, 0).toFixed(2);
     }
     return (
