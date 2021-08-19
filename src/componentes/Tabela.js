@@ -6,20 +6,13 @@ import { removeLine } from '../actions';
 class Tabela extends Component {
   constructor(props) {
     super(props);
-    this.delete = this.delete.bind(this);
     this.remove = this.remove.bind(this);
   }
 
-  remove(a) {
+  remove({ target }) {
     const { expenses, removeLi } = this.props;
-    const filtro = expenses.filter((expense) => expense.id !== a.id);
+    const filtro = expenses.filter((expense) => expense.id !== Number(target.id));
     removeLi(filtro);
-    return filtro;
-  }
-
-  delete({ target }) {
-    this.remove(target);
-    return (target).closest('tr').remove();
   }
 
   render() {
@@ -54,7 +47,7 @@ class Tabela extends Component {
                 <button
                   type="reset"
                   data-testid="delete-btn"
-                  onClick={ this.delete }
+                  onClick={ this.remove }
                   id={ id }
                 >
                   Excluir
@@ -73,7 +66,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeLi: (filtro) => dispatch(removeLine(filtro)),
+  removeLi: (id) => dispatch(removeLine(id)),
 });
 
 Tabela.propTypes = {

@@ -46,4 +46,4 @@ export const TOTAL = 'TOTAL';
 export const getTotal = (total) => ({ type: TOTAL, total });
 
 export const REMOVE = 'REMOVE';
-export const removeLine = (line) => ({ type: REMOVE, line });
+export const removeLine = (id) => ({ type: REMOVE, id });
