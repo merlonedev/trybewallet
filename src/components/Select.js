@@ -13,7 +13,6 @@ class Select extends React.Component {
           onChange={ onChange }
           value={ value }
         >
-          <option>Selecione</option>
           {
             options.map((option) => (
               <option

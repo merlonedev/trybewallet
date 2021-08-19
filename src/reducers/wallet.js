@@ -43,7 +43,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case RMV_EXPENSE:
     return {
       ...state,
-      expenses: expenses.filter((expense) => expense.id !== Number(payload)),
+      expenses: expenses.filter((expense) => expense.id !== payload),
     };
   default:
     return state;

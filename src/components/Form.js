@@ -40,9 +40,9 @@ class Form extends React.Component {
     this.setState({
       id: id + 1,
       value: 0,
-      currency: 'Selecione',
-      method: 'Selecione',
-      tag: 'Selecione',
+      currency: '',
+      method: '',
+      tag: '',
       description: '',
     });
   }
