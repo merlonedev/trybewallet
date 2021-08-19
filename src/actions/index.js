@@ -2,6 +2,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const USER_PASSWORD = 'USER_PASSWORD';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const CURRENCIES = 'CURRENCIES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const addingUserEmail = (state) => ({
   type: USER_EMAIL,
@@ -20,4 +21,9 @@ export const requestCurrencies = () => ({
 export const takeCurrencies = (payload) => ({
   type: CURRENCIES,
   payload,
+});
+
+export const addingExpenses = (state) => ({
+  type: ADD_EXPENSES,
+  state,
 });

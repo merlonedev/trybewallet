@@ -1,4 +1,4 @@
-import { CURRENCIES } from '../actions/index';
+import { CURRENCIES, ADD_EXPENSES } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -12,6 +12,13 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       currencies: action.payload,
     };
+
+  case ADD_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.state],
+    };
+
   default:
     return state;
   }
