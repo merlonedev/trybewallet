@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const FETCH_SUCCESS_COINS = 'FETCH_SUCCESS_COINS';
 export const FETCH_ERROR_CASES = 'FETCH_ERROR_CASES';
 export const FETCH_SUCCESS_CURRENT = 'FETCH_SUCCESS_CURRENT';
+export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
 
 const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -38,7 +39,7 @@ export const fetchCoins = () => (async (dispatch) => {
   }
 });
 
-// actions para salvas=r despesas
+// actions para salvas despesas
 
 const getCurrentSuccessCase = (payload) => ({
   type: FETCH_SUCCESS_CURRENT,
@@ -54,4 +55,11 @@ export const saveExpenses = (expense) => (async (dispatch) => {
   } catch (error) {
     dispatch(failCases(error));
   }
+});
+
+// actions para remover despesa
+
+export const removeExpenses = (id) => ({
+  type: REMOVE_EXPENSES,
+  id,
 });
