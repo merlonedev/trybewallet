@@ -22,7 +22,6 @@ class Form extends Component {
     this.inputValue = this.inputValue.bind(this);
     this.submitStore = this.submitStore.bind(this);
     this.qualquer = this.qualquer.bind(this);
-    this.gastos = this.gastos.bind(this);
   }
 
   getCrurrencies() {
@@ -55,7 +54,7 @@ class Form extends Component {
 
   submitStore(data) {
     const { id, value, description, currency, method, tag } = this.state;
-    const { submit } = this.props;
+    const { submit, gastos } = this.props;
     submit({
       id,
       value,
@@ -65,26 +64,8 @@ class Form extends Component {
       description,
       exchangeRates: data,
     });
-    this.gastos();
+    gastos();
     this.setState({ id: (id + 1) });
-  }
-
-  gastos() {
-    const { wallet: { expenses }, getTotal } = this.props;
-    if (expenses.length > 0 && expenses.length < 2) {
-      const { exchangeRates } = expenses[0];
-      const arr = Object.entries(exchangeRates)
-        .filter((item) => item[0] === expenses[0].currency);
-      getTotal((expenses[0].value * arr[0][1].ask));
-    }
-    if (expenses.length > 1) {
-      const { exchangeRates } = expenses[1];
-      const array = Object.entries(exchangeRates)
-        .filter((item) => item[0] === expenses[1].currency);
-      const total1 = (expenses[0].value * array[0][1].ask);
-      const total2 = (expenses[1].value * array[0][1].ask);
-      getTotal(total1 + total2);
-    }
   }
 
   render() {
@@ -110,15 +91,13 @@ class Form extends Component {
           onChange={ this.inputValue }
         />
         <LabelSelect
-          htmlFor="Pagamento"
-          id="Método de pagamento"
+          htmlFor="Método de pagamento"
           nome="Método de pagamento"
           array={ payment }
           target={ this.inputValue }
         />
         <LabelSelect
           htmlFor="Tag"
-          id="Tag"
           nome="Tag"
           array={ food }
           target={ this.inputValue }
@@ -130,7 +109,6 @@ class Form extends Component {
           onChange={ this.inputValue }
         />
         <button
-          data-testid="total-field"
           type="button"
           onClick={ this.getCrurrencies }
         >
@@ -147,7 +125,6 @@ const mapDispatchToProps = (dispathc) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  wallet: state.wallet,
 });
 
 Form.propTypes = {
@@ -170,9 +147,6 @@ Form.propTypes = {
     XRP: PropTypes.shape({ code: PropTypes.string.isRequired }),
   }).isRequired,
   submit: PropTypes.func.isRequired,
-  wallet: PropTypes.shape({
-    expenses: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
-  getTotal: PropTypes.func.isRequired,
+  gastos: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

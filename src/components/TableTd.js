@@ -10,18 +10,11 @@ class TableTd extends Component {
     this.dispathc = this.dispathc.bind(this);
   }
 
-  componentDidUpdate() {
-    const { wallet: { expenses }, counter, getTotal } = this.props;
-    const { exchangeRates } = expenses[0];
-    const array = Object.entries(exchangeRates)
-      .filter((item) => item[0] === expenses[0].currency);
-    getTotal((expenses[counter].value * array[counter][1].ask));
-  }
-
   dispathc() {
     const { wallet: { expenses } } = this.props;
-    const { submit } = this.props;
+    const { submit, gastos } = this.props;
     submit(expenses[0]);
+    gastos();
   }
 
   table() {
@@ -103,7 +96,7 @@ TableTd.propTypes = {
   }).isRequired,
   counter: PropTypes.number.isRequired,
   submit: PropTypes.func.isRequired,
-  getTotal: PropTypes.func.isRequired,
+  gastos: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableTd);

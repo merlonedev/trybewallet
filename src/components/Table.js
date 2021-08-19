@@ -17,7 +17,7 @@ class Table extends Component {
 
   render() {
     const { hearder } = this.state;
-    const { wallet: { expenses }, getTotal } = this.props;
+    const { wallet: { expenses }, gastos } = this.props;
     if (expenses.length > 0) {
       return (
         <table className="table">
@@ -27,7 +27,10 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            <TableTd getTotal={ getTotal } counter={ 0 } />
+            <TableTd
+              counter={ 0 }
+              gastos={ gastos }
+            />
           </tbody>
         </table>
       );
@@ -44,7 +47,7 @@ Table.propTypes = {
   wallet: PropTypes.shape({
     expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  getTotal: PropTypes.func.isRequired,
+  gastos: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

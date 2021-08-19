@@ -13,7 +13,7 @@ class Wallet extends React.Component {
     this.state = {
       totalExpenses: 0,
     };
-    this.getTotal = this.getTotal.bind(this);
+    this.gastos = this.gastos.bind(this);
   }
 
   componentDidMount() {
@@ -21,9 +21,26 @@ class Wallet extends React.Component {
     submitCurrencies();
   }
 
-  getTotal(maney) {
-    const value = +maney;
-    this.setState({ totalExpenses: value });
+  gastos() {
+    const { wallet: { expenses }, getTotal } = this.props;
+    if (expenses.length > 0 && expenses.length < 2) {
+      const { exchangeRates } = expenses[0];
+      const arr = Object.entries(exchangeRates)
+        .filter((item) => item[0] === expenses[0].currency);
+      this.setState({
+        totalExpenses: (+expenses[0].value * +arr[0][1].ask)
+      })
+    }
+    if (expenses.length > 1) {
+      const { totalExpenses } = this.state;
+      const { exchangeRates } = expenses[1];
+      const array = Object.entries(exchangeRates)
+        .filter((item) => item[0] === expenses[1].currency);
+      const total2 = (+expenses[1].value * +array[0][1].ask);
+      this.setState({
+        totalExpenses: (totalExpenses + total2)
+      })
+    }
   }
 
   render() {
@@ -36,8 +53,12 @@ class Wallet extends React.Component {
           email={ user.email }
           totalExpenses={ totalExpenses }
         />
-        <Form getTotal={ this.getTotal } />
-        <Table getTotal={ this.getTotal } />
+        <Form 
+          gastos={ this.gastos }
+        />
+        <Table
+          gastos={ this.gastos }
+        />
       </div>
     );
   }
@@ -56,6 +77,9 @@ Wallet.propTypes = {
   submitCurrencies: PropTypes.func.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string,
+  }).isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
