@@ -2,11 +2,14 @@
 import {
   GET_CURRENT_EXCHANGE,
   FETCH_CURRENCIES_SUCCESS,
+  FETCH_PRICES_SUCCESS,
+  FETCH_PRICES_ERROR,
 } from '../actions';
 
 const INITIAL_STATE = {
   currentExchange: 'BRL',
   currencies: [],
+  expenses: [],
 };
 
 const reducerWallet = (state = INITIAL_STATE, action) => {
@@ -22,6 +25,16 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currentExchange: action.payload,
+    };
+  case FETCH_PRICES_SUCCESS:
+    return {
+      ...state,
+      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }],
+    };
+  case FETCH_PRICES_ERROR:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return state;
