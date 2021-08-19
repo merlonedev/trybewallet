@@ -1,7 +1,9 @@
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
-export const REQUEST_API = 'REQUEST_API';
-export const RESOLVE_API = 'RESOLVE_API';
+export const REQUEST_API_ACTION = 'REQUEST_API_ACTION';
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const GET_CURRENCIES_NAMES = 'GET_CURRENCIES_NAMES';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 const URL_API = 'https://economia.awesomeapi.com.br/json/all';
 
 export function saveUserEmail(state) {
@@ -11,15 +13,34 @@ export function saveUserEmail(state) {
   });
 }
 
-const requestApiAction = () => ({ type: REQUEST_API });
+const requestApiAction = () => ({ type: REQUEST_API_ACTION });
 
-const requestApiResolve = (apiReturn) => ({
-  type: RESOLVE_API,
+const getCoins = (apiReturn) => ({
+  type: GET_CURRENCIES_NAMES,
   payload: apiReturn,
   isFetching: false,
 });
 
+const requestApiResolve = (apiReturn) => ({
+  type: GET_CURRENCIES,
+  payload: {
+    exchangeRates: apiReturn,
+  },
+});
+
+export const saveExpenseSpecs = (expenseSpecs) => ({
+  type: SAVE_EXPENSE,
+  payload: expenseSpecs,
+});
+
 export const fetchApi = () => async (dispatch) => {
+  dispatch(requestApiAction());
+  const apiResponse = await fetch(URL_API);
+  const apiResolve = await apiResponse.json();
+  dispatch(getCoins(apiResolve));
+};
+
+export const clickButtonFetchApi = () => async (dispatch) => {
   dispatch(requestApiAction());
   const apiResponse = await fetch(URL_API);
   const apiResolve = await apiResponse.json();
