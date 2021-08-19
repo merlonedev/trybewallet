@@ -47,8 +47,8 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = (prevState) => ({
-  expenses: prevState.wallet.expenses,
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, CURRENCIES, DELETE_EXPENSE } from '../actions/index';
+import { ADD_EXPENSE, ADD_CURRENCIES, DELETE_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
   expenses: [],
@@ -10,7 +10,7 @@ const updateExpense = (prevState = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return { ...prevState, expenses: [...prevState.expenses, action.expenses] };
 
-  case CURRENCIES:
+  case ADD_CURRENCIES:
     return { ...prevState, currencies: [...prevState.currencies, ...action.currencies] };
 
   case DELETE_EXPENSE:

@@ -20,10 +20,10 @@ class Input extends React.Component {
 }
 
 Input.propTypes = {
+  value: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
