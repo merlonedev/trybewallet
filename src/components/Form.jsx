@@ -36,11 +36,12 @@ class Form extends React.Component {
 
   handleClick() {
     const { addExpense, expenses } = this.props;
+    const lenght = expenses.length;
     const prevState = { ...this.state };
 
     addExpense(prevState);
-    if (expenses.length > 0) {
-      this.setState({ id: expenses.length + 1 });
+    if (lenght >= 0) {
+      this.setState({ id: lenght + 1 });
     }
   }
 
@@ -69,9 +70,9 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select name="currency" onChange={ this.handleChange }>
-            { currencies.map((item) => (
+            {currencies.map((item) => (
               <option key={ item } value={ item }>{ item }</option>
-            )) }
+            ))}
           </select>
         </label>
         <label htmlFor="payment">
@@ -107,15 +108,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Form.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   addExpense: PropTypes.func.isRequired,
   addCurrencies: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
   })).isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-  })).isRequired,
-};
+  currencies: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

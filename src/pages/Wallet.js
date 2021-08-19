@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   render() {
@@ -8,13 +9,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
-        <button
-          type="button"
-          data-testid="delete-btn"
-          onClick={ () => expenseToDelete({ index }) }
-        >
-          X
-        </button>
+        <Table />
       </div>
     );
   }

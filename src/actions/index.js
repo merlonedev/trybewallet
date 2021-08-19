@@ -1,7 +1,7 @@
 export const USER_EMAIL = 'user_email';
 export const ADD_EXPENSE = 'add_expense';
-export const DELETE_EXPENSE = 'delete_expense';
 export const CURRENCIES = 'currencies';
+export const DELETE_EXPENSE = 'delete_expense';
 
 export const addEmail = (email) => ({
   type: USER_EMAIL,
