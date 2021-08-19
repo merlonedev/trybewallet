@@ -11,7 +11,7 @@ class WalletHeader extends React.Component {
     return (
       <header>
         {/* <section name="logo-container" ></section> */}
-        <section name="data-container">
+        <section name="data-container" className="data-container">
           <label
             htmlFor="email-field"
           >

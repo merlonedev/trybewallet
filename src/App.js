@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
+import './App.css';
 
 class App extends React.Component {
   render() {
