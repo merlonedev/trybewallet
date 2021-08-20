@@ -17,7 +17,7 @@ class Table extends React.Component {
         <Button
           buttonText="Excluir"
           onClick={ () => remove(id) }
-          testId="delete-btn"
+          data-testid="delete-btn"
         />
       </div>
     );
