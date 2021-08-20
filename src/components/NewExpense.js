@@ -180,7 +180,6 @@ class NewExpense extends React.Component {
         />
       );
     }
-
     return (
       <Button
         buttonText="Adicionar despesa"

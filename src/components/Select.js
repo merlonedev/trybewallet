@@ -11,7 +11,6 @@ class Select extends React.Component {
       value,
       onChange,
     } = this.props;
-
     return (
       <div>
         <label htmlFor={ name }>
