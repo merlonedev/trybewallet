@@ -67,11 +67,16 @@ class Form extends React.Component {
       <form>
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="value" id="valor" onChange={ this.handleInputs }/>
+          <input type="text" name="value" id="valor" onChange={ this.handleInputs } />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" name="description" id="descricao" onChange={ this.handleInputs }/>
+          <input
+            type="text"
+            name="description"
+            id="descricao"
+            onChange={ this.handleInputs }
+          />
         </label>
         <label htmlFor="currency">
           Moeda:
