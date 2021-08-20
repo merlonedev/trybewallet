@@ -1,11 +1,13 @@
 import { LOADING_CURRENCY, GET_CURRENCY_SUCCESS,
   FINISH_LOADING,
-  ADD_EXPENSES } from '../actions/wallet';
+  ADD_EXPENSES,
+  REMOVE_EXPENSE } from '../actions/wallet';
+  
 
 const INITIAL_STATE = {
   currencies: [],
-  isLoading: true,
   expenses: [],
+  isLoading: true,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
