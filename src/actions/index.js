@@ -4,6 +4,7 @@ export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const CATCH_ERROR = 'CATCH_ERROR';
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 export const SUM_EXPENSES = 'SUM_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -49,3 +50,8 @@ export function getQuotation(expenses) {
       .then((results) => dispatch(saveExpenses({ ...expenses, exchangeRates: results })));
   };
 }
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  payload: id,
+});
