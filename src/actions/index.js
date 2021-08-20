@@ -1,6 +1,7 @@
 export const SAVE_LOGIN_NAME = 'SAVE_LOGIN_NAME';
 export const FETCHING_CURRENCY = 'FETCHING_CURRENCY';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const saveLoginName = (payload) => ({
   type: SAVE_LOGIN_NAME,
@@ -31,3 +32,8 @@ export const addExpense = (state) => (dispatch) => fetch(url)
     };
     dispatch(addExpenseSucceded(obj));
   });
+
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE,
+  payload,
+});

@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeExpense } from '../actions/index';
 
 class ShowExpenses extends Component {
+  constructor() {
+    super();
+    this.removeItemFromTable = this.removeItemFromTable.bind(this);
+  }
+
+  removeItemFromTable({ target }) {
+    const { deleteExpense } = this.props;
+    deleteExpense(target.dataset.id);
+  }
+
   renderTableRows() {
     const { expenses } = this.props;
     return expenses.map((item) => (
@@ -17,6 +28,16 @@ class ShowExpenses extends Component {
           {parseFloat(item.value * item.exchangeRates[item.currency].ask).toFixed(2)}
         </td>
         <td>Real</td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            data-id={ item.id }
+            onClick={ this.removeItemFromTable }
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
     ));
   }
@@ -49,8 +70,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (id) => dispatch(removeExpense(id)),
+});
+
 ShowExpenses.propTypes = {
   expenses: PropTypes.array,
+  deleteExpense: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps)(ShowExpenses);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowExpenses);

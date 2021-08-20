@@ -1,6 +1,7 @@
 import {
   FETCHING_CURRENCY,
   ADD_EXPENSE,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -18,6 +19,13 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, { id: state.id, ...action.payload }],
       id: state.id + 1,
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((item) => item.id !== parseInt(action.payload, 10)),
+      ],
     };
   default:
     return state;
