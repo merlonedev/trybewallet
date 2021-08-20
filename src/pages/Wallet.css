@@ -13,8 +13,8 @@
   font-weight: 600;
   height: 100%;
   margin-bottom: 10px;
-  width: 100% ;
   padding: 1rem;
+  width: 100%;
 }
 
 .wallet header {
@@ -28,9 +28,9 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  width: 100% ;
-  padding: 1rem;
   margin-bottom: 10px;
+  padding: 1rem;
+  width: 100%;
 }
 
 .expense-table {
@@ -42,7 +42,7 @@
   height: 100%;
   margin-bottom: 10px;
   padding: 1rem;
-  width: 100% ;
+  width: 100%;
 }
 
 .expense-talbe form {
@@ -53,10 +53,11 @@
   padding: 10px;
 }
 
-table, th, td {
+table , th , td {
   border: 1px solid black;
   padding: 5px 10px;
 }
+
 table {
   border-collapse: collapse;
 }
@@ -66,7 +67,7 @@ table {
 }
 
 .submit-btn {
- padding: 2px;
+  padding: 2px;
 }
 
 label {
