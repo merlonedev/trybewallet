@@ -24,16 +24,14 @@ class Wallet extends React.Component {
   render() {
     const { loginEmail } = this.props;
     return (
-      <div>
-        <header>
-          <div data-testid="email-field">{ `Email: ${loginEmail}` }</div>
-          <div data-testid="total-field">
-            { this.setTotalExpenses() }
-          </div>
-          <div data-testid="header-currency-field">BRL</div>
-          <FormWallet />
-        </header>
-      </div>
+      <header>
+        <p data-testid="email-field">{ `Email: ${loginEmail}` }</p>
+        <p data-testid="total-field">
+          { this.setTotalExpenses() }
+        </p>
+        <p data-testid="header-currency-field">BRL</p>
+        <FormWallet />
+      </header>
     );
   }
 }

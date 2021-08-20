@@ -65,22 +65,14 @@ class FormWallet extends Component {
     return (
       <form>
         <label htmlFor="value">
-          Valor
+          Valor:
           <input type="text" id="value" name="value" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="description">
-          Descrição
-          <input type="text" id="description" onChange={ this.handleChange } />
-        </label>
         <label htmlFor="currency">
-          Moeda
-          <select
-            id="currency"
-            name="currency"
-            onChange={ this.handleChange }
-          >
-            { currencies
-              .map((coin, index) => <option key={ index }>{ coin }</option>)}
+          Moeda:
+          <select id="currency" name="currency" onChange={ this.handleChange }>
+            {currencies
+              .map((coin, index) => <option key={ index }>{coin}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
@@ -91,9 +83,18 @@ class FormWallet extends Component {
         </label>
         <label htmlFor="expense">
           Tag
-          <select id="method" name="tag" onChange={ this.handleChange }>
-            {tag.map((item, index) => <option key={ index }>{ item }</option>)}
+          <select id="expense" name="tag" onChange={ this.handleChange }>
+            {tag.map((item, index) => <option key={ index }>{item}</option>)}
           </select>
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            type="text"
+            id="description"
+            name="description"
+            onChange={ this.handleChange }
+          />
         </label>
         <button
           type="button"
