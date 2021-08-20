@@ -1,13 +1,19 @@
-import { ADD_CURRENCIES } from '../actions';
+import { ADD_CURRENCIES, ADD_EXPENSE } from '../actions';
 
 const INITIAL = {
-  currencies: [],
+  currencies: {},
   expenses: [],
 };
 
 const wallet = (state = INITIAL, action) => {
-  if (action.type === ADD_CURRENCIES) return { currencies: action.currencies };
-  return state;
+  switch (action.type) {
+  case ADD_CURRENCIES:
+    return { ...state, currencies: action.currencies };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.expense] };
+  default:
+    return state;
+  }
 };
 
 export default wallet;
