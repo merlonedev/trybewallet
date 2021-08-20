@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      coins: [],
+    };
+
+    this.addCoins = this.addCoins.bind(this);
+  }
+
+  async componentDidMount() {
+    const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resultAPI = await fetchAPI.json();
+    const resultCoins = Object.keys(resultAPI).filter((key) => key !== 'USDT');
+    this.addCoins(resultCoins);
+  }
+
+  async addCoins(coinsList) {
+    this.setState(() => ({
+      coins: coinsList,
+    }));
+  }
+
   render() {
+    const { coins } = this.state;
+    console.log(coins);
+
     return (
       <div>
         <label htmlFor="expenseValue">
@@ -15,7 +40,7 @@ class Form extends Component {
         <label htmlFor="coins">
           Moeda
           <select id="coins">
-            <option>USD</option>
+            {coins.map((coin, index) => <option key={ index }>{coin}</option>)}
           </select>
         </label>
         <label htmlFor="payMethods">
