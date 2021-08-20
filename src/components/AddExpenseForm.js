@@ -6,15 +6,13 @@ import { fetchAPI, addExpense, saveEdit } from '../actions';
 class AddExpenseForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '',
+    this.state = { value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
       isEditing: false,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.saveClick = this.saveClick.bind(this);
@@ -40,9 +38,7 @@ class AddExpenseForm extends Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
+    this.setState({ [name]: value });
   }
 
   clearState() {
@@ -67,8 +63,7 @@ class AddExpenseForm extends Component {
     fetchCurr();
     const id = expenses.length;
     const { value, description, currency, method, tag } = this.state;
-    const expenseObj = {
-      value,
+    const expenseObj = { value,
       description,
       currency,
       method,
@@ -155,7 +150,8 @@ class AddExpenseForm extends Component {
         <button
           className="submit-btn"
           type="submit"
-          onClick={ this.saveClick }>
+          onClick={ this.saveClick }
+        >
           Editar despesa
         </button>
       );
@@ -164,7 +160,8 @@ class AddExpenseForm extends Component {
       <button
         className="submit-btn"
         type="submit"
-        onClick={ this.handleClick }>
+        onClick={ this.handleClick }
+      >
         Adicionar despesa
       </button>
     );
