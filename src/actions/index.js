@@ -2,6 +2,7 @@
 export const ACTION_LOGIN = 'ACTION_LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const actionLogin = (email, password) => ({
   type: ACTION_LOGIN,
@@ -41,3 +42,5 @@ export const fetchExchangeRate = (object) => (
     }
   }
 );
+
+export const deleteExpense = (id) => ({ type: DELETE_EXPENSE, id });

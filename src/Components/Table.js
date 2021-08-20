@@ -1,8 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class Table extends React.Component {
+  constructor() {
+    super();
+    this.expenseDelete = this.expenseDelete.bind(this);
+  }
+
+  expenseDelete(id) {
+    const { deleteEx } = this.props;
+    deleteEx(id);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -21,24 +32,32 @@ class Table extends React.Component {
           </tr>
         </thead>
         { expenses
-          .map((curr, index) => (
-            <tbody key={ index }>
+          .map(({ description, tag, method, value, exchangeRates, currency, id }) => (
+            <tbody key={ id }>
               <tr>
-                <td>{ curr.description }</td>
-                <td>{ curr.tag }</td>
-                <td>{ curr.method }</td>
-                <td>{ curr.value }</td>
-                <td>{ curr.exchangeRates[curr.currency].name.split('/')[0] }</td>
-                <td>{ Math.round(curr.exchangeRates[curr.currency].ask * 100) / 100 }</td>
+                <td>{ description }</td>
+                <td>{ tag }</td>
+                <td>{ method }</td>
+                <td>{ value }</td>
+                <td>{ exchangeRates[currency].name.split('/')[0] }</td>
+                <td>{ Math.round(exchangeRates[currency].ask * 100) / 100 }</td>
                 <td>
                   {
                     Math
-                      .round(curr.value * curr.exchangeRates[curr.currency]
+                      .round(value * exchangeRates[currency]
                         .ask * 100) / 100
                   }
                 </td>
                 <td>Real</td>
-                <td><button type="button">Deletar</button></td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.expenseDelete(id) }
+                  >
+                    Deletar
+                  </button>
+                </td>
               </tr>
             </tbody>
           )) }
@@ -51,8 +70,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteEx: (state) => dispatch(deleteExpense(state)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteEx: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

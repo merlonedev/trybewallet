@@ -24,7 +24,6 @@ class Form extends Component {
 
   render() {
     const { currencies } = this.props;
-    console.log(currencies);
     return (
       <form>
         <label htmlFor="value">
