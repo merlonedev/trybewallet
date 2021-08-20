@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Form from './componentsHeader/Form';
 // import userReducer from '../reducers/user';
 // import loginAction from '../actions';
 
@@ -17,6 +18,7 @@ class Header extends Component {
           Câmbio em uso:
           <option>BRL</option>
         </select>
+        <Form />
       </header>
     );
   }
