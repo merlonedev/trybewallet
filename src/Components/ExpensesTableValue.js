@@ -1,8 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class ExpensesTableValue extends React.Component {
+  constructor() {
+    super();
+    this.hendleRemoveExpenses = this.hendleRemoveExpenses.bind(this);
+  }
+
+  hendleRemoveExpenses({ target }) {
+    const { removeExpenses } = this.props;
+    const { id } = target;
+    removeExpenses(id);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -34,7 +46,13 @@ class ExpensesTableValue extends React.Component {
               <td>{ valorConvertido }</td>
               <td>{ moedaDeConversão }</td>
               <td>
-                {}
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ this.hendleRemoveExpenses }
+                >
+                  Deletar
+                </button>
               </td>
             </tr>
           );
@@ -46,6 +64,7 @@ class ExpensesTableValue extends React.Component {
 
 ExpensesTableValue.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
+  removeExpenses: PropTypes.func.isRequired,
 };
 
 ExpensesTableValue.defaultProps = {
@@ -56,4 +75,8 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(ExpensesTableValue);
+const mapDispatchToProps = (dispatch) => ({
+  removeExpenses: (id) => dispatch(removeExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTableValue);
