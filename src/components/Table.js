@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense, editExpense } from '../actions/index';
-import Button from './button';
+import Button from './Button';
+import { removeExpense, editExpense } from '../actions';
 
 class Table extends React.Component {
   renderButtons(id) {
@@ -17,7 +17,7 @@ class Table extends React.Component {
         <Button
           buttonText="Excluir"
           onClick={ () => remove(id) }
-          data-testid="delete-btn"
+          testId="delete-btn"
         />
       </div>
     );

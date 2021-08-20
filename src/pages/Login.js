@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '../components/button';
-import Input from '../components/input';
+import Input from '../components/Input';
+import Button from '../components/Button';
 import { loginAction } from '../actions';
 
 class Login extends React.Component {
@@ -17,7 +17,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.infoCheck = this.infoCheck.bind(this);
+    this.checkInfos = this.checkInfos.bind(this);
   }
 
   handleChange({ target }) {
@@ -25,7 +25,7 @@ class Login extends React.Component {
 
     this.setState(() => ({
       [name]: value,
-    }), this.infoCheck);
+    }), this.checkInfos);
   }
 
   handleClick() {
@@ -36,14 +36,14 @@ class Login extends React.Component {
     login(email);
   }
 
-  infoCheck() {
+  checkInfos() {
     const { email, password } = this.state;
     const minLength = 6;
-    const emailIsValid = email.includes('@') && email.includes('.com')
+    const isValidEmail = email.includes('@') && email.includes('.com')
       && email.split('@').length === 2 && email.indexOf('@') < email.indexOf('.com');
-    const passwordIsValid = password.length >= minLength;
+    const isValidPassword = password.length >= minLength;
 
-    if (emailIsValid && passwordIsValid) {
+    if (isValidEmail && isValidPassword) {
       this.setState({ disabled: false });
     } else {
       this.setState({ disabled: true });
@@ -61,8 +61,8 @@ class Login extends React.Component {
           testId="email-input"
           inputType="email"
           inputPlaceholder="Digite aqui o seu email"
-          onChange={ this.handleChange }
           value={ email }
+          onChange={ this.handleChange }
         />
         <Input
           labelText="Senha:"
@@ -70,8 +70,8 @@ class Login extends React.Component {
           testId="password-input"
           inputType="password"
           inputPlaceholder="Digite aqui a sua senha"
-          onChange={ this.handleChange }
           value={ password }
+          onChange={ this.handleChange }
         />
         <Button
           buttonText="Entrar"

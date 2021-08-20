@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Input from './input';
+import PropTypes from 'prop-types';
+import Input from './Input';
 import Select from './Select';
-import Button from './button';
-import { fetchExpense, ENDPOINT, applyEdit, addCurrencies } from '../actions/index';
+import Button from './Button';
+import { fetchExpense, ENDPOINT, applyEdit, addCurrencies } from '../actions';
 
 const INITIAL_STATE = {
   value: '',
@@ -202,10 +202,10 @@ class NewExpense extends React.Component {
 
 NewExpense.propTypes = {
   add: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
   edit: PropTypes.func.isRequired,
   editor: PropTypes.bool.isRequired,
   addCurrency: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
   idToEdit: PropTypes.number.isRequired,
   expenses: PropTypes.arrayOf(
     PropTypes.object.isRequired,
