@@ -5,9 +5,9 @@ class Category extends Component {
   render() {
     const { onChangeOpt } = this.props;
     return (
-      <label htmlFor="category">
+      <label htmlFor="tag">
         Tag:
-        <select name="category" id="category" onChange={ (op) => onChangeOpt(op) }>
+        <select name="tag" id="tag" onChange={ (op) => onChangeOpt(op) }>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -20,7 +20,7 @@ class Category extends Component {
 }
 
 Category.propTypes = {
-  onChangeOption: PropTypes.func,
+  onChangeOp: PropTypes.func,
 }.isRequired;
 
 export default Category;
