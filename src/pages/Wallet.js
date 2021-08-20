@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import NewExpense from '../components/NewExpense';
 import Table from '../components/Table';

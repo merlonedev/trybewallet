@@ -21,7 +21,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REMOVE_EXPENSE:
     return {
       ...state,
-      expenses: state.expanses.filter((expense) => expense.id !== action.expenseId),
+      expenses: state.expenses.filter((expense) => expense.id !== action.expenseId),
     };
   case EDIT_EXPENSE:
     return { ...state, editor: true, idToEdit: action.expenseId };
@@ -30,7 +30,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       editor: false,
       idToEdit: 0,
-      expenses: state.expanses.map((expense) => {
+      expenses: state.expenses.map((expense) => {
         if (expense.id === action.object.id) {
           return { ...action.object, exchangeRates: expense.exchangeRates };
         }
