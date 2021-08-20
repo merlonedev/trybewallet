@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DeleteButton from './DeleteButton';
 
 class Table extends React.Component {
   render() {
@@ -34,7 +35,9 @@ class Table extends React.Component {
                   * Number(expense.value)).toFixed(2)}
               </td>
               <td>Real</td>
-              <td>Button</td>
+              <td>
+                <DeleteButton expense={ expense } />
+              </td>
             </tr>
           ))}
         </tbody>

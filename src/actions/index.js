@@ -2,6 +2,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_ENTRY = 'DEL_ENTRY';
 
 export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
@@ -28,5 +29,10 @@ export function fetchCurrency() {
 
 export const addExpenseAction = (expense) => ({
   type: ADD_EXPENSE,
+  expense,
+});
+
+export const deleteEntryAction = (expense) => ({
+  type: DEL_ENTRY,
   expense,
 });
