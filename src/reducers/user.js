@@ -1,4 +1,4 @@
-import { USER } from '../actions/actionsTypes';
+import { USER } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   email: '',

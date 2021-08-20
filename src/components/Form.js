@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Currency from './Currency';
 import LabelSelect from './LabelSelect';
 import LabelInput from './LabelInput';
-import { FORMWALLET } from '../actions/actionsTypes';
 import './Form.css';
 
 class Form extends Component {
