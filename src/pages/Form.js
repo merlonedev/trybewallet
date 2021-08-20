@@ -85,21 +85,10 @@ class Form extends React.Component {
             id="currency"
             onChange={ this.handleInputs }
           >
-            {/* <option>Teste<option/> */}
             { currencies.map((coin, index) => (
               <option key={ index }>
                 { coin }
               </option>))}
-          </select>
-        </label>
-        <label htmlFor="category">
-          Tag:
-          <select name="category" id="category" onChange={ this.handleInputs }>
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
           </select>
         </label>
         <label htmlFor="pagamento">
@@ -113,8 +102,7 @@ class Form extends React.Component {
         <button name="button" type="button" onClick={ () => this.submitExpenses() }>
           Adicionar despesa
         </button>
-      </form>
-    );
+      </form>);
   }
 }
 

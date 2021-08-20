@@ -4,6 +4,7 @@ import getApi from '../api';
 export const GET_MAIL = 'GET_MAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_EXPENSES = 'GET_EXPENSES';
+export const DEL_EXPENSES = 'DEL_EXPENSES';
 
 export const getMail = (email) => ({ type: GET_MAIL, email });
 
@@ -22,3 +23,8 @@ export const requestExpenses = (expenses) => (dispatch) => (
   getApi()
     .then((response) => dispatch(getExpenses(expenses, response)))
 );
+
+export const delExpenses = (id) => ({
+  type: DEL_EXPENSES,
+  id,
+});
