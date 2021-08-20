@@ -16,7 +16,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, expenses } = this.props;
+    const { email, expenses, editor, idToEdit } = this.props;
     return (
       <div>
         <Header
@@ -24,7 +24,10 @@ class Wallet extends React.Component {
           total={ this.totalExpenses() }
           currency="BRL"
         />
-        <NewExpense />
+        <NewExpense
+          editor={ editor }
+          idToEdit={ idToEdit }
+        />
         <Table expenses={ expenses } />
       </div>
     );
@@ -36,11 +39,15 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(
     PropTypes.object.isRequired,
   ).isRequired,
+  editor: PropTypes.bool.isRequired,
+  idToEdit: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
+  idToEdit: state.wallet.idToEdit,
 });
 
 export default connect(mapStateToProps)(Wallet);
