@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Header extends Component {
+class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSum = this.handleSum.bind(this);
+  }
+
+  handleSum() {
+    const { expenses } = this.props;
+    return expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      acc += parseFloat(value) * parseFloat(exchangeRates[currency].ask);
+      return acc;
+    }, 0).toFixed(2);
+  }
+
   render() {
-    const { getEmail, total } = this.props;
+    const { getEmail } = this.props;
     return (
       <div>
         <div>
@@ -16,7 +31,7 @@ export default class Header extends Component {
         <div>
           <div>
             <p data-testid="total-field">
-              {`Despesa Total: R$ ${total}`}
+              {`Despesa Total: R$ ${this.handleSum()}`}
             </p>
           </div>
           <p data-testid="header-currency-field">
@@ -30,5 +45,13 @@ export default class Header extends Component {
 
 Header.propTypes = {
   getEmail: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+function mapStateToProps({ wallet }) {
+  return {
+    expenses: wallet.expenses,
+  };
+}
+
+export default connect(mapStateToProps)(Header);

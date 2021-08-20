@@ -6,14 +6,6 @@ import { fetchAPI } from '../actions';
 import AddExpenses from '../Comoponents/AddExpenses';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      total: 0,
-    };
-  }
-
   componentDidMount() {
     const { getCoinsAPI } = this.props;
     getCoinsAPI();
@@ -21,11 +13,10 @@ class Wallet extends React.Component {
 
   render() {
     const { getEmail, currencies } = this.props;
-    const { total } = this.state;
     console.log(currencies);
     return (
       <div>
-        <Header getEmail={ getEmail } total={ total } />
+        <Header getEmail={ getEmail } />
         <AddExpenses currencies={ currencies } />
       </div>
     );

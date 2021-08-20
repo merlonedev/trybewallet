@@ -1,4 +1,4 @@
-import { ADD_EMAIL, GET_COINS, GET_COINS_SUCCES } from './actionsType';
+import { ADD_EMAIL, GET_COINS, GET_COINS_SUCCES, ADD_EXCHANGES } from './actionsType';
 
 export function addEmail(email) {
   return {
@@ -27,3 +27,10 @@ export const fetchAPI = () => async (dispatch) => {
   const array = Object.values(results);
   dispatch(getCoinsSucces(array));
 };
+
+export function addExchanges(exchanges) {
+  return {
+    type: ADD_EXCHANGES,
+    payload: exchanges,
+  };
+}
