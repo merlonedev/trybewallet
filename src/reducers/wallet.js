@@ -2,7 +2,6 @@ import { LOADING_CURRENCY, GET_CURRENCY_SUCCESS,
   FINISH_LOADING,
   ADD_EXPENSES,
   REMOVE_EXPENSE } from '../actions/wallet';
-  
 
 const INITIAL_STATE = {
   currencies: [],
