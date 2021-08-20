@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TotalExpense from './TotalExpense';
-//import './table.css';
+// import './table.css';
 
 class Table extends Component {
   render() {

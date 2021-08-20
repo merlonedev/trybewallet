@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpendForm from '../components/ExpendForm';
 import { currencyAPIThunk } from '../actions';
-//import './wallet.css';
+// import './wallet.css';
 import logo from './walletlogo.png';
 import EditForm from '../components/EditForm';
 import Table from '../components/Table';

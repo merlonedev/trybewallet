@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import { walletEditExpense, walletRemoveExpense } from '../actions';
-//import './table.css';
+// import './table.css';
 
 class TotalExpense extends Component {
   constructor() {
