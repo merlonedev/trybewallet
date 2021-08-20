@@ -85,16 +85,18 @@ class Form extends React.Component {
 
   renderPage2() {
     return (
-      <label htmlFor="tag">
-        Tag:
-        <select type="select" name="tag" id="tag" onChange={ this.handleInputs }>
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
-      </label>);
+      <form>
+        <label htmlFor="tag">
+          Tag:
+          <select name="tag" id="tag" onChange={ this.handleInputs }>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </select>
+        </label>
+      </form>);
   }
 
   render() {
@@ -123,9 +125,9 @@ class Form extends React.Component {
               <option>Cartão de crédito</option>
               <option>Cartão de débito</option>
             </select>
-            { this.renderPage2() }
             {/* <Category onChangeOpt={ this.handleInputs } /> */}
           </label>
+          { this.renderPage2() }
           <button name="button" type="button" onClick={ () => this.submitExpenses() }>
             Adicionar despesa
           </button>
