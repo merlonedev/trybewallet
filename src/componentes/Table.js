@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionExpenses, actionSunTotal } from '../actions';
+import { actionExpenses } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
