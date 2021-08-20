@@ -76,6 +76,8 @@ class FormWallet extends Component {
           Moeda
           <select
             id="currency"
+            name="currency"
+            onChange={ this.handleChange }
           >
             { currencies
               .map((coin, index) => <option key={ index }>{ coin }</option>)}
@@ -93,7 +95,6 @@ class FormWallet extends Component {
             {tag.map((item, index) => <option key={ index }>{ item }</option>)}
           </select>
         </label>
-        <button type="button" onClick={ () => this.renderCurrency() }>console</button>
         <button
           type="button"
           onClick={ () => this.handleClick() }
@@ -105,14 +106,14 @@ class FormWallet extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getCoin: (coin) => dispatch(successFetch(coin)),
-  setExpense: (expense) => dispatch(addExpense(expense)),
-});
-
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoin: (coin) => dispatch(successFetch(coin)),
+  setExpense: (expense) => dispatch(addExpense(expense)),
 });
 
 FormWallet.propTypes = {

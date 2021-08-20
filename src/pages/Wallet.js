@@ -5,18 +5,33 @@ import FormWallet from '../components/formWallet';
 import './Wallet.css';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.setTotalExpenses = this.setTotalExpenses.bind(this);
+  }
+
+  setTotalExpenses() {
+    const { expenses } = this.props;
+    const totalExpenses = expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      const { ask } = exchangeRates[currency];
+      return acc + (value * ask);
+    }, 0);
+
+    return totalExpenses.toFixed(2);
+  }
+
   render() {
     const { loginEmail } = this.props;
-    const gasto = 0;
     return (
       <div>
         <header>
-          <FormWallet />
           <div data-testid="email-field">{ `Email: ${loginEmail}` }</div>
           <div data-testid="total-field">
-            { gasto }
+            { this.setTotalExpenses() }
           </div>
           <div data-testid="header-currency-field">BRL</div>
+          <FormWallet />
         </header>
       </div>
     );
@@ -30,5 +45,6 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   loginEmail: propTypes.string.isRequired,
+  expenses: propTypes.string.isRequired,
 };
 export default connect(mapStateToProps)(Wallet);
