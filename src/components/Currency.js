@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 
 class Currency extends Component {
-  render(){
+  render() {
     const { htmlFor, nome,
-    array, id, onChange } = this.prop;
+      array, id, onChange } = this.prop;
     return (
       <div>
         <label htmlFor={ htmlFor }>
@@ -19,7 +19,7 @@ class Currency extends Component {
               </option>
             ))}
           </select>
-        </label> 
+        </label>
       </div>
     );
   }

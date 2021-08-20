@@ -19,7 +19,7 @@ class Form extends Component {
       tag: 'Alimentação',
     };
     this.getCurrencies = this.getCurrencies.bind(this);
-    this.inputValue = this. inputValue.bind(this);
+    this.inputValue = this.inputValue.bind(this);
     this.submitStore = this.submitStore.bind(this);
     this.whatever = thiswhatever.bind(this);
   }
@@ -27,7 +27,7 @@ class Form extends Component {
   getCurrencies() {
     const endPoint = 'https://economia.awesomeapi.com.br/json/all';
     fetch(endPoinr)
-      .then((data ) => data.json())
+      .then((data) => data.json())
       .then((response) => this.whatever(response));
   }
 
@@ -38,13 +38,13 @@ class Form extends Component {
 
   inputValue(e) {
     switch (e.target.name) {
-      case 'Valor': this.setState({ value: e.target.value });
-        break;
-      case 'Método de pagamento': this.setState({ method: e.target.value });
-        break;
-      case 'Moeda': this.setState({ tag: e.target.value });
-        break;
-      default:
+    case 'Valor': this.setState({ value: e.target.value });
+      break;
+    case 'Método de pagamento': this.setState({ method: e.target.value });
+      break;
+    case 'Moeda': this.setState({ tag: e.target.value });
+      break;
+    default:
     }
   }
 
@@ -61,7 +61,7 @@ class Form extends Component {
       exchangeRates: data,
     });
     gastos();
-    this.setState({ id: + 1 });
+    this.setState({ id: +1 });
   }
 
   render() {
@@ -84,7 +84,7 @@ class Form extends Component {
           id="Moeda"
           nome="Moeda"
           array={ newCurrencies }
-          onChange={ this.inputValue}
+          onChange={ this.inputValue }
         />
         <LabelSelect
           htmlFor="Método de pagamento"
@@ -122,7 +122,6 @@ const mapDispatchToProps = (dispatchc) => ({
 const mapStateToProps = (state) => ({
   currencies: state.formWallet.currencies,
 });
- PropTypes.shape({ code: PropTypes.string.isRequired }),
 Form.propTypes = {
   currencies: PropTypes.shape({
     ARS: PropTypes.shape({ code: PropTypes.string.isRequired }),
