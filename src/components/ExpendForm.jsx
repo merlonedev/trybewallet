@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import currencyAPI from '../services/api';
 import { walletAddExpense } from '../actions';
-import TotalExpense from './TotalExpense';
+import Table from './Table';
 // import { walletAddCurrencie, walletAddExpense, currencyAPIThunk } from '../actions';
 
 class ExpendForm extends Component {
@@ -20,7 +20,6 @@ class ExpendForm extends Component {
     };
     this.addExpend = this.addExpend.bind(this);
   }
-
   async addExpend() {
     const { userAddExpense } = this.props;
     const getData = await currencyAPI();
@@ -30,8 +29,8 @@ class ExpendForm extends Component {
     const methodInput = document.getElementById('paymentMethod');
     const tagInput = document.getElementById('tag');
     await this.setState((previousState) => ({
-      id: previousState.id + 1,
-      value: Number(valueInput.value),
+      id: previousState.id,
+      value: valueInput.value,
       description: descriptionInput.value,
       currency: currencieInput.value,
       method: methodInput.value,
@@ -39,11 +38,11 @@ class ExpendForm extends Component {
       exchangeRates: getData,
     }));
     userAddExpense(this.state);
+    await this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   render() {
     const { currencies } = this.props;
-    const { id } = this.state;
     const filtredCurencie = Object.keys(currencies)
       .filter((currencie) => currencie !== 'USDT');
     return (
@@ -73,7 +72,6 @@ class ExpendForm extends Component {
               <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
-
           <label htmlFor="tag">
             Tag
             <select id="tag" name="Tag">
@@ -86,23 +84,19 @@ class ExpendForm extends Component {
           </label>
           <button type="button" onClick={ this.addExpend }>Adicionar despesa</button>
         </form>
-        {console.log(id)}
-        {id > 0 ? <TotalExpense /> : <div />}
+        <Table />
       </div>
     );
   }
 }
-
 const secondMapDispatchToProps = (dispatch) => ({
   userAddExpense: (payload) => dispatch(walletAddExpense(payload)),
   // userGetApiData: () => dispatch(currencyAPIThunk()),
 });
-
 const secondMapStateToProps = ({ wallet: { currencies, expenses } }) => ({
   currencies,
   expenses,
 });
-
 ExpendForm.propTypes = {
   userAddExpense: PropTypes.func.isRequired,
   // userAddCurrencie: PropTypes.func.isRequired,
@@ -110,5 +104,4 @@ ExpendForm.propTypes = {
   // isloading: PropTypes.bool.isRequired,
   currencies: PropTypes.shape({}).isRequired,
 };
-
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(ExpendForm);

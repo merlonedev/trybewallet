@@ -14,7 +14,10 @@ class Wallet extends React.Component {
 
   getValues() {
     const { expenses } = this.props;
-    const totalValue = expenses.reduce((acc, currItem) => acc + currItem.value, 0);
+    const allCurrencies = expenses.map((currencie) => currencie.currency);
+    const totalValue = expenses
+      .reduce((acc, currItem, index) => acc + parseFloat(currItem.value)
+      * parseFloat(currItem.exchangeRates[allCurrencies[index]].ask), 0);
     return totalValue.toFixed(2);
   }
 
@@ -25,7 +28,6 @@ class Wallet extends React.Component {
     return (
       <>
         <header>
-          <h2>Trybe Wallet</h2>
           <p data-testid="email-field">{email}</p>
           <p data-testid="total-field">{this.getValues()}</p>
           <p data-testid="header-currency-field">BRL</p>
@@ -35,24 +37,20 @@ class Wallet extends React.Component {
     );
   }
 }
-
 const secondMapDispatchToProps = (dispatch) => ({
   // userAddExpense: () => dispatch(walletAddExpense()),
   userAddCurrencie: () => dispatch(currencyAPIThunk()),
 });
-
 const secondMapStateToProps = ({ wallet: { isloading, expenses },
   user: { email } }) => ({
   isloading,
   email,
   expenses,
 });
-
 Wallet.propTypes = {
   // userAddExpense: PropTypes.func.isRequired,
   userAddCurrencie: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf([{}]).isRequired,
 };
-
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(Wallet);
