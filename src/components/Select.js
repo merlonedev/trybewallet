@@ -24,7 +24,7 @@ class Select extends React.Component {
           data-testid={ testId }
           onChange={ onChange }
         >
-          { options.map((option) => <option key={ option }>{ option }</option>)}
+          { options.map((option) => <option key={ option }>{ option }</option>) }
         </select>
       </div>
     );
