@@ -56,8 +56,7 @@ class Wallet extends React.Component {
   }
 
   edit(id) {
-    const { editDelete, expenses } = this.props;
-    console.log(expenses);
+    const { editDelete } = this.props;
     editDelete(id);
   }
 
@@ -67,14 +66,14 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, currencies } = this.props;
+    const { email, currencies, expenses } = this.props;
     const { value, description, currency, method, tag, totalExp } = this.state;
     return (
       <>
         <header>
           <ul>
             <EmailField email={ email } />
-            <TotalExpField totalExp={ totalExp } />
+            <TotalExpField totalExp={ totalExp } expenses={ expenses } />
             <CurrencyField />
           </ul>
         </header>

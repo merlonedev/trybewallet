@@ -2,20 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function TotalExpField(props) {
-  const { totalExp } = props;
+  const { expenses } = props;
   return (
     <li data-testid="total-field">
       Gastos totais:
-      {totalExp.toFixed(2)}
+      {(expenses.reduce(
+        (acc, e) => +e.value * +Object.values(
+          e.exchangeRates,
+        ).find((rate) => rate.code === e.currency).ask
+          + acc, 0,
+      )).toFixed(2)}
     </li>
   );
 }
 
 TotalExpField.propTypes = {
-  totalExp: PropTypes.number,
+  expenses: PropTypes.arrayOf(Object),
 };
 
 TotalExpField.defaultProps = {
-  totalExp: 0,
+  expenses: [],
 };
 export default TotalExpField;
