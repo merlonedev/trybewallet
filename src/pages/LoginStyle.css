@@ -1,0 +1,51 @@
+.LoginSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/hero-img.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Title {
+  font-size: 40px;
+  color: white;
+  padding: 50px;
+}
+.LoginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 5px black;
+  background-color: white;
+  height: 400px;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.LoginContainer input {
+  width: 80%;
+  padding: 1%;
+  margin: 1%;
+  text-align: center;
+  margin: 5px;
+}
+
+.btn-login {
+  margin-top: 20px;
+  font-weight: 700;
+  border: 0;
+  background-color: gray;
+  padding: 2% 20%;
+  border-radius: 5px;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
