@@ -38,7 +38,7 @@ class Expense extends React.Component {
     } = this.props;
 
     fetchCurr();
-    const id = expenses.length ? expenses.length : 0;
+    const id = expenses.length;
     const expenseObj = { ...this.state, id, exchangeRates: currencies };
     addExp(expenseObj);
   }
