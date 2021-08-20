@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import getApi from '../api';
 import { getCurrencies, requestExpenses } from '../actions';
+import Category from './components/Category';
 
 class Form extends React.Component {
   constructor() {
@@ -98,6 +99,7 @@ class Form extends React.Component {
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
           </select>
+          <Category onChangeOpt={ this.handleInputs } />
         </label>
         <button name="button" type="button" onClick={ () => this.submitExpenses() }>
           Adicionar despesa
