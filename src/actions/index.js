@@ -1,5 +1,6 @@
 export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const login = (email) => ({
   type: SAVE_LOGIN, email,
@@ -7,6 +8,10 @@ export const login = (email) => ({
 
 export const addCurrencies = (payload) => ({
   type: ADD_CURRENCIES, payload,
+});
+
+export const addExpense = (expenses) => ({
+  type: ADD_EXPENSES, expenses,
 });
 
 export function currencies() {
