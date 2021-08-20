@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { expensesAction } from '../../actions';
 
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
       coins: [],
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
     };
 
     this.addCoins = this.addCoins.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.funcFetch = this.funcFetch.bind(this);
   }
 
   async componentDidMount() {
@@ -17,43 +27,59 @@ class Form extends Component {
     this.addCoins(resultCoins);
   }
 
+  async funcFetch() {
+    const { expensesDispatch } = this.props;
+
+    const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resultAPI = await fetchAPI.json();
+    await this.setState({
+      exchangeRates: resultAPI,
+    });
+    await expensesDispatch(this.state);
+  }
+
   async addCoins(coinsList) {
     this.setState(() => ({
       coins: coinsList,
     }));
   }
 
+  handleChange({ target: { value, id } }) {
+    this.setState(() => ({
+      [id]: value,
+    }));
+  }
+
   render() {
     const { coins } = this.state;
-    const { expensesAction } = this.props;
 
     return (
       <div>
-        <label htmlFor="expenseValue">
+        <label htmlFor="value">
           Valor
-          <input id="expenseValue" type="text" />
+          <input id="value" type="text" onChange={ (e) => this.handleChange(e) } />
         </label>
         <label htmlFor="description">
           Descrição
-          <input id="description" type="text" />
+          <input id="description" type="text" onChange={ (e) => this.handleChange(e) } />
         </label>
-        <label htmlFor="coins">
+        <label htmlFor="currency">
           Moeda
-          <select id="coins">
+          <select id="currency" onChange={ (e) => this.handleChange(e) }>
             {coins.map((coin, index) => <option key={ index }>{coin}</option>)}
           </select>
         </label>
-        <label htmlFor="payMethods">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payMethods">
+          <select id="method" onChange={ (e) => this.handleChange(e) }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="category">
+        <label htmlFor="tag">
           Tag
-          <select id="category">
+          <select id="tag" onChange={ (e) => this.handleChange(e) }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -63,7 +89,7 @@ class Form extends Component {
         </label>
         <button
           type="button"
-          onClick={ () => expensesAction(this.state) }
+          onClick={ () => this.funcFetch()}
         >
           Adicionar despesa
         </button>
@@ -76,8 +102,8 @@ const mapDispatchToProps = (dispatch) => ({
   expensesDispatch: (state) => dispatch(expensesAction(state)),
 });
 
-Login.propTypes = {
-  loginDispatch: PropTypes.func.isRequired,
+Form.propTypes = {
+  expensesDispatch: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Form);

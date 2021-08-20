@@ -1,6 +1,6 @@
 // Coloque aqui suas actions
-const loginAction = (value) => ({ type: 'LOGIN', value });
-const expensesAction = (value) => ({ type: 'EXPENSES', value });
+export const LOGIN = 'LOGIN';
+export const EXPENSES = 'EXPENSES';
 
-export loginAction;
-export expensesAction;
+export const loginAction = (value) => ({ type: 'LOGIN', value });
+export const expensesAction = (value) => ({ type: 'EXPENSES', value });
