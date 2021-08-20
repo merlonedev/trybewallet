@@ -5,16 +5,15 @@ class Login extends React.Component {
     return (
       <>
         <div>Login</div>
-        <label >
-          <input data-testid="email-input" type="text"  />
+        <label htmlFor="input-email">
+          <input data-testid="email-input" type="text" />
         </label>
-        <label >
-          <input data-testid="password-input" type="password"  />
+        <label htmlFor="input-password">
+          <input data-testid="password-input" type="password" />
         </label>
         <button type="button">Entrar</button>
       </>
     );
-    
   }
 }
 

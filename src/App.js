@@ -4,8 +4,8 @@ import Login from './pages/Login';
 
 function App() {
   return (
-      <Route path="/" component={ Login } />
-  )
+    <Route path="/" component={ Login } />
+  );
 }
 
 export default App;
