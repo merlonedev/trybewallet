@@ -14,10 +14,13 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.expense] };
   case DELETE_EXPENSE:
-    return { ...state, expenses: action.expense };
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== Number(action.id)),
+    };
 
   default:
-    return state;
+    return { ...state };
   }
 };
 

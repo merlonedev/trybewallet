@@ -12,7 +12,7 @@ export const addExpense = (expense) => ({
   expense,
 });
 
-export const deleteExpense = (expense) => ({
+export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
-  expense,
+  id,
 });
