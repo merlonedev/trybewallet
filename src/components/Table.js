@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense as changer } from '../actions/wallet';
+import { removeExpense as delExpense } from '../actions/wallet';
 
 class Table extends React.Component {
   render() {
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 const mapDispatchToProps = (dispatch) => ({
-  removeExpense: (id) => dispatch(changer(id)),
+  removeExpense: (id) => dispatch(delExpense(id)),
 });
 
 Table.propTypes = {

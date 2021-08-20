@@ -9,6 +9,7 @@ export const LOADING_CURRENCY = 'LOADING_CURRENCY';
 export const FINISH_LOADING = 'FINISH_LOADING';
 
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
+
 export const loadingCurrency = () => ({
   type: LOADING_CURRENCY,
 });
