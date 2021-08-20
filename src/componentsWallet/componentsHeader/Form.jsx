@@ -25,7 +25,7 @@ class Form extends Component {
 
   render() {
     const { coins } = this.state;
-    console.log(coins);
+    const { expensesAction } = this.props;
 
     return (
       <div>
@@ -61,9 +61,23 @@ class Form extends Component {
             <option>Saúde</option>
           </select>
         </label>
+        <button
+          type="button"
+          onClick={ () => expensesAction(this.state) }
+        >
+          Adicionar despesa
+        </button>
       </div>
     );
   }
 }
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  expensesDispatch: (state) => dispatch(expensesAction(state)),
+});
+
+Login.propTypes = {
+  loginDispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Form);
