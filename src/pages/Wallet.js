@@ -7,30 +7,30 @@ class Wallet extends React.Component {
   render() {
     const { userAddExpense, userAddCurrencie } = this.props;
     const { email, isLogged } = this.props;
+    const expend = 0;
     return (
       <header>
         <h2>Trybe Wallet</h2>
-        <p data-testid="email-field">{isLogged ? email : 'nenhum email'}</p>
-        <p data-testid="total-field">Despesas Totais : (pegar despesas)</p>
-        <p data-testid="header-currency-field">Pegar qual câmbio está sendo utilizado</p>
+        <p data-testid="email-field">{email}</p>
+        <p>Despesas Totais: </p>
+        <p data-testid="total-field">{expend}</p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }
 }
-
 const secondMapDispatchToProps = (dispatch) => ({
   userAddExpense: () => dispatch(walletAddExpense()),
   userAddCurrencie: () => dispatch(walletAddCurrencie()),
 });
 
-const secondMapStateToProps = ({ wallet: { currencies, expenses } },
-  { user: { email, isLogged } }) => ({
+const secondMapStateToProps = ({ wallet: { currencies, expenses },
+  user: { email, isLogged } }) => ({
   currencies,
   expenses,
   email,
   isLogged,
 });
-console.log(secondMapStateToProps.expenses);
 
 Wallet.propTypes = {
   userAddExpense: PropTypes.func.isRequired,
@@ -38,5 +38,4 @@ Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired,
 };
-
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(Wallet);
