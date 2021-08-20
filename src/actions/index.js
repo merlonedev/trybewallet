@@ -49,7 +49,6 @@ export const deletItem = (state) => ({
 });
 
 export const fetchAPI = () => (dispatch) => {
-
   dispatch(walletCurrencies());
 
   const endPoint = 'https://economia.awesomeapi.com.br/json/all';
@@ -61,5 +60,4 @@ export const fetchAPI = () => (dispatch) => {
     .then((response) => dispatch(walletCurrenciesSucess(response)))
 
     .catch((err) => dispatch(walletCurrenciesError(err)));
-
 };
