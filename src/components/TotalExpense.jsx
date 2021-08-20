@@ -42,4 +42,5 @@ TotalExpense.propTypes = {
   // isloading: PropTypes.bool.isRequired,
   expenses: PropTypes.arrayOf([{}]).isRequired,
 };
+
 export default connect(mapStateToProps)(TotalExpense);

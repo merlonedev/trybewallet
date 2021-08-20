@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TotalExpense from './TotalExpense';
+
 class Table extends Component {
   render() {
     const { expenses } = this.props;
@@ -30,4 +31,5 @@ const secondMapStateToProps = ({ wallet: { expenses } }) => ({
 Table.propTypes = {
   expenses: PropTypes.arrayOf([{}]).isRequired,
 };
+
 export default connect(secondMapStateToProps)(Table);

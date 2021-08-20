@@ -20,6 +20,7 @@ class ExpendForm extends Component {
     };
     this.addExpend = this.addExpend.bind(this);
   }
+  
   async addExpend() {
     const { userAddExpense } = this.props;
     const getData = await currencyAPI();
@@ -104,4 +105,5 @@ ExpendForm.propTypes = {
   // isloading: PropTypes.bool.isRequired,
   currencies: PropTypes.shape({}).isRequired,
 };
+
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(ExpendForm);
