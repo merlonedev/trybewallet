@@ -2,19 +2,16 @@
 import { USER_LOGIN_SUCESS } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    isLogged: false,
-  },
+  email: '',
+  isLogged: false,
 };
 
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER_LOGIN_SUCESS:
-    return { isLogged: true, email: action.payload };
+    return { ...state, isLogged: true, email: action.payload };
   default:
     return state;
   }
 }
-
 export default userReducer;
