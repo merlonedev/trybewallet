@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestCurrency, addExpense } from '../actions';
 
 class AddExpenses extends Component {
   constructor() {
@@ -13,6 +16,11 @@ class AddExpenses extends Component {
     this.handleChangeToAdd = this.handleChangeToAdd.bind(this);
     this.renderValueAndDescribe = this.renderValueAndDescribe.bind(this);
     this.renderPayAndTag = this.renderPayAndTag.bind(this);
+  }
+
+  componentDidMount() {
+    const { recieveCurrency } = this.props;
+    recieveCurrency();
   }
 
   handleChangeToAdd({ target }) {
@@ -84,6 +92,8 @@ class AddExpenses extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    const { mapCurrencies, thisExpense } = this.props;
+    delete mapCurrencies.USDT;
     return (
       <>
         {this.renderValueAndDescribe()}
@@ -96,12 +106,18 @@ class AddExpenses extends Component {
               id="currency"
               onChange={ this.handleChangeToAdd }
             >
-              0
+              {Object.values(mapCurrencies)
+                .map((coin, index) => <option key={ index }>{coin.code}</option>)}
             </select>
           </label>
         </form>
         {this.renderPayAndTag()}
-        <button type="reset">
+        <button
+          type="reset"
+          onClick={ () => {
+            thisExpense(this.state);
+          } }
+        >
           Adicionar despesa
         </button>
         <p>{value}</p>
@@ -114,4 +130,17 @@ class AddExpenses extends Component {
   }
 }
 
-export default AddExpenses;
+const mapStateToProps = (state) => ({
+  mapCurrencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  recieveCurrency: () => dispatch(requestCurrency()),
+  thisExpense: (expenses) => dispatch(addExpense(expenses)),
+});
+
+AddExpenses.propTypes = {
+  recieveCurrency: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpenses);
