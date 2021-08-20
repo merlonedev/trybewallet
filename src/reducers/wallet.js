@@ -10,6 +10,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.data };
   case 'SAVE_EXPENSE':
     return { ...state, expenses: [...state.expenses, action.expense] };
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
   case 'UPDATE_TOTAL_PRICE':
     return { ...state, totalPrice: action.price };
   default: return state;

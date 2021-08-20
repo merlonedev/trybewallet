@@ -21,3 +21,6 @@ export const updateTotalPriceAction = (price) => ({
   type: UPDATE_TOTAL_PRICE,
   price,
 });
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const deleteExpenseAction = (id) => ({ type: DELETE_EXPENSE, id });

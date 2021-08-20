@@ -1,18 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { deleteExpense } from '../actions';
+import { deleteExpenseAction, updateTotalPriceAction } from '../actions';
 
 class ExpenseTable extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      updatePrice: false,
+    };
     this.handleClick = this.handleClick.bind(this);
+    this.calculatePrice = this.calculatePrice.bind(this);
   }
 
-  handleClick(expenses) {
-    const { delExpense } = this.props;
-    delExpense(expenses);
+  componentDidUpdate() {
+    const { updatePrice } = this.state;
+    if (updatePrice === true) {
+      this.calculatePrice();
+    }
+  }
+
+  handleClick({ target }) {
+    const { deleteExpense } = this.props;
+    const expenseId = parseInt(target.name, 10);
+    deleteExpense(expenseId);
+    this.setState({ updatePrice: true });
+  }
+
+  calculatePrice() {
+    const { expenses, updateTotalPrice } = this.props;
+    let newPrice = 0;
+    expenses.forEach((expense) => {
+      const currentValue = expense.value
+        * expense.exchangeRates[expense.currency].ask;
+      newPrice += currentValue;
+    });
+    const fixedPrice = newPrice.toFixed(2);
+    const toString = `${fixedPrice}`;
+    updateTotalPrice(toString);
+    this.setState({ updatePrice: false });
   }
 
   tableHeader() {
@@ -59,10 +85,11 @@ class ExpenseTable extends React.Component {
                 <i className="far fa-edit" aria-label="edit" />
               </button>
               <button
+                name={ expense.id }
                 type="button"
                 className="delete-btn"
                 data-testid="delete-btn"
-                // onClick={ () => delExpense(expense.id) }
+                onClick={ this.handleClick }
               >
                 <i className="far fa-trash-alt" aria-label="delete" id={ expense.id } />
               </button>
@@ -75,15 +102,17 @@ class ExpenseTable extends React.Component {
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-  delExpense: PropTypes.func.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
+  updateTotalPrice: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   delExpense: (expense) => dispatch(deleteExpense(expense)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (expense) => dispatch(deleteExpenseAction(expense)),
+  updateTotalPrice: (price) => dispatch(updateTotalPriceAction(price)),
+});
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
