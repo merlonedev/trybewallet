@@ -20,7 +20,7 @@ class ExpendForm extends Component {
     };
     this.addExpend = this.addExpend.bind(this);
   }
-  
+
   async addExpend() {
     const { userAddExpense } = this.props;
     const getData = await currencyAPI();
