@@ -21,16 +21,11 @@ const getCoins = (apiReturn) => ({
   isFetching: false,
 });
 
-const requestApiResolve = (apiReturn) => ({
-  type: GET_CURRENCIES,
-  payload: {
-    exchangeRates: apiReturn,
-  },
-});
+const requestApiResolve = (apiReturn) => apiReturn;
 
-export const saveExpenseSpecs = (expenseSpecs) => ({
+export const saveExpenseSpecs = (expenseSpecs, fecth) => ({
   type: SAVE_EXPENSE,
-  payload: expenseSpecs,
+  payload: { ...expenseSpecs, exchangeRates: fecth() },
 });
 
 export const fetchApi = () => async (dispatch) => {
@@ -40,9 +35,9 @@ export const fetchApi = () => async (dispatch) => {
   dispatch(getCoins(apiResolve));
 };
 
-export const clickButtonFetchApi = () => async (dispatch) => {
+export const clickButtonFetchApi = (expenseSpecs) => async (dispatch) => {
   dispatch(requestApiAction());
   const apiResponse = await fetch(URL_API);
   const apiResolve = await apiResponse.json();
-  dispatch(requestApiResolve(apiResolve));
+  dispatch(saveExpenseSpecs(expenseSpecs, () => requestApiResolve(apiResolve)));
 };

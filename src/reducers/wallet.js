@@ -2,7 +2,6 @@
 import {
   REQUEST_API_ACTION,
   GET_CURRENCIES_NAMES,
-  GET_CURRENCIES,
   SAVE_EXPENSE,
 } from '../actions';
 
@@ -20,20 +19,13 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       isFetching: false,
-      currencies: [...Object.keys(action.payload)],
-    });
-  case GET_CURRENCIES:
-    return ({
-      ...state,
-      isFetching: false,
-      expenses: [{
-        exchangeRates: action.payload.exchangeRates,
-      }],
+      currencies: [...Object.values(action.payload)],
     });
   case SAVE_EXPENSE:
     return ({
       ...state,
-      expenses: [{ ...action.payload.expenseSpecs }],
+      isFetching: false,
+      expenses: [...state.expenses, { ...action.payload }],
     });
   default:
     return state;

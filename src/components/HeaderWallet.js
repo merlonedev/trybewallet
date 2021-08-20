@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 class HeaderWallet extends React.Component {
   renderUserSpecs() {
-    const { user: { email } } = this.props;
+    const { user: { email }, sumTotalExpense } = this.props;
     return (
       <main>
         <span data-testid="email-field">{ email }</span>
         <span data-testid="header-currency-field">BRL</span>
-        <span data-testid="total-field">0</span>
+        <span data-testid="total-field">{ sumTotalExpense }</span>
       </main>
     );
   }
@@ -27,6 +27,7 @@ HeaderWallet.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
+  sumTotalExpense: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(HeaderWallet);
