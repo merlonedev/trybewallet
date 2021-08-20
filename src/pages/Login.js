@@ -21,7 +21,7 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
-    this.activateLogin();
+    this.activateBtnLogin();
   }
 
   initStart() {
@@ -62,7 +62,8 @@ class Login extends Component {
             Email:
             <input
               id="email"
-              type="email"
+              type="text"
+              name="email"
               value={ email }
               data-testid="email-input"
               onChange={ this.handleChangeInLogin }
@@ -70,7 +71,7 @@ class Login extends Component {
             Senha
             <input
               id="password"
-              type="email"
+              name="password"
               value={ password }
               data-testid="password-input"
               onChange={ this.handleChangeInLogin }
