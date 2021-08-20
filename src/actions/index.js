@@ -2,6 +2,7 @@ const URL_MOEDAS = 'https://economia.awesomeapi.com.br/json/all';
 export const SAVED_EMAIL = 'SAVED_EMAIL';
 export const FETCH_API = 'FETCH_API';
 export const SAVED_EXPENSES = 'SAVED_EXPENSES';
+export const SUN_TOTAL = 'SUN_TOTAL';
 
 export const actionSaveEmail = (payload) => ({
   type: SAVED_EMAIL,

@@ -14,10 +14,10 @@ class Wallet extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      totalValue: 0,
     };
     this.handleExpenses = this.handleExpenses.bind(this);
     this.hC = this.hC.bind(this);
+    this.sunTotalField = this.sunTotalField.bind(this);
   }
 
   componentDidMount() {
@@ -44,24 +44,21 @@ class Wallet extends React.Component {
     this.sunTotalField();
   }
 
-  async sunTotalField() {
+  sunTotalField() {
     const { expenses } = this.props;
     const te = expenses
       .reduce((cont, moeda) => cont + (Number(moeda.exchangeRates[moeda.currency].ask
        * moeda.value)), 0);
-    this.setState({
-      totalValue: te.toFixed(2),
-    });
+    return te;
   }
 
   render() {
-    const { totalValue } = this.state;
     const { email, currencies } = this.props;
     return (
       <div>
         <h1>Carteira</h1>
         <p data-testid="email-field">{ email }</p>
-        <p data-testid="total-field">{ totalValue }</p>
+        <p data-testid="total-field">{ this.sunTotalField() }</p>
         <p data-testid="header-currency-field">BRL</p>
         <form>
           <label htmlFor="value">
@@ -80,7 +77,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="method">
             Método de pagamento
-            <select onChange={ this.hC } id="method">
+            <select onChange={ this.hC } name="method" id="method">
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
               <option>Cartão de débito</option>
@@ -119,7 +116,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  currencies: PropTypes.arrayOf().isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrencies: PropTypes.func.isRequired,
   saveExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf().isRequired,
