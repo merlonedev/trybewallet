@@ -47,11 +47,10 @@ class AddExpensesForm extends React.Component {
       const currentValue = expense.value
         * expense.exchangeRates[expense.currency].ask;
       newPrice += currentValue;
-      // const fixedValue = currentValue.toFixed(2);
-      // console.log(fixedValue);
     });
     const fixedPrice = newPrice.toFixed(2);
-    updateTotalPrice(fixedPrice);
+    const toString = `${fixedPrice}`;
+    updateTotalPrice(toString);
   }
 
   hC({ target }) {
@@ -150,7 +149,7 @@ AddExpensesForm.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   saveExpense: PropTypes.func.isRequired,
   updateTotalPrice: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpensesForm);
