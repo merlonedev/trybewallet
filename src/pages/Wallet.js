@@ -5,7 +5,7 @@ import ExpensesForm from '../components/ExpensesForm';
 
 class Wallet extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
     return (
       <div>
         <header>
@@ -15,7 +15,7 @@ class Wallet extends React.Component {
           <br />
           <span>Despesas totais: </span>
           <span data-testid="total-field">
-            0
+            { expenses.toFixed(2) }
           </span>
           <br />
           <span data-testid="header-currency-field">
@@ -30,6 +30,11 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses.reduce(
+    (acm, atual) => parseFloat(atual.value * atual
+      .exchangeRates[atual.currency].ask)
+      + acm, 0,
+  ),
 });
 
 Wallet.propTypes = {
