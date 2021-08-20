@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../Comoponents/Header';
 import { fetchAPI } from '../actions';
 import AddExpenses from '../Comoponents/AddExpenses';
+import Table from '../Comoponents/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -13,11 +14,13 @@ class Wallet extends React.Component {
 
   render() {
     const { getEmail, currencies } = this.props;
-    console.log(currencies);
     return (
       <div>
         <Header getEmail={ getEmail } />
         <AddExpenses currencies={ currencies } />
+        <main>
+          <Table />
+        </main>
       </div>
     );
   }

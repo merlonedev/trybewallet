@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import store from '../store';
 import Inputs from './Inputs';
 import Selects from './Selects';
 import { addExchanges } from '../actions';
@@ -32,7 +31,6 @@ class AddExpenses extends Component {
       id: id + 1,
       exchangeRates: results,
     }), () => { addExpenses(this.state); });
-    console.log(store.getState().wallet.expenses);
   }
 
   handleChange({ target: { name, value } }) {
@@ -44,7 +42,6 @@ class AddExpenses extends Component {
   render() {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    console.log(store.getState().wallet.expenses);
     return (
       <div>
         <section>

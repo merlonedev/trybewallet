@@ -1,0 +1,11 @@
+table {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
