@@ -13,7 +13,10 @@ function wallet(state = INITIAL_STATE, action) {
   case 'NEW_EXPENSES':
     return {
       ...state,
-      expenses: [...state.expenses, action.expenses],
+      expenses: [
+        ...state.expenses,
+        action.expenses,
+      ],
     };
   case 'DELETE_EXPENSE':
     return {

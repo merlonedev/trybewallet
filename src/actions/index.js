@@ -19,8 +19,8 @@ export const deleteExpense = (expenses) => ({
 });
 
 export function fetchApiCurrencies() {
-  return (dispatch) => {
-    fetch('https://economia.awesomeapi.com.br/json/all')
+  return async (dispatch) => {
+    await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((currencieItem) => {
         delete currencieItem.USDT;
