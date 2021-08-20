@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setEmail, setPassword } from '../actions';
+import { fetchCurrency } from '../actions/fetchCurrency';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class Login extends React.Component {
   verifyEmail(event) {
     const regex = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
     if (regex.test(event.target.value)) {
-      console.log(event.target.value);
       this.setState({
         email: event.target.value,
         emailSpan: 'ok-color',
@@ -72,11 +72,11 @@ class Login extends React.Component {
   }
 
   sendCredentials() {
-    const { setNewEmail, setNewPassword, history } = this.props;
+    const { setNewEmail, setNewPassword, history, fetchMoney } = this.props;
     const { email, password } = this.state;
     setNewEmail(email);
     setNewPassword(password);
-    console.log('passou');
+    fetchMoney();
     history.push('/carteira');
   }
 
@@ -127,10 +127,12 @@ class Login extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setNewEmail: (newEmail) => dispatch(setEmail(newEmail)),
   setNewPassword: (newPassword) => dispatch(setPassword(newPassword)),
+  fetchMoney: () => dispatch(fetchCurrency()),
 });
 
 // /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/
 Login.propTypes = {
+  fetchMoney: PropTypes.func.isRequired,
   setNewEmail: PropTypes.func.isRequired,
   setNewPassword: PropTypes.func.isRequired,
   history: PropTypes.shape({

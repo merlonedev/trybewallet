@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from './Select';
+import { fetchCurrency } from '../actions/fetchCurrency';
 
 class AddExpense extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencyList: props.currencyArray,
+      currencyList: [],
       description: '',
       selectedCurrency: '',
       selectedPayment: '',
@@ -22,6 +23,12 @@ class AddExpense extends React.Component {
     this.handleValue = this.handleValue.bind(this);
     this.categoryTag = this.categoryTag.bind(this);
     this.paymentMethod = this.paymentMethod.bind(this);
+    this.loadCurrencyList = this.loadCurrencyList.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchMoney } = this.props;
+    fetchMoney().then(() => this.loadCurrencyList());
   }
 
   handleCurrency(event) {
@@ -62,11 +69,22 @@ class AddExpense extends React.Component {
     ];
   }
 
-  render() {
-    const { description, currencyList, selectedCurrency, selectedPayment,
-      selectedCategory, value } = this.state;
+  loadCurrencyList() {
+    const { currencyArray } = this.props;
+    const mylist = Object.keys(currencyArray).filter((name) => name !== 'USDT');
+    const newList = [];
+    mylist.forEach((item) => {
+      newList.push({ value: item, content: item });
+    });
+    console.log(mylist);
+    console.log(newList);
+    this.setState({ currencyList: newList });
+  }
+
+  insertInputs() {
+    const { description, value } = this.state;
     return (
-      <form name="add-expenses">
+      <div>
         <label htmlFor="value-input">
           Valor:
           <input
@@ -87,6 +105,20 @@ class AddExpense extends React.Component {
             onChange={ this.handleDescription }
           />
         </label>
+      </div>
+    );
+  }
+
+  render() {
+    const { currencyList, selectedCurrency, selectedPayment,
+      selectedCategory } = this.state;
+    const { currencyArray } = this.props;
+    if (currencyArray.length === 0) return <p>Loading...</p>;
+    console.log(currencyList);
+    console.log(currencyArray);
+    return (
+      <form name="add-expenses">
+        { this.insertInputs() }
         <Select
           name="currency-select"
           labelText="Moeda:"
@@ -113,8 +145,17 @@ class AddExpense extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencyArray: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchMoney: () => dispatch(fetchCurrency()),
+});
+
 AddExpense.propTypes = {
   currencyArray: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  fetchMoney: PropTypes.func.isRequired,
 };
 
-export default connect()(AddExpense);
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
