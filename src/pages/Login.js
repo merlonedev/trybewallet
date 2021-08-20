@@ -54,11 +54,12 @@ class Login extends React.Component {
     const { disableBtn } = this.state;
     return (
       <main className="container">
-        <form>
+        <form className="form-login">
           <h2>Login</h2>
           <label htmlFor="email">
             <div className="input-fild">
               <input
+                className="inputs"
                 type="text"
                 id="email"
                 data-testid="email-input"
@@ -72,6 +73,7 @@ class Login extends React.Component {
           <label htmlFor="password">
             <div className="input-fild">
               <input
+                className="inputs"
                 type="password"
                 id="password"
                 data-testid="password-input"

@@ -28,17 +28,15 @@ class ExpenseRow extends Component {
           )}
         </td>
         <td>Real</td>
-        <td className="btns-td">
+        <td className="td-button">
           <input
             data-testid="delete-btn"
-            className="btn btn-danger"
             type="button"
             value="Excluir"
             onClick={ () => del(expense.id) }
           />
           <input
             data-testid="edit-btn"
-            className="btn btn-warning"
             type="button"
             value="Editar"
             onClick={ () => edit(expense) }

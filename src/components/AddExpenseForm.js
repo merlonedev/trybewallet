@@ -152,13 +152,19 @@ class AddExpenseForm extends Component {
     const { isEditing } = this.state;
     if (isEditing) {
       return (
-        <button type="submit" onClick={ this.saveClick }>
+        <button
+          className="submit-btn"
+          type="submit"
+          onClick={ this.saveClick }>
           Editar despesa
         </button>
       );
     }
     return (
-      <button type="submit" onClick={ this.handleClick }>
+      <button
+        className="submit-btn"
+        type="submit"
+        onClick={ this.handleClick }>
         Adicionar despesa
       </button>
     );
@@ -168,7 +174,7 @@ class AddExpenseForm extends Component {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <form action="">
+      <form className="input-expenses">
         <label htmlFor="value-input">
           Valor
           <input
