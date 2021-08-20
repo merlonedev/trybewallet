@@ -25,6 +25,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   loginEmail: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
