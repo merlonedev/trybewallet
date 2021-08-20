@@ -1,49 +1,85 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Form from '../components/Form';
+import Header from '../components/Header';
+import { fetchAPI } from '../actions/index';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: 0,
+      totalExpenses: 0,
     };
+    this.gastos = this.gastos.bind(this);
+  }
+
+  componentDidMount() {
+    const { submitCurrencies } = this.props;
+    submitCurrencies();
+  }
+
+  gastos() {
+    const { wallet: { expenses } } = this.props;
+    if (expenses.length > 0 && expenses.length < 2) {
+      const { exchangeRates } = expenses[0];
+      const arr = Object.entries(exchangeRates)
+        .filter((item) => item[0] === expenses[0].currency);
+      this.setState({
+        totalExpenses: (+expenses[0].value * +arr[0][1].ask),
+      });
+    }
+    if (expenses.length > 1) {
+      const { totalExpenses } = this.state;
+      const { exchangeRates } = expenses[1];
+      const array = Object.entries(exchangeRates)
+        .filter((item) => item[0] === expenses[1].currency);
+      const total2 = (+expenses[1].value * +array[0][1].ask);
+      this.setState({
+        totalExpenses: (totalExpenses + total2),
+      });
+    }
   }
 
   render() {
-    const { total } = this.state;
-    const { userEmail } = this.props;
+    const { totalExpenses } = this.state;
+    const { user } = this.props;
 
     return (
       <div>
-        <header>
-          <p
-            data-testid="email-field"
-          >
-            {`Email: ${userEmail}`}
-          </p>
-          <p
-            data-testid="total-field"
-          >
-            {`Despesa Total: ${total}`}
-          </p>
-          <p
-            data-testid="header-currency-field"
-          >
-            BRL
-          </p>
-        </header>
+        <Header
+          email={ user.email }
+          totalExpenses={ totalExpenses }
+        />
+        <Form
+          gastos={ this.gastos }
+        />
+        <Table
+          gastos={ this.gastos }
+        />
       </div>
     );
   }
 }
 
-Wallet.propTypes = {
-  userEmail: PropTypes.string.isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
+  user: state.user,
+  wallet: state.wallet,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  submitCurrencies: () => dispatch(fetchAPI()),
+});
+
+Wallet.propTypes = {
+  submitCurrencies: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+  wallet: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

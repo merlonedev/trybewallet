@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Table.css';
-import TableTd from './TableTd'
+import TableTd from './TableTd';
 
 class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hearder: ['Descrição', 'Tag',
-      'Método de pagamento', 'Valor',
+        'Método de pagamento', 'Valor',
         'Moeda', 'Câmbio utilizado', 'Valor convertido',
         'Moeda de conversão', 'Editar/Excluir'],
     };

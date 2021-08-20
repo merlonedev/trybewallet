@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Currency extends Component {
   render() {
     const { htmlFor, nome,
-      array, id, onChange } = this.prop;
+      array, id, onChange } = this.props;
     return (
       <div>
         <label htmlFor={ htmlFor }>
@@ -26,8 +26,8 @@ class Currency extends Component {
 }
 
 Currency.propTypes = {
-  htmlFor: Proptypes.string.isRequired,
-  home: ProTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  nome: PropTypes.string.isRequired,
   array: PropTypes.shape({}).isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
