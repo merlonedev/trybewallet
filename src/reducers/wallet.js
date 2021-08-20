@@ -13,7 +13,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case EXPENSES:
     return {
       ...state,
-      expenses: [...state.expenses, ...action.expenses],
+      expenses: [...state.expenses, action.expenses],
     };
   case CURRENCIE:
     return {
