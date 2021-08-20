@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { walletAddCurrencie, walletAddExpense } from '../actions';
 import ExpendForm from '../components/ExpendForm';
 import { currencyAPIThunk } from '../actions';
+import './wallet.css';
+import logo from './walletlogo.png';
+import EditForm from '../components/EditForm';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    //   expensesLenght: 0,
-    // };
     this.getValues = this.getValues.bind(this);
   }
 
@@ -21,48 +21,56 @@ class Wallet extends React.Component {
 
   getValues() {
     const { expenses } = this.props;
-    // const { expensesLenght } = this.state;
     const allCurrencies = expenses.map((currencie) => currencie.currency);
     const totalValue = expenses
       .reduce((acc, currItem, index) => acc + parseFloat(currItem.value)
       * parseFloat(currItem.exchangeRates[allCurrencies[index]].ask), 0);
-    // this.setState((previousState) => ({
-    //   expensesLenght: previousState.expensesLenght + 1,
-    // }));
     return totalValue.toFixed(2);
   }
 
   render() {
-    // const { userAddExpense, userAddCurrencie } = this.props;
-    const { email } = this.props;
-    // const { expenses } = this.props;
-    // if (expenses.legth < 1) return <h1>Loading....</h1>;
+    const { email, isEditing } = this.props;
     return (
       <>
-        <header>
-          <p data-testid="email-field">{email}</p>
-          <p data-testid="total-field">{this.getValues()}</p>
-          <p data-testid="header-currency-field">BRL</p>
+        <header className="header">
+          <h2 className="header-title">My Wallet</h2>
+          <img className="logo2" src={ logo } alt="wallet" />
+          <p className="header-text" data-testid="email-field">
+            {`Email: ${email}`}
+          </p>
+          <div className="value-currencie">
+            <p className="header-text" data-testid="total-field">
+              {`R$ ${this.getValues()}`}
+            </p>
+            <p className="header-text" data-testid="header-currency-field" value="BRL">
+              BRL
+            </p>
+          </div>
         </header>
-        <ExpendForm />
+        { isEditing ? <EditForm /> : <ExpendForm />}
+        <Table />
       </>
     );
   }
 }
+
 const secondMapDispatchToProps = (dispatch) => ({
-  // userAddExpense: () => dispatch(walletAddExpense()),
   userAddCurrencie: () => dispatch(currencyAPIThunk()),
 });
-const secondMapStateToProps = ({ wallet: { isloading, expenses },
+
+const secondMapStateToProps = ({ wallet: { isloading, expenses, isEditing },
   user: { email } }) => ({
   isloading,
   email,
   expenses,
+  isEditing,
 });
+
 Wallet.propTypes = {
-  // userAddExpense: PropTypes.func.isRequired,
-  userAddCurrencie: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf([{}]).isRequired,
-};
+  userAddCurrencie: PropTypes.func,
+  email: PropTypes.string,
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  isEditing: PropTypes.bool,
+}.isRequired;
+
 export default connect(secondMapStateToProps, secondMapDispatchToProps)(Wallet);
