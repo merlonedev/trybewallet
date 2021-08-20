@@ -12,9 +12,9 @@ class ExpensesForm extends React.Component {
           Moeda
           <select id="moeda" aria-label="moeda" name="currency" />
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="método de pagamento">
           Método de pagamento
-          <select id="payment" aria-label="payment" name="payment-method">
+          <select id="método de pagamento" aria-label="método de pagamento" name="method">
             <option value="dinheiro">Dinheiro</option>
             <option value="cartao-de-credito">Cartão de crédito</option>
             <option value="cartao-de-debito">Cartão de débito</option>
