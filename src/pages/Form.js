@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import getApi from '../api';
 import { getCurrencies, requestExpenses } from '../actions';
-import Category from './components/Category';
+// import Category from './components/Category';
 
 class Form extends React.Component {
   constructor() {
@@ -14,8 +14,8 @@ class Form extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      paymentMethod: 'Dinheiro',
-      category: 'Alimentação',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
 
     };
     this.returnApi = this.returnApi.bind(this);
@@ -47,64 +47,90 @@ class Form extends React.Component {
       value,
       description,
       currency,
-      paymentMethod,
-      category,
+      method,
+      tag,
     } = this.state;
+    const payMethod = method;
+    const payTag = tag;
     const expenses = {
       id,
       value,
       description,
       currency,
-      method: paymentMethod,
-      tag: category,
+      method: payMethod,
+      tag: payTag,
     };
     requestExpensesData(expenses);
     this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
-  render() {
-    const { currencies } = this.state;
+  renderPage() {
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor:
-          <input type="text" name="value" id="valor" onChange={ this.handleInputs } />
+          <input type="text" name="value" id="value" onChange={ this.handleInputs } />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição:
           <input
             type="text"
             name="description"
-            id="descricao"
+            id="description"
             onChange={ this.handleInputs }
           />
         </label>
-        <label htmlFor="currency">
-          Moeda:
-          <select
-            name="currency"
-            id="currency"
-            onChange={ this.handleInputs }
-          >
-            { currencies.map((coin, index) => (
-              <option key={ index }>
-                { coin }
-              </option>))}
-          </select>
-        </label>
-        <label htmlFor="pagamento">
-          Método de pagamento:
-          <select name="paymentMethod" id="pagamento" onChange={ this.handleInputs }>
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-          <Category onChangeOpt={ this.handleInputs } />
-        </label>
-        <button name="button" type="button" onClick={ () => this.submitExpenses() }>
-          Adicionar despesa
-        </button>
       </form>);
+  }
+
+  renderPage2() {
+    return (
+      <label htmlFor="tag">
+        Tag:
+        <select type="select" name="tag" id="tag" onChange={ this.handleInputs }>
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
+        </select>
+      </label>);
+  }
+
+  render() {
+    const { currencies } = this.state;
+    return (
+      <div>
+        { this.renderPage() }
+        <form>
+          <label htmlFor="currency">
+            Moeda:
+            <select
+              name="currency"
+              id="currency"
+              onChange={ this.handleInputs }
+            >
+              { currencies.map((coin, index) => (
+                <option key={ index }>
+                  { coin }
+                </option>))}
+            </select>
+          </label>
+          <label htmlFor="method">
+            Método de pagamento:
+            <select name="method" id="method" onChange={ this.handleInputs }>
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
+            </select>
+            { this.renderPage2() }
+            {/* <Category onChangeOpt={ this.handleInputs } /> */}
+          </label>
+          <button name="button" type="button" onClick={ () => this.submitExpenses() }>
+            Adicionar despesa
+          </button>
+        </form>
+      </div>);
   }
 }
 
