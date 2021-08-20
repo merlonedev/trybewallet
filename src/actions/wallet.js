@@ -2,12 +2,13 @@ import fetchAPI from '../fetchAPI';
 
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+
 export const LOADING_CURRENCY = 'LOADING_CURRENCY';
 
 export const FINISH_LOADING = 'FINISH_LOADING';
 
 export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
-export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const loadingCurrency = () => ({
   type: LOADING_CURRENCY,
 });
@@ -25,6 +26,11 @@ export const addExpenses = (payload) => ({
   payload,
 });
 
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE,
+  payload,
+});
+
 export const getAPIThunk = () => (dispatch) => {
   dispatch(loadingCurrency());
   fetchAPI().then((response) => {
@@ -33,10 +39,7 @@ export const getAPIThunk = () => (dispatch) => {
     dispatch(finishLoading());
   }).catch(() => { dispatch(getCurrencySuccess([])); });
 };
-export const removeExpense = (payload) => ({
-  type: REMOVE_EXPENSE,
-  payload,
-});
+
 export const addExpensesThunk = (expenses) => (dispatch) => {
   fetchAPI().then((response) => {
     const exchangeRates = (response);
