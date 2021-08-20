@@ -15,7 +15,7 @@ class Expense extends React.Component {
         <select name="payment" id="payment-input">
           <option value="cash">Dinheiro</option>
           <option value="cc">Cartão de crédito</option>
-          <option value="db">Cartao de débito</option>
+          <option value="db">Cartão de débito</option>
         </select>
       </label>
     );
