@@ -1,18 +1,12 @@
 export const ADD_EXPENSE = 'ADD_EXPENSE';
-export const GET_CURRENCY_SUCESS = 'GET_CURRENCY_SUCESS';
-export const GET_CURRENCY_ERROR = 'GET_CURRENCY_ERROR';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const addExpense = (expense) => ({
   type: ADD_EXPENSE,
   expense,
 });
 
-export const getCurrencySuccess = (payload) => ({
-  type: GET_CURRENCY_SUCESS,
-  payload,
-});
-
-export const getCurrencyError = (error) => ({
-  type: GET_CURRENCY_ERROR,
-  error,
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
 });
