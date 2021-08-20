@@ -1,5 +1,5 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import NewExpense from '../components/NewExpense';
@@ -32,9 +32,9 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
-  email: Proptypes.string.isRequired,
-  expenses: Proptypes.arrayOf(
-    Proptypes.object.isRequired,
+  email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
   ).isRequired,
 };
 
