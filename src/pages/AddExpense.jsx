@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from './Select';
-import { fetchCurrency } from '../actions/fetchCurrency';
+import { fetchCurrencies, fetchCurrency } from '../actions/fetchCurrency';
+import { addExpense } from '../actions/expenses';
+
+const FOOD = 'Alimentação';
+const MONEY = 'Dinheiro';
+const COIN = 'USD';
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -10,9 +15,9 @@ class AddExpense extends React.Component {
     this.state = {
       currencyList: [],
       description: '',
-      selectedCurrency: '',
-      selectedPayment: '',
-      selectedCategory: '',
+      currency: COIN,
+      method: MONEY,
+      tag: FOOD,
       value: 0,
     };
 
@@ -24,23 +29,25 @@ class AddExpense extends React.Component {
     this.categoryTag = this.categoryTag.bind(this);
     this.paymentMethod = this.paymentMethod.bind(this);
     this.loadCurrencyList = this.loadCurrencyList.bind(this);
+    this.newExpense = this.newExpense.bind(this);
+    this.insertInputs = this.insertInputs.bind(this);
   }
 
   componentDidMount() {
-    const { fetchMoney } = this.props;
-    fetchMoney().then(() => this.loadCurrencyList());
+    const { fetchAllMoney } = this.props;
+    fetchAllMoney().then(() => this.loadCurrencyList());
   }
 
   handleCurrency(event) {
-    this.setState({ selectedCurrency: event.target.value });
+    this.setState({ currency: event.target.value });
   }
 
   handlePayment(event) {
-    this.setState({ selectedPayment: event.target.value });
+    this.setState({ method: event.target.value });
   }
 
   handleCategory(event) {
-    this.setState({ selectedCategory: event.target.value });
+    this.setState({ tag: event.target.value });
   }
 
   handleDescription(event) {
@@ -53,31 +60,29 @@ class AddExpense extends React.Component {
 
   paymentMethod() {
     return [
-      { value: 'cash', content: 'Dinheiro' },
-      { value: 'credit', content: 'Cartão de crédito' },
-      { value: 'debt', content: 'Cartão de débito' },
+      { value: MONEY, content: MONEY },
+      { value: 'Cartão de crédito', content: 'Cartão de crédito' },
+      { value: 'Cartão de débito', content: 'Cartão de débito' },
     ];
   }
 
   categoryTag() {
     return [
-      { value: 'food', content: 'Alimentação' },
-      { value: 'recreation', content: 'Lazer' },
-      { value: 'work', content: 'Trabalho' },
-      { value: 'transportation', content: 'Transporte' },
-      { value: 'health', content: 'Saúde' },
+      { value: FOOD, content: FOOD },
+      { value: 'Lazer', content: 'Lazer' },
+      { value: 'Trabalho', content: 'Trabalho' },
+      { value: 'Transporte', content: 'Transporte' },
+      { value: 'Saúde', content: 'Saúde' },
     ];
   }
 
   loadCurrencyList() {
-    const { currencyArray } = this.props;
-    const mylist = Object.keys(currencyArray).filter((name) => name !== 'USDT');
+    const { exchangeRates } = this.props;
+    const mylist = Object.keys(exchangeRates).filter((name) => name !== 'USDT');
     const newList = [];
     mylist.forEach((item) => {
       newList.push({ value: item, content: item });
     });
-    console.log(mylist);
-    console.log(newList);
     this.setState({ currencyList: newList });
   }
 
@@ -109,53 +114,77 @@ class AddExpense extends React.Component {
     );
   }
 
+  newExpense() {
+    const { fetchAllMoney, exchangeRates, addNewExpense } = this.props;
+    const { currency, method, description, tag, value } = this.state;
+    const newExpense = {
+      currency,
+      method,
+      tag,
+      description,
+      value,
+      exchangeRates,
+    };
+    fetchAllMoney();
+    addNewExpense(newExpense);
+  }
+
   render() {
-    const { currencyList, selectedCurrency, selectedPayment,
-      selectedCategory } = this.state;
-    const { currencyArray } = this.props;
-    if (currencyArray.length === 0) return <p>Loading...</p>;
-    console.log(currencyList);
-    console.log(currencyArray);
+    const { currencyList, currency, method, tag } = this.state;
+    const { exchangeRates } = this.props;
+    if (exchangeRates.length === 0) return <p>Loading...</p>;
     return (
       <form name="add-expenses">
         { this.insertInputs() }
         <Select
           name="currency-select"
           labelText="Moeda:"
-          selectedOption={ selectedCurrency }
+          selectedOption={ currency }
           onSelectedChange={ this.handleCurrency }
           optionList={ currencyList }
         />
         <Select
           name="payment-select"
           labelText="Método de Pagamento:"
-          selectedOption={ selectedPayment }
+          selectedOption={ method }
           onSelectedChange={ this.handlePayment }
           optionList={ this.paymentMethod() }
         />
         <Select
           name="category-select"
           labelText="Tag:"
-          selectedOption={ selectedCategory }
+          selectedOption={ tag }
           onSelectedChange={ this.handleCategory }
           optionList={ this.categoryTag() }
         />
+        <button
+          name="add-expense-btn"
+          type="button"
+          onClick={ this.newExpense }
+        >
+          Adicionar Despesa
+        </button>
       </form>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  currencyArray: state.wallet.currencies,
+  exchangeRates: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMoney: () => dispatch(fetchCurrency()),
+  fetchAllMoney: () => dispatch(fetchCurrencies()),
+  fetchMoney: (code) => dispatch(fetchCurrency(code)),
+  addNewExpense: (expense) => dispatch(addExpense(expense)),
 });
 
 AddExpense.propTypes = {
-  currencyArray: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  fetchMoney: PropTypes.func.isRequired,
+  exchangeRates: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  // fetchMoney: PropTypes.func.isRequired,
+  fetchAllMoney: PropTypes.func.isRequired,
+  addNewExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
