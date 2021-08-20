@@ -106,5 +106,4 @@ const mapDispatchToProps = (dispathc) => ({
 Login.propTypes = {
   submit: PropTypes.func.isRequired,
 };
-
 export default connect(null, mapDispatchToProps)(Login);

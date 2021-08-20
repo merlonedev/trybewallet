@@ -1,5 +1,5 @@
 import { WALLET, WALLET_SUCESS, WALLET_ERROR,
-  FORMWALLET, DELETE_ITEM } from '../actions/actionTypes';
+  FORMWALLET, DELETE_ITEM } from '../actions/actionsTypes';
 
 const INITIAL_STATE = {
   currencies: {},

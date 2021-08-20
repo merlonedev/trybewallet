@@ -6,12 +6,12 @@ class Header extends Component {
     const { email, totalExpenses } = this.props;
     return (
       <header>
-        <span daa-testid="email-field">
+        <span data-testid="email-field">
           Email:
           { email }
         </span>
         <p>
-          Total:
+          Despesa Total:
           <span data-testid="total-field">
             { totalExpenses.toFixed(2) }
           </span>
@@ -28,5 +28,4 @@ Header.propTypes = {
   email: PropTypes.string.isRequired,
   totalExpenses: PropTypes.number.isRequired,
 };
-
 export default Header;

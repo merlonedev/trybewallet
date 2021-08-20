@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Currency from './Currency';
 import LabelSelect from './LabelSelect';
 import LabelInput from './LabelInput';
-import { formWallet } from '../actions';
+import { FORMWALLET } from '../actions/actionsTypes';
 import './Form.css';
 
 class Form extends Component {
@@ -18,21 +18,21 @@ class Form extends Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
-    this.getCurrencies = this.getCurrencies.bind(this);
+    this.getCrurrencies = this.getCrurrencies.bind(this);
     this.inputValue = this.inputValue.bind(this);
     this.submitStore = this.submitStore.bind(this);
-    this.whatever = thiswhatever.bind(this);
+    this.qualquer = this.qualquer.bind(this);
   }
 
-  getCurrencies() {
+  getCrurrencies() {
     const endPoint = 'https://economia.awesomeapi.com.br/json/all';
-    fetch(endPoinr)
+    fetch(endPoint)
       .then((data) => data.json())
-      .then((response) => this.whatever(response));
+      .then((response) => this.qualquer(response));
   }
 
-  whatever(data) {
-    const arraysKeys = { ...data };
+  qualquer(data) {
+    const arrayKeys = { ...data };
     this.submitStore(arrayKeys);
   }
 
@@ -42,7 +42,11 @@ class Form extends Component {
       break;
     case 'Método de pagamento': this.setState({ method: e.target.value });
       break;
-    case 'Moeda': this.setState({ tag: e.target.value });
+    case 'Moeda': this.setState({ currency: e.target.value });
+      break;
+    case 'Tag': this.setState({ tag: e.target.value });
+      break;
+    case 'Descrição': this.setState({ description: e.target.value });
       break;
     default:
     }
@@ -61,7 +65,7 @@ class Form extends Component {
       exchangeRates: data,
     });
     gastos();
-    this.setState({ id: +1 });
+    this.setState({ id: (id + 1) });
   }
 
   render() {
@@ -75,7 +79,7 @@ class Form extends Component {
         <LabelInput
           htmlFor="Valor"
           type="text"
-          nome="valor"
+          nome="Valor"
           id="Valor"
           onChange={ this.inputValue }
         />
@@ -106,22 +110,23 @@ class Form extends Component {
         />
         <button
           type="button"
-          onChange={ this.inputValue }
+          onClick={ this.getCrurrencies }
         >
-          adicionar
+          adicionar despesa
         </button>
       </form>
     );
   }
 }
 
-const mapDispatchToProps = (dispatchc) => ({
-  submit: (state) => dispatchc(formWallet(state)),
+const mapDispatchToProps = (dispathc) => ({
+  submit: (state) => dispathc(formWallet(state)),
 });
 
 const mapStateToProps = (state) => ({
-  currencies: state.formWallet.currencies,
+  currencies: state.wallet.currencies,
 });
+
 Form.propTypes = {
   currencies: PropTypes.shape({
     ARS: PropTypes.shape({ code: PropTypes.string.isRequired }),
@@ -132,6 +137,7 @@ Form.propTypes = {
     CNY: PropTypes.shape({ code: PropTypes.string.isRequired }),
     DOGE: PropTypes.shape({ code: PropTypes.string.isRequired }),
     ETH: PropTypes.shape({ code: PropTypes.string.isRequired }),
+    EUR: PropTypes.shape({ code: PropTypes.string.isRequired }),
     GBP: PropTypes.shape({ code: PropTypes.string.isRequired }),
     ILS: PropTypes.shape({ code: PropTypes.string.isRequired }),
     JPY: PropTypes.shape({ code: PropTypes.string.isRequired }),
@@ -143,5 +149,4 @@ Form.propTypes = {
   submit: PropTypes.func.isRequired,
   gastos: PropTypes.func.isRequired,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
