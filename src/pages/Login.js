@@ -9,22 +9,22 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
-      psswrd: '',
-      btnDsbl: true,
+      password: '',
+      btnDisable: true,
       redirect: false,
     };
 
-    this.checkValidation = this.checkValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.checkValidation = this.checkValidation.bind(this);
   }
 
   checkValidation() {
-    const { email, psswrd } = this.state;
-    const minLgth = 6;
+    const { email, password } = this.state;
+    const n6 = 6;
     const regEx = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i; // Source: https://mailtrap.io/blog/react-native-email-validation/
-    if (regEx.test(email) && psswrd.length >= minLgth) this.setState({ btnDsbl: false });
-    else this.setState({ btnDsbl: true });
+    if (regEx.test(email) && password.length >= n6) this.setState({ btnDisable: false });
+    else this.setState({ btnDisable: true });
   }
 
   handleChange({ target }) {
@@ -41,7 +41,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { redirect, btnDsbl } = this.state;
+    const { redirect, btnDisable } = this.state;
     return (
       <div>
         {redirect && <Redirect to="/carteira" />}
@@ -67,7 +67,11 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" disabled={ btnDsbl } onClick={ this.handleClick }>
+          <button
+            type="button"
+            disabled={ btnDisable }
+            onClick={ this.handleClick }
+          >
             Entrar
           </button>
         </form>
