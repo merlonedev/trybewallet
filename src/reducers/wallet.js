@@ -24,6 +24,8 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: state.expanses.filter((expense) => expense.id !== action.expenseId),
     };
   case EDIT_EXPENSE:
+    return { ...state, editor: true, idToEdit: action.expenseId };
+  case APPLY_EDIT:
     return {
       ...state,
       editor: false,
