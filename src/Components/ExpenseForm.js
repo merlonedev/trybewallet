@@ -95,7 +95,7 @@ ExpenseForm.propTypes = {
 };
 
 const mapStateToProps = ({ wallet }) => ({
-  coins: wallet.currenciesLessUSDT });
+  coins: wallet.currencies });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(currencies()),

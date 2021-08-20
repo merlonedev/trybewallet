@@ -13,7 +13,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     const currenciesDatas = Object(action.payload);
     return {
       ...state,
-      currenciesLessUSDT: currenciesData.filter((iten) => iten !== 'USDT'),
+      currencies: currenciesData.filter((iten) => iten !== 'USDT'),
       exchangeRates: currenciesDatas,
     };
   }
