@@ -1,4 +1,7 @@
-import { GET_COINS, GET_COINS_SUCCES, ADD_EXCHANGES } from '../actions/actionsType';
+import { GET_COINS,
+  GET_COINS_SUCCES,
+  ADD_EXCHANGES,
+  DELETE_EXPENSE } from '../actions/actionsType';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -13,6 +16,10 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, currencies: [...action.payload] };
   case ADD_EXCHANGES:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case DELETE_EXPENSE:
+    return { ...state,
+      expenses: state.expenses.filter((del) => del.id !== action.id),
+    };
   default:
     return state;
   }

@@ -1,4 +1,8 @@
-import { ADD_EMAIL, GET_COINS, GET_COINS_SUCCES, ADD_EXCHANGES } from './actionsType';
+import { ADD_EMAIL,
+  GET_COINS,
+  GET_COINS_SUCCES,
+  ADD_EXCHANGES,
+  DELETE_EXPENSE } from './actionsType';
 
 export function addEmail(email) {
   return {
@@ -32,5 +36,12 @@ export function addExchanges(exchanges) {
   return {
     type: ADD_EXCHANGES,
     payload: exchanges,
+  };
+}
+
+export function deleteExpense(id) {
+  return {
+    type: DELETE_EXPENSE,
+    id,
   };
 }
