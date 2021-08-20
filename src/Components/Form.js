@@ -23,7 +23,8 @@ class Form extends Component {
   }
 
   render() {
-    const { Currencies } = this.props;
+    const { currencies } = this.props;
+    console.log(currencies);
     return (
       <form>
         <label htmlFor="value">
@@ -37,7 +38,7 @@ class Form extends Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda">
-            { Currencies.map((curr, i) => (
+            { currencies.map((curr, i) => (
               <option key={ i } value={ curr }>{ curr }</option>)) }
           </select>
         </label>
@@ -71,7 +72,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  Currencies: PropTypes.arrayOf(Object).isRequired,
+  currencies: PropTypes.arrayOf(Object).isRequired,
   addExpenses: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
@@ -81,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  Currencies: state.wallet.Currencies,
+  currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
 });
 
