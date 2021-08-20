@@ -15,7 +15,7 @@ class Form extends Component {
     addExpenses({
       id: expenses.length,
       value: document.querySelector('#value').value,
-      currency: document.querySelector('#currency').value,
+      currency: document.querySelector('#moeda').value,
       method: document.querySelector('#payment').value,
       tag: document.querySelector('#tag').value,
       description: document.querySelector('#description').value,
@@ -34,9 +34,9 @@ class Form extends Component {
           Descrição
           <textarea type="text" id="description" rows="3" cols="10" />
         </label>
-        <label htmlFor="currency">
+        <label htmlFor="moeda">
           Moeda
-          <select id="currency">
+          <select id="moeda">
             { Currencies.map((curr, i) => (
               <option key={ i } value={ curr }>{ curr }</option>)) }
           </select>

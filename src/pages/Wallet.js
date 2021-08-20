@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from '../Components/Form';
-import { actionFetchAPI } from '../actions/index';
+import Table from '../Components/Table';
+import { actionFetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -30,6 +31,7 @@ class Wallet extends React.Component {
           BRL
         </h3>
         <Form />
+        <Table />
       </main>
     );
   }
@@ -37,12 +39,13 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  FetchCurrencies: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  FetchCurrencies: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  FetchCurrencies: (state) => dispatch(actionFetchAPI(state)) });
+  FetchCurrencies: (state) => dispatch(actionFetchAPI(state)),
+});
 
 const mapStateToProps = (state) => ({
   email: state.user.email,

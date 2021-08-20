@@ -11,7 +11,6 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       Currencies: [...Object.keys(action.currencies)],
-      CurrenciesResp: action.currencies,
     };
   case ADD_EXPENSE:
     return {
