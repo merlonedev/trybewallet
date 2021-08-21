@@ -23,9 +23,17 @@ function walletReducer(state = INITIAL_STATE, action) {
   case types.REQUEST_CURRENCIES:
     return { ...state, isLoading: true };
   case types.GET_CURRENCIES:
-    return { ...state, currencies: Object.keys(action.payload), isLoading: false };
+    return {
+      ...state,
+      currencies: Object.keys(action.payload),
+      isLoading: false,
+    };
   case types.ADD_EXPENSE:
-    return { ...state, expenses: [...state.expenses, action.payload], sum: state.sum + sumValueBasedOnExpense(action.payload) };
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+      sum: state.sum + sumValueBasedOnExpense(action.payload),
+    };
   case types.IS_LOADING:
     return { ...state, isLoading: action.payload };
   case types.FAILED_REQUEST:
