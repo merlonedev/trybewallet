@@ -25,7 +25,7 @@ class Table extends React.Component {
         </tr>
         {expenses.map((expense) => {
           const curr = expense.currency;
-          // https://stackoverflow.com/questions/922544/using-variable-keys-to-access-values-in-javascript-objects
+          // Source: https://stackoverflow.com/questions/922544/using-variable-keys-to-access-values-in-javascript-objects
           const exchange = expense.exchangeRates[curr].ask;
           const conversion = exchange * expense.value;
           const roundedExchange = Math.round(exchange * 100) / 100;
