@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
     };
     return (
       <article id="login-box" className="form__group">
-        <h2>Trybe Wallet</h2>
+        <h2>Julius Wallet</h2>
         <label htmlFor="email-input">
           E-mail:
           <input

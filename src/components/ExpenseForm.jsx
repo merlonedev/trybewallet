@@ -70,19 +70,24 @@ class ExpenseForm extends React.Component {
     add(expenseToInsert);
   }
 
-  renderBtn(onClick, className) {
+  renderBtn(onClick, className, disabled) {
     return (
-      <button type="button" onClick={ onClick } className={ className }>
+      <button
+        type="button"
+        onClick={ onClick }
+        className={ className }
+        disabled={ disabled }
+      >
         Adicionar Despesa
       </button>
     );
   }
 
   render() {
-    const { wallet: { currencies } } = this.props;
+    const { disableBtn, wallet: { currencies } } = this.props;
     const filteredCurr = currencies.filter((currency) => currency !== 'USDT');
     return (
-      <form>
+      <form id="expense-form">
         <label htmlFor="value">
           Valor:
           <input
@@ -124,7 +129,7 @@ class ExpenseForm extends React.Component {
             {tags.map((tag) => (<option key={ tag }>{tag}</option>))}
           </select>
         </label>
-        {this.renderBtn(this.handleClick, 'pure-material-button-contained')}
+        {this.renderBtn(this.handleClick, 'pure-material-button-contained', disableBtn)}
       </form>
     );
   }
@@ -162,4 +167,5 @@ ExpenseForm.propTypes = {
     isLoading: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
+  disableBtn: PropTypes.bool.isRequired,
 };
