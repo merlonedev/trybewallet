@@ -17,9 +17,9 @@ class ExpenseForm extends React.Component {
     super(props);
     this.state = {
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     };
 
