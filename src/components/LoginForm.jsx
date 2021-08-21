@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import changeUser from '../actions';
+import { changeUser, fetchCurrencies } from '../redux/actions';
 
 // prettier-ignore
 class LoginForm extends React.Component {
@@ -33,6 +33,7 @@ class LoginForm extends React.Component {
     const { changeEmail, callback } = this.props;
     const { typedEmail } = this.state;
     changeEmail(typedEmail);
+    fetchCurrencies();
     callback();
   }
 

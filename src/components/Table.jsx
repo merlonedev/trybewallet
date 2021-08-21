@@ -5,8 +5,11 @@ import PropTypes from 'prop-types';
 // prettier-ignore
 class Table extends React.Component {
   render() {
-    const { wallet } = this.props;
-    const { expenses } = wallet;
+    const { wallet: { expenses, isLoading } } = this.props;
+    console.log(expenses);
+    if (isLoading) {
+      return (<h1>Carregando...</h1>);
+    }
     return (
       <table>
         <tr>
@@ -22,6 +25,7 @@ class Table extends React.Component {
         </tr>
         {expenses.map((expense) => {
           const curr = expense.currency;
+          // https://stackoverflow.com/questions/922544/using-variable-keys-to-access-values-in-javascript-objects
           const exchange = expense.exchangeRates[curr].ask;
           const conversion = exchange * expense.value;
           const roundedExchange = Math.round(exchange * 100) / 100;
@@ -56,5 +60,6 @@ Table.propTypes = {
     expenses: PropTypes.shape({
       map: PropTypes.func,
     }),
+    isLoading: PropTypes.bool.isRequired,
   }).isRequired,
 };

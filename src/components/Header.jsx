@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 // prettier-ignore
 class Header extends React.Component {
   render() {
-    const { user } = this.props;
-    const { email } = user;
+    const { user: { email } } = this.props;
+
     return (
       <header>
         <span data-testid="email-field">

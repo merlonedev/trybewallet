@@ -1,0 +1,8 @@
+export const CHANGE_USER = 'CHANGE_USER';
+export const IS_LOADING = 'IS_LOADING';
+
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
+export const FAILED_REQUEST = 'FAILED_REQUEST';
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';

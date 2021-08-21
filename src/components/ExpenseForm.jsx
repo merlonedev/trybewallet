@@ -1,73 +1,130 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions';
+import {
+  fetchCurrencies,
+  addExpense,
+  failedRequest,
+  isLoading,
+} from '../redux/actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-const currencies = [
-  'USD',
-  'CAD',
-  'EUR',
-  'GBP',
-  'ARS',
-  'BTC',
-  'LTC',
-  'JPY',
-  'CHF',
-  'AUD',
-  'CNY',
-  'ILS',
-  'ETH',
-  'XRP',
-];
 
 // prettier-ignore
 class ExpenseForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.renderBtn = this.renderBtn.bind(this);
+    this.fetchHandleClick = this.fetchHandleClick.bind(this);
+  }
+
   componentDidMount() {
     const { fetch } = this.props;
     fetch();
   }
 
+  handleChange({ target: { id, value } }) {
+    this.setState({
+      [id]: [value],
+    });
+  }
+
+  async fetchHandleClick() {
+    const { error, loading } = this.props;
+    const URL = 'https://economia.awesomeapi.com.br/json/all';
+    loading(true);
+    try {
+      const results = await fetch(URL).then((response) => response.json());
+      loading(false);
+      return results;
+    } catch (err) {
+      error(err);
+    }
+  }
+
+  async handleClick() {
+    const { add, wallet: { expenses } } = this.props;
+    const { value, currency, method, tag, description } = this.state;
+    const expenseId = expenses.length;
+    const exchange = await this.fetchHandleClick();
+    const expenseToInsert = {
+      id: expenseId,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates: exchange,
+    };
+    add(expenseToInsert);
+  }
+
+  renderBtn(onClick, className) {
+    return (
+      <button type="button" onClick={ onClick } className={ className }>
+        Adicionar Despesa
+      </button>
+    );
+  }
+
   render() {
-    const { wallet } = this.props;
-    console.log(wallet);
+    const { wallet: { currencies } } = this.props;
+    const filteredCurr = currencies.filter((currency) => currency !== 'USDT');
     return (
       <form>
-        <label htmlFor="amount-input">
+        <label htmlFor="value">
           Valor:
-          <input type="text" id="amount-input" className="form__field" />
+          <input
+            type="text"
+            onChange={ this.handleChange }
+            id="value"
+            className="form__field"
+          />
         </label>
-        <label htmlFor="description-input">
+        <label htmlFor="description">
           Descrição:
-          <input type="text" id="description-input" className="form__field" />
+          <input
+            type="text"
+            onChange={ this.handleChange }
+            id="description"
+            className="form__field"
+          />
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select id="currency" className="form__field">
-            {currencies.map((currency) => <option key={ currency }>{currency}</option>)}
+          <select id="currency" onChange={ this.handleChange } className="form__field">
+            {filteredCurr.map((curr) => (<option key={ curr }>{curr}</option>))}
           </select>
         </label>
-        <label htmlFor="method-input">
+        <label htmlFor="method">
           Método de pagamento:
-          <select id="method-input" className="form__field">
-            {paymentMethods.map((method) => (
-              <option key={ method }>{method}</option>
-            ))}
+          <select id="method" onChange={ this.handleChange } className="form__field">
+            {paymentMethods.map((method) => (<option key={ method }>{method}</option>))}
           </select>
         </label>
-        <label htmlFor="method-input">
+        <label htmlFor="tag">
           Tag:
           <select
+            onChange={ this.handleChange }
             data-testid="method-input"
-            id="method-input"
+            id="tag"
             className="form__field"
           >
-            {tags.map((tag) => (
-              <option key={ tag }>{tag}</option>
-            ))}
+            {tags.map((tag) => (<option key={ tag }>{tag}</option>))}
           </select>
         </label>
+        {this.renderBtn(this.handleClick, 'pure-material-button-contained')}
       </form>
     );
   }
@@ -81,12 +138,24 @@ const mapDispatchToProps = (dispatch) => ({
   fetch: () => {
     dispatch(fetchCurrencies());
   },
+  add: (expense) => {
+    dispatch(addExpense(expense));
+  },
+  error: (error) => {
+    dispatch(failedRequest(error));
+  },
+  loading: (bool) => {
+    dispatch(isLoading(bool));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
 
 ExpenseForm.propTypes = {
   fetch: PropTypes.func.isRequired,
+  add: PropTypes.func.isRequired,
+  error: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     currencies: PropTypes.arrayOf(PropTypes.string),
     expenses: PropTypes.arrayOf(PropTypes.string),

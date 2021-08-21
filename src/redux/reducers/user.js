@@ -1,3 +1,5 @@
+import * as types from '../actions/actionTypes';
+
 const INITIAL_STATE = {
   email: '',
 };
@@ -5,7 +7,7 @@ const INITIAL_STATE = {
 // prettier-ignore
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'CHANGE_USER':
+  case types.CHANGE_USER:
     return { email: action.value };
   default:
     return state;
