@@ -16,8 +16,8 @@ class CurrencyInput extends Component {
           onChange={ handle }
           value={ value }
         >
-          { currencies && currencies.map((coin) => (
-            <option key={ coin }>{ coin }</option>
+          { currencies && currencies.map((currency) => (
+            <option key={ currency }>{ currency }</option>
           )) }
         </select>
       </label>
