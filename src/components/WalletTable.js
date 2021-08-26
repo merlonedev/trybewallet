@@ -4,15 +4,6 @@ import propTypes from 'prop-types';
 // link consultado para aprender a fazer a tabela: https://dev.to/abdulbasit313/an-easy-way-to-create-a-customize-dynamic-table-in-react-js-3igg
 
 class WalletTable extends React.Component {
-  getCurrencyName(curr) {
-    const { expenses } = this.props;
-    const obj = expenses.filter((item) => item.currency === curr);
-    const currency = obj.exchangeRates.name;
-    // const arrayMoeda = .split('/');
-    // return (arrayMoeda[0]);
-    return currency;
-  }
-
   renderTableHeader() {
     const header = [
       'Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda', 'Câmbio utilizado',
@@ -29,11 +20,11 @@ class WalletTable extends React.Component {
             <td>{ item.description }</td>
             <td>{ item.tag }</td>
             <td>{ item.method }</td>
-            <td>{ item.value }</td>
-            <td>{ item.currency }</td>
-            <td>Câmbio utilizado</td>
-            <td>valor convertido</td>
-            <td>moeda de conversão</td>
+            <td>{ (+item.value).toFixed(2) }</td>
+            <td>{ item.exchangeRates[item.currency].name.split('/')[0] }</td>
+            <td>{ (+item.exchangeRates[item.currency].ask).toFixed(2) }</td>
+            <td>{ (item.exchangeRates[item.currency].ask * item.value).toFixed(2) }</td>
+            <td>Real</td>
             <td>editar/excluir</td>
           </tr>))
       );
@@ -41,7 +32,6 @@ class WalletTable extends React.Component {
   }
 
   render() {
-    // const { expenses } = this.props;
     return (
       <table className="expenses-table">
         <tbody>

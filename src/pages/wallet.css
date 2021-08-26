@@ -37,7 +37,7 @@ header {
 
 .expense-button {
   height: 40px;
-  width: 150px;
+  width: 140px;
 }
 
 .wallet-form {
@@ -45,6 +45,5 @@ header {
   background-color: rgb(238, 236, 236);
   display: flex;
   flex-flow: row wrap;
-  height: 90px;
   justify-content: space-around;
 }
