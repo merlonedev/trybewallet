@@ -3,7 +3,6 @@ import { COIN, COIN_FAIL, COIN_SUCESS, EXPENSES, REMOVE } from '../actions';
 const STATE_INITIAL = {
   currencies: [],
   expenses: [],
-  total: 0,
 };
 
 const wallet = (state = STATE_INITIAL, action) => {
@@ -33,11 +32,6 @@ const wallet = (state = STATE_INITIAL, action) => {
         },
       }],
     };
-  // case TOTAL:
-  //   return {
-  //     ...state,
-  //     total: action.total,
-  //   };
   case REMOVE:
     return {
       ...state,

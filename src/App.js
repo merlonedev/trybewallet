@@ -1,3 +1,4 @@
+// Projeto realizado com a ajuda e revisão do Artur Álvaro
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
