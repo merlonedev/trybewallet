@@ -5,19 +5,10 @@ import { connect } from 'react-redux';
 class Currencies extends Component {
   render() {
     const { currencies } = this.props;
-    const currenciesFiltered = Object.keys(currencies)
-      .filter((currency) => currency !== 'USDT');
+    if (!currencies) return null;
     return (
       <>
-        {currenciesFiltered.map((itens, index) => {
-          if (itens !== 'USDT') {
-            return (
-              <option key={ index }>
-                { itens }
-              </option>);
-          }
-          return null;
-        })}
+        {currencies.map((item, index) => <option key={ index }>{ item }</option>)}
       </>
     );
   }
@@ -30,5 +21,9 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Currencies);
 
 Currencies.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.arrayOf(Object),
+};
+
+Currencies.defaultProps = {
+  currencies: undefined,
 };
