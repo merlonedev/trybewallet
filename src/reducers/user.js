@@ -1,4 +1,4 @@
-import { GET_EMAIL }
+import { SET_EMAIL }
   from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case GET_EMAIL:
+  case SET_EMAIL:
     return {
       email: action.payload,
     };
