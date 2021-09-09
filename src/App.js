@@ -1,16 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Wallet from './pages/Wallet';
+import './App.css';
+import Provider from './context/Provider';
+import Table from './components/Table';
+import Filters from './components/Filters';
 
 function App() {
   return (
-    <main>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route path="/carteira" component={ Wallet } />
-      </Switch>
-    </main>
+    <Provider>
+      <Filters />
+      <Table />
+    </Provider>
   );
 }
 
