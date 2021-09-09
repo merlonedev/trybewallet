@@ -1,54 +1,210 @@
-import React, { useContext } from 'react';
+/* eslint-disable max-lines-per-function */
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 
-function Table() {
-  const { data, filters: { filterByName, filterByNumericValues } } = useContext(Context);
+function Filters() {
+  const defaultValues = {
+    column: 'population',
+    comparison: 'maior que',
+    value: '',
+  };
 
-  if (!data.length) return <span>Loading...</span>;
+  const defaultSort = {
+    column: 'name', sort: 'ASC',
+  };
 
-  const list = Object.keys(data[0]);
-  // combinação do splice com indexOf baseado em:
-  // https://www.mundojs.com.br/2018/09/06/removendo-elementos-de-uma-lista-array-javascript/
-  list.splice(list.indexOf('residents'), 1);
-  const columns = list;
+  const { data, filters, setFilters } = useContext(Context);
+  const { filterByName, filterByNumericValues } = filters;
+  const [selectValues, setSelectValues] = useState(defaultValues);
+  const [buttonStatus, setButtonStatus] = useState(true);
+  const [orderValues, setOrderValues] = useState(defaultSort);
 
-  const handleFilter = () => {
-    let planets = [...data];
-    if (filterByName.name) {
-      planets = planets.filter(({ name }) => name.includes(filterByName.name));
+  let columns = [];
+  if (data.length) {
+    const list = Object.keys(data[0]);
+    list.splice(list.indexOf('residents'), 1);
+    columns = list;
+  }
+
+  const handleSort = ({ target: { name, value } }) => {
+    setOrderValues({ ...orderValues, [name]: value });
+  };
+
+  const applySort = () => {
+    setFilters({
+      ...filters,
+      order: { ...orderValues },
+    });
+  };
+
+  useEffect(() => {
+    const { column, value } = selectValues;
+    if (column && value) {
+      setButtonStatus(false);
     }
+  }, [selectValues]);
+
+  const inputChange = ({ target: { value } }) => {
+    setFilters({
+      ...filters,
+      filterByName: { name: value },
+    });
+  };
+
+  const handleSelect = ({ target: { name, value } }) => {
+    setSelectValues({ ...selectValues, [name]: value });
+  };
+
+  const applyFilter = async () => {
+    await setFilters({
+      ...filters,
+      filterByNumericValues: [...filterByNumericValues, selectValues],
+    });
+    setButtonStatus(true);
+    setSelectValues(defaultValues);
+  };
+
+  const optionsFilter = () => {
+    let optionsColumn = ['population',
+      'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+
     if (filterByNumericValues.length) {
-      const comparator = {
-        'maior que': (a, b) => a > b,
-        'menor que': (a, b) => a < b,
-        'igual a': (a, b) => a === b,
-      };
-      filterByNumericValues.forEach(({ column, comparison, value }) => {
-        planets = planets
-          .filter((planet) => comparator[comparison](+planet[column], +value));
+      filterByNumericValues.forEach(({ column }) => {
+        optionsColumn = optionsColumn.filter((option) => option !== column);
       });
     }
-    return planets;
+
+    if (optionsColumn.length === 1) setButtonStatus(true);
+
+    return optionsColumn;
   };
-  const fillLines = () => (
-    handleFilter().map((planet, index) => (
-      <tr key={ index }>
-        { columns.map((column, i) => <td key={ i }>{ planet[column] }</td>) }
-      </tr>
-    ))
+
+  const deleteFilter = ({ target: { value } }) => {
+    const newFiltersList = filterByNumericValues
+      .filter((filter) => filter.column !== value);
+
+    setFilters({
+      ...filters,
+      filterByNumericValues: newFiltersList,
+    });
+  };
+
+  const inputFilters = () => (
+    <div>
+      <select
+        data-testid="column-filter"
+        name="column"
+        value={ selectValues.column }
+        onChange={ handleSelect }
+      >
+        { optionsFilter().map((option, index) => (
+          <option key={ index } value={ option }>{ option }</option>)) }
+      </select>
+      <select
+        data-testid="comparison-filter"
+        name="comparison"
+        value={ selectValues.comparison }
+        onChange={ handleSelect }
+      >
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
+      </select>
+      <input
+        data-testid="value-filter"
+        className="input-number"
+        type="number"
+        name="value"
+        value={ selectValues.value }
+        onChange={ handleSelect }
+      />
+      <button
+        data-testid="button-filter"
+        type="button"
+        disabled={ buttonStatus }
+        onClick={ applyFilter }
+      >
+        Aplicar
+      </button>
+    </div>
   );
+
   return (
-    <table>
-      <thead>
-        <tr>
-          { columns.map((column, i) => <th key={ i }>{ column }</th>) }
-        </tr>
-      </thead>
-      <tbody>
-        { fillLines() }
-      </tbody>
-    </table>
+    <>
+      <section>
+        <input
+          data-testid="name-filter"
+          type="text"
+          placeholder="Name search"
+          value={ filterByName.name }
+          onChange={ inputChange }
+        />
+        { inputFilters() }
+        <div>
+          <select
+            data-testid="column-sort"
+            name="column"
+            onChange={ handleSort }
+          >
+            { columns.map((column, index) => (
+              <option key={ index } value={ column }>{ column }</option>)) }
+          </select>
+          <label htmlFor="sort-asc" className="radio-sort">
+            <input
+              data-testid="column-sort-input-asc"
+              type="radio"
+              id="sort-asc"
+              name="sort"
+              value="ASC"
+              checked={ orderValues.sort === 'ASC' }
+              onChange={ handleSort }
+            />
+            ASC
+          </label>
+          <label htmlFor="sort-desc" className="radio-sort">
+            <input
+              data-testid="column-sort-input-desc"
+              type="radio"
+              id="sort-desc"
+              name="sort"
+              value="DESC"
+              checked={ orderValues.sort === 'DESC' }
+              onChange={ handleSort }
+            />
+            DESC
+          </label>
+          <button
+            data-testid="column-sort-button"
+            type="button"
+            onClick={ applySort }
+          >
+            Aplicar
+          </button>
+        </div>
+      </section>
+      <section className="filters-add">
+        { filterByNumericValues.length >= 1
+          && <span className="filter-title">Filtros aplicados:</span> }
+        { filterByNumericValues.map((filter, index) => (
+          <span
+            data-testid="filter"
+            className="filter-add"
+            key={ index }
+          >
+            { `${filter.column} | ${filter.comparison} | ${filter.value}` }
+            <button
+              className="button-x"
+              type="button"
+              value={ filter.column }
+              onClick={ deleteFilter }
+            >
+              X
+            </button>
+          </span>
+        )) }
+      </section>
+    </>
   );
 }
 
-export default Table;
+export default Filters;
