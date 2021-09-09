@@ -14,7 +14,6 @@ class EmailDisplay extends Component {
     );
   }
 }
-
 EmailDisplay.propTypes = {
   email: string.isRequired,
 };
